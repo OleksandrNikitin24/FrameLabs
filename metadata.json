@@ -1,0 +1,6 @@
+{
+  "name": "FlowCut Silence Remover",
+  "description": "Remove silence and dead air from podcast, vlog, and interview videos in seconds with millisecond precision.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

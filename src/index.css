@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&family=Sora:wght@100..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Sora", system-ui, -apple-system, sans-serif;
+  --font-body: "Geist", "Inter", system-ui, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", monospace;
+  
+  --color-brand-bg: #0A0A0A;
+  --color-brand-purple: #7C3AED;
+  --color-brand-purple-hover: #6D28D9;
+  --color-brand-purple-light: #A78BFA;
+  --color-brand-blue: #0EA5E9;
+  --color-brand-yellow: #FBCB0A;
+  
+  --color-surface-base: #15121B;
+  --color-surface-dim: #100C16;
+  --color-surface-container: #1D1A24;
+  --color-surface-container-high: #2C2833;
+  --color-surface-border: rgba(255, 255, 255, 0.12);
+  --color-text-muted: #A1A1AA;
+}
+
+@layer utilities {
+  .glass-card {
+    background: rgba(29, 26, 36, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  
+  .glass-card-active {
+    background: rgba(44, 40, 51, 0.85);
+    border-color: rgba(124, 58, 237, 0.5);
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.2);
+  }
+  
+  .glass-sidebar {
+    background: rgba(21, 18, 27, 0.85);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+  }
+}
+
+/* Custom animations and styling additions */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+.glow-bg-purple {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.glow-bg-blue {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.12) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+/* Base custom resets */
+body {
+  background-color: #0A0A0A;
+  color: #E8DFEE;
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-sans);
+}
