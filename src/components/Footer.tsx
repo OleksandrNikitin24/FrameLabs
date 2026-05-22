@@ -1,6 +1,10 @@
 import { Globe, Accessibility, ArrowUp } from "lucide-react";
 
-export function Footer() {
+interface FooterProps {
+  onContactClick: () => void;
+}
+
+export function Footer({ onContactClick }: FooterProps) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -51,7 +55,7 @@ export function Footer() {
             <h4 className="text-[10px] font-bold text-white uppercase tracking-wider font-mono">Support</h4>
             <div className="flex flex-col gap-2.5 font-light text-text-muted">
               <button onClick={() => alert("Opening Help Documentation...")} className="cursor-pointer text-left hover:text-white transition">Documentation</button>
-              <button onClick={() => alert("Contact Support: support@framelabs.co")} className="cursor-pointer text-left hover:text-white transition">Contact Us</button>
+              <button onClick={onContactClick} className="cursor-pointer text-left hover:text-white transition">Contact Us</button>
             </div>
           </div>
 

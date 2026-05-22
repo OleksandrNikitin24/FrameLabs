@@ -1,18 +1,37 @@
+import { useEffect, useState } from "react";
 import { Navigation } from "./components/Navigation";
 import { Hero } from "./components/Hero";
 import { FeatureCards } from "./components/FeatureCards";
 import { InteractiveShowcase } from "./components/InteractiveShowcase";
 import { Pricing } from "./components/Pricing";
 import { Footer } from "./components/Footer";
+import { ContactPage } from "./components/ContactPage";
 import { Sparkles, Tv, Box, Orbit, Compass } from "lucide-react";
 
 export default function App() {
+  const [route, setRoute] = useState(window.location.hash);
+
+  useEffect(() => {
+    const handleHashChange = () => setRoute(window.location.hash);
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
   const handleScrollToOverview = () => {
     const el = document.getElementById("interactive-editor");
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
+
+  const handleContactClick = () => {
+    window.location.hash = "/contact";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  if (route === "#/contact") {
+    return <ContactPage />;
+  }
 
   return (
     <div className="relative min-h-screen bg-brand-bg font-body selection:bg-brand-purple/30 selection:text-white">
@@ -81,7 +100,7 @@ export default function App() {
       <Pricing />
 
       {/* 7. Footer Deck */}
-      <Footer />
+      <Footer onContactClick={handleContactClick} />
     </div>
   );
 }
