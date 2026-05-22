@@ -5,8 +5,8 @@ import { AudioSegment } from "../types";
 export function WaveformSimulator() {
   // Configurable controls
   const [threshold, setThreshold] = useState<number>(-35); // dB threshold
-  const [minDuration, setMinDuration] = useState<number>(300); // ms
-  const [padding, setPadding] = useState<number>(100); // ms padding
+  const [minDuration, setMinDuration] = useState<number>(300); // frames
+  const [padding, setPadding] = useState<number>(100); // frame padding
   const [isProcessed, setIsProcessed] = useState<boolean>(true); // default processed
   
   // Real-time playback representation
@@ -311,7 +311,7 @@ export function WaveformSimulator() {
             <div className="space-y-2">
               <div className="flex justify-between text-xs">
                 <span className="text-text-muted font-medium">Min Duration</span>
-                <span className="font-mono text-brand-blue font-semibold">{minDuration} ms</span>
+                <span className="font-mono text-brand-blue font-semibold">{minDuration} frames</span>
               </div>
               <input
                 type="range"
@@ -331,7 +331,7 @@ export function WaveformSimulator() {
             <div className="space-y-2">
               <div className="flex justify-between text-xs">
                 <span className="text-text-muted font-medium">Tail & Head Padding</span>
-                <span className="font-mono text-brand-yellow font-semibold">+{padding} ms</span>
+                <span className="font-mono text-brand-yellow font-semibold">+{padding} frames</span>
               </div>
               <input
                 type="range"
@@ -368,7 +368,7 @@ export function WaveformSimulator() {
                   >
                     <span className="block font-medium truncate">{p.name}</span>
                     <span className="text-[9px] text-text-muted/80 block font-mono">
-                      {p.db}dB / {p.min}ms
+                      {p.db}dB / {p.min} frames
                     </span>
                   </button>
                 ))}

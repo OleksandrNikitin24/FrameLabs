@@ -113,7 +113,7 @@ export function InteractiveShowcase() {
             Instant Jump-Cuts
           </h2>
           <p className="text-sm sm:text-base text-text-muted leading-relaxed font-body font-light">
-            FlowCut scans your audio and removes every silence with millisecond precision, creating a perfect rough cut instantly. No more tedious manual scanning for dead air.
+            FlowCut scans your audio and removes every silence with frame-accurate precision, creating a perfect rough cut instantly. No more tedious manual scanning for dead air.
           </p>
 
           <div className="space-y-4 pt-2">

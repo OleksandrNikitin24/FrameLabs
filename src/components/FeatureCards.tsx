@@ -4,7 +4,7 @@ export function FeatureCards() {
   const cards = [
     {
       title: "Instant Jump-Cuts",
-      description: "FlowCut scans your audio and removes every silence with millisecond precision, creating a perfect rough cut instantly.",
+      description: "FlowCut scans your audio and removes every silence with frame-accurate precision, creating a perfect rough cut instantly.",
       icon: Zap,
       iconBg: "bg-brand-purple/15 text-brand-purple-light border-brand-purple/30",
     },

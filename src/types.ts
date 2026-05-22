@@ -10,8 +10,8 @@ export interface EditingPreset {
   id: string;
   name: string;
   threshold: number; // in dB
-  minDuration: number; // in ms
-  padding: number; // in ms
+  minDuration: number; // in frames
+  padding: number; // in frames
   description: string;
 }
 
