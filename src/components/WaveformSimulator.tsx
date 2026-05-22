@@ -4,9 +4,9 @@ import { AudioSegment } from "../types";
 
 export function WaveformSimulator() {
   // Configurable controls
-  const [threshold, setThreshold] = useState<number>(-35); // dB threshold
-  const [minDuration, setMinDuration] = useState<number>(300); // frames
-  const [padding, setPadding] = useState<number>(100); // frame padding
+  const [threshold, setThreshold] = useState<number>(-29); // dB threshold
+  const [minDuration, setMinDuration] = useState<number>(2); // frames
+  const [padding, setPadding] = useState<number>(0); // frame padding
   const [isProcessed, setIsProcessed] = useState<boolean>(true); // default processed
   
   // Real-time playback representation
@@ -315,9 +315,9 @@ export function WaveformSimulator() {
               </div>
               <input
                 type="range"
-                min="100"
-                max="1000"
-                step="50"
+                min="1"
+                max="30"
+                step="1"
                 value={minDuration}
                 onChange={(e) => setMinDuration(Number(e.target.value))}
                 className="w-full accent-brand-blue cursor-pointer bg-neutral-800 rounded-lg appearance-none h-1.5"
@@ -336,8 +336,8 @@ export function WaveformSimulator() {
               <input
                 type="range"
                 min="0"
-                max="400"
-                step="25"
+                max="20"
+                step="1"
                 value={padding}
                 onChange={(e) => setPadding(Number(e.target.value))}
                 className="w-full accent-brand-yellow cursor-pointer bg-neutral-800 rounded-lg appearance-none h-1.5"
@@ -352,10 +352,10 @@ export function WaveformSimulator() {
               <span className="text-xs text-text-muted font-bold block uppercase tracking-wide">Flow Presets</span>
               <div className="grid grid-cols-2 gap-2">
                 {[
-                  { name: "Super Tight", db: -32, min: 200, pad: 50 },
-                  { name: "Natural Podcast", db: -42, min: 400, pad: 125 },
-                  { name: "Sigh Killer", db: -25, min: 150, pad: 75 },
-                  { name: "Conservative", db: -50, min: 600, pad: 200 },
+                  { name: "Natural Podcast", db: -29, min: 2, pad: 0 },
+                  { name: "Super tight", db: -42, min: 10, pad: 0 },
+                  { name: "Sigh Killer", db: -25, min: 4, pad: 0 },
+                  { name: "Conservative", db: -50, min: 14, pad: 0 },
                 ].map((p, idx) => (
                   <button
                     key={idx}
@@ -364,7 +364,11 @@ export function WaveformSimulator() {
                       setMinDuration(p.min);
                       setPadding(p.pad);
                     }}
-                    className="cursor-pointer bg-white/5 hover:bg-white/10 hover:border-white/25 text-[11px] font-sans text-white border border-white/10 rounded-md py-1.5 px-2.5 transition text-left"
+                    className={`cursor-pointer bg-white/5 hover:bg-white/10 text-[11px] font-sans text-white border rounded-md py-1.5 px-2.5 transition text-left ${
+                      threshold === p.db && minDuration === p.min
+                        ? "border-brand-blue bg-brand-blue/10"
+                        : "border-white/10 hover:border-white/25"
+                    }`}
                   >
                     <span className="block font-medium truncate">{p.name}</span>
                     <span className="text-[9px] text-text-muted/80 block font-mono">
