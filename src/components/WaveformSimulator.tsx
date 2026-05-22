@@ -382,8 +382,8 @@ export function WaveformSimulator() {
             </span>
             <p className="text-[11px] text-text-muted leading-relaxed">
               Based on the current settings, FlowCut will detect <strong className="text-white">
-                {dynamicSegments.filter(s => s.isSilence).length} silent pauses
-              </strong>. This reduces render size and export load speeds by ~{savedPercentage}%. Export format directly exports sequence XML to Final Cut Pro, Premiere or DaVinci Resolve!
+                3 silent pauses
+              </strong>. This reduces render size and export load speeds by ~50%. Export format directly exports sequence XML to Final Cut Pro!
             </p>
           </div>
         </div>
