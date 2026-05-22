@@ -415,6 +415,53 @@ export function ContactPage() {
           </section>
         )}
       </main>
+
+      <footer className="relative z-10 w-full py-12 bg-[#15121b] border-t border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 px-6 sm:px-8 max-w-7xl mx-auto">
+          <div className="md:col-span-1">
+            <span className="font-sans text-lg font-extrabold text-white block mb-4">FrameLabs</span>
+            <p className="text-xs text-text-muted leading-relaxed max-w-sm">
+              © 2026 FrameLabs. Outfitting creative post-processing rooms around the globe with precision plugins.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <span className="font-mono text-xs font-bold text-brand-purple-light uppercase tracking-widest mb-1">
+              Company
+            </span>
+            <button onClick={goHome} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
+              About
+            </button>
+            <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
+              Contact
+            </button>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <span className="font-mono text-xs font-bold text-brand-purple-light uppercase tracking-widest mb-1">
+              Resources
+            </span>
+            <button onClick={() => alert("Opening support resources...")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
+              Support
+            </button>
+            <button onClick={() => alert("Opening documentation...")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
+              Documentation
+            </button>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <span className="font-mono text-xs font-bold text-brand-purple-light uppercase tracking-widest mb-1">
+              Legal
+            </span>
+            <button onClick={() => alert("Privacy Policy")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
+              Privacy
+            </button>
+            <button onClick={() => alert("Terms of Service")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
+              Terms
+            </button>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
