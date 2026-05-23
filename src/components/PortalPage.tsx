@@ -7,7 +7,7 @@ import PrivacyPolicy from "../portal/components/PrivacyPolicy";
 import ProfileModal from "../portal/components/ProfileModal";
 import SupportCenter from "../portal/components/SupportCenter";
 import TermsOfService from "../portal/components/TermsOfService";
-import { AppTab, CartItem } from "../portal/types";
+import { AppTab, CartItem, Extension } from "../portal/types";
 import { PortalFooter } from "./PortalFooter";
 
 interface PortalPageProps {
@@ -30,6 +30,19 @@ export function PortalPage({ page, onNavigate, onOpenFlowCut, onOpenContact }: P
     setCart((items) => items.map((item) => item.extension.id === id ? { ...item, quantity } : item));
   };
 
+  const addToCart = (extension: Extension) => {
+    setCart((items) => {
+      const existingItem = items.find((item) => item.extension.id === extension.id);
+      if (existingItem) {
+        return items.map((item) => (
+          item.extension.id === extension.id ? { ...item, quantity: item.quantity + 1 } : item
+        ));
+      }
+
+      return [...items, { extension, quantity: 1 }];
+    });
+  };
+
   const content = () => {
     switch (page) {
       case "privacy":
@@ -41,7 +54,7 @@ export function PortalPage({ page, onNavigate, onOpenFlowCut, onOpenContact }: P
       case "support":
         return <SupportCenter />;
       default:
-        return <ExtensionsShowcase onOpenFlowCut={onOpenFlowCut} />;
+        return <ExtensionsShowcase onOpenFlowCut={onOpenFlowCut} onAddToCart={addToCart} />;
     }
   };
 

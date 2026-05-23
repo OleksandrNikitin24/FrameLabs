@@ -13,9 +13,10 @@ import { Extension } from "../types";
 
 interface ExtensionsShowcaseProps {
   onOpenFlowCut: () => void;
+  onAddToCart: (extension: Extension) => void;
 }
 
-export default function ExtensionsShowcase({ onOpenFlowCut }: ExtensionsShowcaseProps) {
+export default function ExtensionsShowcase({ onOpenFlowCut, onAddToCart }: ExtensionsShowcaseProps) {
   const [selectedProduct, setSelectedProduct] = useState<Extension | null>(null);
 
   return (
@@ -152,7 +153,7 @@ export default function ExtensionsShowcase({ onOpenFlowCut }: ExtensionsShowcase
                     </button>
 
                     <button
-                      onClick={() => isFlowCut && onOpenFlowCut()}
+                      onClick={() => isFlowCut && onAddToCart(ext)}
                       disabled={unavailable}
                       className="inline-flex items-center gap-2 rounded bg-brand-primary px-4 py-2 font-sans text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-brand-primary/10 transition-all duration-200 hover:bg-brand-primary/90 hover:shadow-brand-primary/20"
                     >
@@ -236,7 +237,7 @@ export default function ExtensionsShowcase({ onOpenFlowCut }: ExtensionsShowcase
                 <button
                   onClick={() => {
                     setSelectedProduct(null);
-                    onOpenFlowCut();
+                    onAddToCart(selectedProduct);
                   }}
                   className="rounded bg-brand-primary px-4 py-2 font-sans text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-brand-primary/20 hover:bg-brand-primary/95"
                 >

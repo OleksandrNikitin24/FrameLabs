@@ -5,7 +5,7 @@ export const EXTENSIONS_DATA: Extension[] = [
     id: "flowcut-pro",
     name: "FlowCut Pro",
     tagline: "Intellectual timeline rhythm tracker & smart automatic cut companion.",
-    price: 129,
+    price: 9.99,
     rating: 4.9,
     reviewsCount: 384,
     version: "2.4.1",

@@ -27,6 +27,7 @@ export default function CartDrawer({
   if (!isOpen) return null;
 
   const subtotal = cart.reduce((sum, item) => sum + item.extension.price * item.quantity, 0);
+  const formatPrice = (amount: number) => amount.toFixed(2);
 
   const handleCheckoutSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -110,7 +111,7 @@ export default function CartDrawer({
                   <div key={item.extension.id} className="rounded-lg border border-brand-border bg-brand-bg/60 p-3 flex justify-between items-center">
                     <div className="space-y-1">
                       <h4 className="font-sora text-xs font-bold text-white">{item.extension.name}</h4>
-                      <p className="font-mono text-[10px] text-brand-text-muted">${item.extension.price} • Single-Seat License</p>
+                      <p className="font-mono text-[10px] text-brand-text-muted">${formatPrice(item.extension.price)} • Single-Seat License</p>
                     </div>
 
                     <div className="flex items-center gap-3">
@@ -177,7 +178,7 @@ export default function CartDrawer({
                 <div className="bg-[#100d16] rounded border border-brand-border p-3 space-y-2 text-xs font-mono">
                   <div className="flex justify-between text-brand-text-muted">
                     <span>License Subtotal:</span>
-                    <span>${subtotal}</span>
+                    <span>${formatPrice(subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-brand-text-muted">
                     <span>Cryptographic Encryption:</span>
@@ -185,7 +186,7 @@ export default function CartDrawer({
                   </div>
                   <div className="flex justify-between text-white font-bold border-t border-brand-border/60 pt-2 text-sm">
                     <span>Total Cost:</span>
-                    <span>${subtotal}</span>
+                    <span>${formatPrice(subtotal)}</span>
                   </div>
                 </div>
 
@@ -200,7 +201,7 @@ export default function CartDrawer({
                     </>
                   ) : (
                     <>
-                      Fulfill Secure Order • ${subtotal}
+                      Fulfill Secure Order • ${formatPrice(subtotal)}
                     </>
                   )}
                 </button>
