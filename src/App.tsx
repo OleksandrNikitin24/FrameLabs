@@ -18,9 +18,13 @@ export default function App() {
   const [flowcutProfileOpen, setFlowcutProfileOpen] = useState(false);
 
   useEffect(() => {
-    const handleHashChange = () => setRoute(window.location.hash);
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
+    const handleLocationChange = () => setRoute(window.location.hash);
+    window.addEventListener("hashchange", handleLocationChange);
+    window.addEventListener("popstate", handleLocationChange);
+    return () => {
+      window.removeEventListener("hashchange", handleLocationChange);
+      window.removeEventListener("popstate", handleLocationChange);
+    };
   }, []);
 
   useLayoutEffect(() => {
@@ -42,7 +46,14 @@ export default function App() {
   };
 
   const handlePortalNavigation = (page: AppTab) => {
-    window.location.hash = page === "extensions" ? "" : `/${page}`;
+    if (page === "extensions") {
+      if (window.location.hash) {
+        window.history.pushState(null, "", `${window.location.pathname}${window.location.search}`);
+        setRoute("");
+      }
+    } else {
+      window.location.hash = `/${page}`;
+    }
     window.scrollTo({ top: 0 });
   };
 
@@ -88,6 +99,7 @@ export default function App() {
 
       {/* 1. Glassmorphic Header Navigation */}
       <Navigation
+        onHome={() => handlePortalNavigation("extensions")}
         onCartOpen={() => setFlowcutCartOpen(true)}
         onProfileOpen={() => setFlowcutProfileOpen(true)}
       />

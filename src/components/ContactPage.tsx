@@ -120,7 +120,7 @@ export function ContactPage({ onNavigate, onOpenFlowCut, onOpenContact }: Contac
     return () => window.clearInterval(timer);
   }, [email, message, name, subject, submitState]);
 
-  const goHome = () => {
+  const goFlowCut = () => {
     window.location.hash = "/flowcut";
     window.scrollTo({ top: 0 });
   };
@@ -148,7 +148,7 @@ export function ContactPage({ onNavigate, onOpenFlowCut, onOpenContact }: Contac
 
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/45 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 h-18 flex items-center justify-between">
-          <button onClick={goHome} className="flex items-center gap-2 cursor-pointer text-left">
+          <button onClick={() => onNavigate("extensions")} className="flex items-center gap-2 cursor-pointer text-left" aria-label="Go to FrameLabs landing page">
             <div className="w-8 h-8 rounded bg-gradient-to-tr from-brand-purple to-brand-blue flex items-center justify-center shadow-lg shadow-brand-purple/20">
               <span className="font-sans font-bold text-white text-base tracking-tighter">FL</span>
             </div>
@@ -156,7 +156,7 @@ export function ContactPage({ onNavigate, onOpenFlowCut, onOpenContact }: Contac
           </button>
 
           <button
-            onClick={goHome}
+            onClick={goFlowCut}
             className="cursor-pointer inline-flex items-center gap-2 text-sm font-bold text-text-muted hover:text-white transition"
           >
             <ArrowLeft className="w-4 h-4" />

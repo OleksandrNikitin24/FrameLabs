@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Menu, ShoppingCart, User, X } from "lucide-react";
 
 interface NavigationProps {
+  onHome: () => void;
   onCartOpen: () => void;
   onProfileOpen: () => void;
 }
 
-export function Navigation({ onCartOpen, onProfileOpen }: NavigationProps) {
+export function Navigation({ onHome, onCartOpen, onProfileOpen }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const scrollToSection = (id: string) => {
@@ -22,14 +23,14 @@ export function Navigation({ onCartOpen, onProfileOpen }: NavigationProps) {
       <div className="max-w-7xl mx-auto px-6 sm:px-8 h-18 flex items-center justify-between">
         
         {/* Brand Logo */}
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+        <button type="button" className="flex cursor-pointer items-center gap-2" onClick={onHome} aria-label="Go to FrameLabs landing page">
           <div className="w-8 h-8 rounded bg-gradient-to-tr from-brand-purple to-brand-blue flex items-center justify-center shadow-lg shadow-brand-purple/20">
             <span className="font-sans font-bold text-white text-base tracking-tighter">FL</span>
           </div>
           <span className="font-sans font-extrabold text-white text-lg tracking-tight">
             FrameLabs
           </span>
-        </div>
+        </button>
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8">

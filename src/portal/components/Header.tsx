@@ -23,10 +23,11 @@ export default function Header({
       <div id="header-container" className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
 
         {/* Brand Logo */}
-        <div
+        <button
+          type="button"
           id="logo-brand"
-          role="button"
           onClick={() => setActiveTab("extensions")}
+          aria-label="Go to FrameLabs landing page"
           className="flex cursor-pointer items-center gap-2"
         >
           <div className="flex h-8 w-8 items-center justify-center rounded bg-brand-primary p-1.5 shadow-lg shadow-brand-primary/25">
@@ -35,7 +36,7 @@ export default function Header({
           <span className="font-sora text-xl font-bold tracking-tight text-white hover:opacity-90">
             FrameLabs
           </span>
-        </div>
+        </button>
 
         {/* Navigation is intentionally limited while the marketplace launches. */}
         <nav className="hidden h-full md:flex items-center">

@@ -15,7 +15,7 @@ export function PortalFooter({ onNavigate, onOpenFlowCut, onOpenContact }: Porta
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 grid grid-cols-1 gap-10 border-b border-white/5 pb-10 text-left md:grid-cols-12">
           <div className="space-y-4 md:col-span-5">
-            <button onClick={() => onNavigate("extensions")} className="flex cursor-pointer items-center gap-2 text-left">
+            <button onClick={() => onNavigate("extensions")} aria-label="Go to FrameLabs landing page" className="flex cursor-pointer items-center gap-2 text-left">
               <span className="flex h-6 w-6 items-center justify-center rounded bg-gradient-to-tr from-brand-purple to-brand-blue">
                 <span className="font-sans text-[10px] font-bold tracking-tight text-white">FL</span>
               </span>
