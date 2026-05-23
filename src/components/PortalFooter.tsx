@@ -48,7 +48,7 @@ export function PortalFooter({ onNavigate, onOpenFlowCut, onOpenContact }: Porta
             <div className="space-y-3.5">
               <h4 className="font-mono text-[10px] font-bold uppercase tracking-wider text-white">Support</h4>
               <div className="flex flex-col gap-2.5 font-light text-text-muted">
-                <button onClick={() => onNavigate("support")} className="text-left transition hover:text-white">Documentation</button>
+                <span className="text-left">Documentation</span>
                 <button onClick={onOpenContact} className="text-left transition hover:text-white">Contact Us</button>
                 <button onClick={() => onNavigate("support")} className="text-left transition hover:text-white">Support &amp; FAQ</button>
               </div>

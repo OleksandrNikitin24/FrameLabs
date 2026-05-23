@@ -4,8 +4,8 @@ import { Hero } from "./components/Hero";
 import { FeatureCards } from "./components/FeatureCards";
 import { InteractiveShowcase } from "./components/InteractiveShowcase";
 import { Pricing } from "./components/Pricing";
-import { Footer } from "./components/Footer";
 import { ContactPage } from "./components/ContactPage";
+import { PortalFooter } from "./components/PortalFooter";
 import { PortalPage } from "./components/PortalPage";
 import { AppTab } from "./portal/types";
 import { Sparkles, Tv, Box, Orbit, Compass } from "lucide-react";
@@ -48,7 +48,13 @@ export default function App() {
   };
 
   if (route === "#/contact") {
-    return <ContactPage />;
+    return (
+      <ContactPage
+        onNavigate={handlePortalNavigation}
+        onOpenFlowCut={handleOpenFlowCut}
+        onOpenContact={handleContactClick}
+      />
+    );
   }
 
   if (route !== "#/flowcut") {
@@ -136,8 +142,12 @@ export default function App() {
       {/* 6. Pricing License Tier */}
       <Pricing />
 
-      {/* 7. Footer Deck */}
-      <Footer onContactClick={handleContactClick} />
+      {/* 7. Shared Footer Deck */}
+      <PortalFooter
+        onNavigate={handlePortalNavigation}
+        onOpenFlowCut={handleOpenFlowCut}
+        onOpenContact={handleContactClick}
+      />
     </div>
   );
 }

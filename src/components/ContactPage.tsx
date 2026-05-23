@@ -12,6 +12,8 @@ import {
   Send,
   Sparkles,
 } from "lucide-react";
+import { AppTab } from "../portal/types";
+import { PortalFooter } from "./PortalFooter";
 
 type InquirySubject = "Technical Support" | "Billing & Account" | "Partnership Inquiry" | "Other";
 
@@ -59,7 +61,13 @@ function createResponse(subject: InquirySubject, message: string) {
   return "Your request has been routed to FrameLabs priority support. A specialist will review the workflow details and respond within 24 hours.";
 }
 
-export function ContactPage() {
+interface ContactPageProps {
+  onNavigate: (page: AppTab) => void;
+  onOpenFlowCut: () => void;
+  onOpenContact: () => void;
+}
+
+export function ContactPage({ onNavigate, onOpenFlowCut, onOpenContact }: ContactPageProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState<InquirySubject>("Technical Support");
@@ -116,11 +124,6 @@ export function ContactPage() {
     window.location.hash = "/flowcut";
     window.scrollTo({ top: 0 });
   };
-  const goPortalPage = (page: string) => {
-    window.location.hash = `/${page}`;
-    window.scrollTo({ top: 0 });
-  };
-
   const submit = (event: FormEvent) => {
     event.preventDefault();
     if (!name.trim() || !email.trim() || !message.trim()) return;
@@ -420,52 +423,7 @@ export function ContactPage() {
         )}
       </main>
 
-      <footer className="relative z-10 w-full py-12 bg-[#15121b] border-t border-white/10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 px-6 sm:px-8 max-w-7xl mx-auto">
-          <div className="md:col-span-1">
-            <span className="font-sans text-lg font-extrabold text-white block mb-4">FrameLabs</span>
-            <p className="text-xs text-text-muted leading-relaxed max-w-sm">
-              © 2026 FrameLabs. Outfitting creative post-processing rooms around the globe with precision plugins.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <span className="font-mono text-xs font-bold text-brand-purple-light uppercase tracking-widest mb-1">
-              Company
-            </span>
-            <button onClick={goHome} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
-              About
-            </button>
-            <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
-              Contact
-            </button>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <span className="font-mono text-xs font-bold text-brand-purple-light uppercase tracking-widest mb-1">
-              Resources
-            </span>
-            <button onClick={() => goPortalPage("support")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
-              Support
-            </button>
-            <button onClick={() => goPortalPage("support")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
-              Documentation
-            </button>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <span className="font-mono text-xs font-bold text-brand-purple-light uppercase tracking-widest mb-1">
-              Legal
-            </span>
-            <button onClick={() => goPortalPage("privacy")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
-              Privacy
-            </button>
-            <button onClick={() => goPortalPage("terms")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
-              Terms
-            </button>
-          </div>
-        </div>
-      </footer>
+      <PortalFooter onNavigate={onNavigate} onOpenFlowCut={onOpenFlowCut} onOpenContact={onOpenContact} />
     </div>
   );
 }
