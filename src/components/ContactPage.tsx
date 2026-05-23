@@ -113,8 +113,12 @@ export function ContactPage() {
   }, [email, message, name, subject, submitState]);
 
   const goHome = () => {
-    window.location.hash = "";
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.location.hash = "/flowcut";
+    window.scrollTo({ top: 0 });
+  };
+  const goPortalPage = (page: string) => {
+    window.location.hash = `/${page}`;
+    window.scrollTo({ top: 0 });
   };
 
   const submit = (event: FormEvent) => {
@@ -441,10 +445,10 @@ export function ContactPage() {
             <span className="font-mono text-xs font-bold text-brand-purple-light uppercase tracking-widest mb-1">
               Resources
             </span>
-            <button onClick={() => alert("Opening support resources...")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
+            <button onClick={() => goPortalPage("support")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
               Support
             </button>
-            <button onClick={() => alert("Opening documentation...")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
+            <button onClick={() => goPortalPage("support")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
               Documentation
             </button>
           </div>
@@ -453,10 +457,10 @@ export function ContactPage() {
             <span className="font-mono text-xs font-bold text-brand-purple-light uppercase tracking-widest mb-1">
               Legal
             </span>
-            <button onClick={() => alert("Privacy Policy")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
+            <button onClick={() => goPortalPage("privacy")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
               Privacy
             </button>
-            <button onClick={() => alert("Terms of Service")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
+            <button onClick={() => goPortalPage("terms")} className="text-left text-xs text-text-muted hover:text-white transition cursor-pointer">
               Terms
             </button>
           </div>

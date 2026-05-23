@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { Navigation } from "./components/Navigation";
 import { Hero } from "./components/Hero";
 import { FeatureCards } from "./components/FeatureCards";
@@ -6,6 +6,8 @@ import { InteractiveShowcase } from "./components/InteractiveShowcase";
 import { Pricing } from "./components/Pricing";
 import { Footer } from "./components/Footer";
 import { ContactPage } from "./components/ContactPage";
+import { PortalPage } from "./components/PortalPage";
+import { AppTab } from "./portal/types";
 import { Sparkles, Tv, Box, Orbit, Compass } from "lucide-react";
 
 export default function App() {
@@ -17,6 +19,12 @@ export default function App() {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0 });
+    const resetFrame = window.requestAnimationFrame(() => window.scrollTo({ top: 0 }));
+    return () => window.cancelAnimationFrame(resetFrame);
+  }, [route]);
+
   const handleScrollToOverview = () => {
     const el = document.getElementById("interactive-editor");
     if (el) {
@@ -26,11 +34,40 @@ export default function App() {
 
   const handleContactClick = () => {
     window.location.hash = "/contact";
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0 });
+  };
+
+  const handlePortalNavigation = (page: AppTab) => {
+    window.location.hash = page === "extensions" ? "" : `/${page}`;
+    window.scrollTo({ top: 0 });
+  };
+
+  const handleOpenFlowCut = () => {
+    window.location.hash = "/flowcut";
+    window.scrollTo({ top: 0 });
   };
 
   if (route === "#/contact") {
     return <ContactPage />;
+  }
+
+  if (route !== "#/flowcut") {
+    const portalRoutes: Record<string, AppTab> = {
+      "#/privacy": "privacy",
+      "#/terms": "terms",
+      "#/gdpr": "gdpr",
+      "#/support": "support",
+      "#/extensions": "extensions",
+    };
+
+    return (
+      <PortalPage
+        page={portalRoutes[route] ?? "extensions"}
+        onNavigate={handlePortalNavigation}
+        onOpenFlowCut={handleOpenFlowCut}
+        onOpenContact={handleContactClick}
+      />
+    );
   }
 
   return (

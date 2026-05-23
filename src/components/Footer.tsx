@@ -8,6 +8,10 @@ export function Footer({ onContactClick }: FooterProps) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+  const navigate = (page: string) => {
+    window.location.hash = `/${page}`;
+    scrollToTop();
+  };
 
   return (
     <footer id="footer-support" className="bg-brand-bg border-t border-white/5 pt-18 pb-10 px-6 sm:px-8 max-w-7xl mx-auto">
@@ -45,8 +49,9 @@ export function Footer({ onContactClick }: FooterProps) {
           <div className="space-y-3.5">
             <h4 className="text-[10px] font-bold text-white uppercase tracking-wider font-mono">Legal</h4>
             <div className="flex flex-col gap-2.5 font-light text-text-muted">
-              <button onClick={() => alert("Privacy Policy Agreement")} className="cursor-pointer text-left hover:text-white transition">Privacy Policy</button>
-              <button onClick={() => alert("End User License Agreement")} className="cursor-pointer text-left hover:text-white transition">EULA</button>
+              <button onClick={() => navigate("privacy")} className="cursor-pointer text-left hover:text-white transition">Privacy Policy</button>
+              <button onClick={() => navigate("terms")} className="cursor-pointer text-left hover:text-white transition">Terms of Service</button>
+              <button onClick={() => navigate("gdpr")} className="cursor-pointer text-left hover:text-white transition">GDPR Portal</button>
             </div>
           </div>
 
@@ -54,8 +59,9 @@ export function Footer({ onContactClick }: FooterProps) {
           <div className="space-y-3.5">
             <h4 className="text-[10px] font-bold text-white uppercase tracking-wider font-mono">Support</h4>
             <div className="flex flex-col gap-2.5 font-light text-text-muted">
-              <button onClick={() => alert("Opening Help Documentation...")} className="cursor-pointer text-left hover:text-white transition">Documentation</button>
+              <button onClick={() => navigate("support")} className="cursor-pointer text-left hover:text-white transition">Documentation</button>
               <button onClick={onContactClick} className="cursor-pointer text-left hover:text-white transition">Contact Us</button>
+              <button onClick={() => navigate("support")} className="cursor-pointer text-left hover:text-white transition">Support &amp; FAQ</button>
             </div>
           </div>
 

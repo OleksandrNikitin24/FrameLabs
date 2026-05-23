@@ -1,0 +1,74 @@
+import { useState } from "react";
+import CartDrawer from "../portal/components/CartDrawer";
+import ExtensionsShowcase from "../portal/components/ExtensionsShowcase";
+import GDPRPortal from "../portal/components/GDPRPortal";
+import Header from "../portal/components/Header";
+import PrivacyPolicy from "../portal/components/PrivacyPolicy";
+import ProfileModal from "../portal/components/ProfileModal";
+import SupportCenter from "../portal/components/SupportCenter";
+import TermsOfService from "../portal/components/TermsOfService";
+import { AppTab, CartItem } from "../portal/types";
+import { PortalFooter } from "./PortalFooter";
+
+interface PortalPageProps {
+  page: AppTab;
+  onNavigate: (page: AppTab) => void;
+  onOpenFlowCut: () => void;
+  onOpenContact: () => void;
+}
+
+export function PortalPage({ page, onNavigate, onOpenFlowCut, onOpenContact }: PortalPageProps) {
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+
+  const updateQuantity = (id: string, quantity: number) => {
+    if (quantity < 1) {
+      setCart((items) => items.filter((item) => item.extension.id !== id));
+      return;
+    }
+    setCart((items) => items.map((item) => item.extension.id === id ? { ...item, quantity } : item));
+  };
+
+  const content = () => {
+    switch (page) {
+      case "privacy":
+        return <PrivacyPolicy onSetActiveTab={onNavigate} />;
+      case "terms":
+        return <TermsOfService />;
+      case "gdpr":
+        return <GDPRPortal />;
+      case "support":
+        return <SupportCenter />;
+      default:
+        return <ExtensionsShowcase onOpenFlowCut={onOpenFlowCut} />;
+    }
+  };
+
+  return (
+    <div
+      className="flex min-h-screen flex-col bg-brand-bg font-body selection:bg-brand-purple/30 selection:text-white"
+      style={{ overflowAnchor: "none" }}
+    >
+      <Header
+        activeTab={page}
+        setActiveTab={onNavigate}
+        cart={cart}
+        setCartOpen={setCartOpen}
+        setProfileOpen={setProfileOpen}
+      />
+      <main className="flex-1">{content()}</main>
+      <PortalFooter onNavigate={onNavigate} onOpenFlowCut={onOpenFlowCut} onOpenContact={onOpenContact} />
+
+      <CartDrawer
+        isOpen={cartOpen}
+        onClose={() => setCartOpen(false)}
+        cart={cart}
+        onUpdateQuantity={updateQuantity}
+        onRemoveItem={(id) => setCart((items) => items.filter((item) => item.extension.id !== id))}
+        onClearCart={() => setCart([])}
+      />
+      <ProfileModal isOpen={profileOpen} onClose={() => setProfileOpen(false)} setActiveTab={onNavigate} />
+    </div>
+  );
+}

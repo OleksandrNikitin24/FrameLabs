@@ -3,6 +3,7 @@
 
 @theme {
   --font-sans: "Sora", system-ui, -apple-system, sans-serif;
+  --font-sora: "Sora", system-ui, -apple-system, sans-serif;
   --font-body: "Geist", "Inter", system-ui, sans-serif;
   --font-mono: "Geist Mono", "JetBrains Mono", monospace;
   
@@ -12,6 +13,17 @@
   --color-brand-purple-light: #A78BFA;
   --color-brand-blue: #0EA5E9;
   --color-brand-yellow: #FBCB0A;
+  --color-brand-primary: #7C3AED;
+  --color-brand-primary-light: #A78BFA;
+  --color-brand-secondary: #0EA5E9;
+  --color-brand-tertiary: #FBCB0A;
+  --color-brand-surface: #120E1A;
+  --color-brand-surface-card: #1B1625;
+  --color-brand-surface-bright: #2C2833;
+  --color-brand-border: rgba(255, 255, 255, 0.08);
+  --color-brand-border-high: rgba(210, 187, 255, 0.2);
+  --color-brand-text: #E8DFEE;
+  --color-brand-text-muted: #9C93A8;
   
   --color-surface-base: #15121B;
   --color-surface-dim: #100C16;
@@ -40,9 +52,24 @@
     backdrop-filter: blur(32px);
     -webkit-backdrop-filter: blur(32px);
   }
+
+  .animate-fade-in {
+    animation: fadeIn 240ms ease-out both;
+  }
 }
 
 /* Custom animations and styling additions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes pulseGlow {
   0%, 100% {
     opacity: 0.3;
