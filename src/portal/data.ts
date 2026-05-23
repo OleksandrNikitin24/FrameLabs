@@ -10,7 +10,7 @@ export const EXTENSIONS_DATA: Extension[] = [
     reviewsCount: 384,
     version: "2.4.1",
     category: "Timeline",
-    hosts: ["Premiere Pro", "DaVinci Resolve", "After Effects"],
+    hosts: ["Final Cut Pro"],
     specs: {
       processor: "Apple Silicon M1/M2/M3 or Intel i7/i9 10th Gen+",
       ram: "16 GB Minimum (32 GB Recommended)",

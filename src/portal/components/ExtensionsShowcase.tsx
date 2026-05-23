@@ -46,8 +46,19 @@ export default function ExtensionsShowcase({ onOpenFlowCut }: ExtensionsShowcase
               <div
                 key={ext.id}
                 id={`extension-card-${ext.id}`}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-brand-border bg-brand-surface/40 p-1 transition-all duration-300 hover:border-brand-primary/40 hover:bg-brand-surface-card/45 hover:shadow-2xl hover:shadow-brand-primary/5"
+                className={`group relative flex flex-col justify-between overflow-hidden rounded-xl border border-brand-border bg-brand-surface/40 p-1 transition-all duration-300 hover:border-brand-primary/40 hover:bg-brand-surface-card/45 hover:shadow-2xl hover:shadow-brand-primary/5 ${
+                  isFlowCut ? "cursor-pointer" : ""
+                }`}
               >
+                {isFlowCut && (
+                  <button
+                    type="button"
+                    onClick={onOpenFlowCut}
+                    aria-label="Open FlowCut Pro page"
+                    className="absolute inset-0 z-10 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
+                  />
+                )}
+
                 {unavailable && (
                   <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/65 px-6 text-center backdrop-blur-[2px]">
                     <span className="rounded border border-brand-primary/40 bg-brand-bg/95 px-4 py-3 font-mono text-xs font-bold uppercase tracking-wider text-brand-primary-light">
@@ -120,7 +131,7 @@ export default function ExtensionsShowcase({ onOpenFlowCut }: ExtensionsShowcase
                 </div>
 
                 {/* Interactive Footer Row */}
-                <div className="border-t border-brand-border bg-black/15 p-5 flex items-center justify-between rounded-b-xl">
+                <div className="relative z-20 border-t border-brand-border bg-black/15 p-5 flex items-center justify-between rounded-b-xl">
                   <div>
                     <span className="font-mono text-[10px] text-[#9c93a8] uppercase tracking-wider block">
                       Single-Seat Seat Licenses
@@ -145,7 +156,7 @@ export default function ExtensionsShowcase({ onOpenFlowCut }: ExtensionsShowcase
                       disabled={unavailable}
                       className="inline-flex items-center gap-2 rounded bg-brand-primary px-4 py-2 font-sans text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-brand-primary/10 transition-all duration-200 hover:bg-brand-primary/90 hover:shadow-brand-primary/20"
                     >
-                      <ShoppingCart className="h-3.5 w-3.5" /> Open FlowCut
+                      <ShoppingCart className="h-3.5 w-3.5" /> Get License
                     </button>
                   </div>
                 </div>
@@ -229,7 +240,7 @@ export default function ExtensionsShowcase({ onOpenFlowCut }: ExtensionsShowcase
                   }}
                   className="rounded bg-brand-primary px-4 py-2 font-sans text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-brand-primary/20 hover:bg-brand-primary/95"
                 >
-                  Open FlowCut
+                  Get License
                 </button>
               </div>
 
