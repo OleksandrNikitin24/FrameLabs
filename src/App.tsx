@@ -7,11 +7,15 @@ import { Pricing } from "./components/Pricing";
 import { ContactPage } from "./components/ContactPage";
 import { PortalFooter } from "./components/PortalFooter";
 import { PortalPage } from "./components/PortalPage";
+import CartDrawer from "./portal/components/CartDrawer";
+import ProfileModal from "./portal/components/ProfileModal";
 import { AppTab } from "./portal/types";
 import { Sparkles, Tv, Box, Orbit, Compass } from "lucide-react";
 
 export default function App() {
   const [route, setRoute] = useState(window.location.hash);
+  const [flowcutCartOpen, setFlowcutCartOpen] = useState(false);
+  const [flowcutProfileOpen, setFlowcutProfileOpen] = useState(false);
 
   useEffect(() => {
     const handleHashChange = () => setRoute(window.location.hash);
@@ -83,7 +87,10 @@ export default function App() {
       <div className="absolute top-[3200px] right-[5%] w-[400px] h-[400px] bg-brand-purple/5 rounded-full filter blur-[80px] pointer-events-none"></div>
 
       {/* 1. Glassmorphic Header Navigation */}
-      <Navigation />
+      <Navigation
+        onCartOpen={() => setFlowcutCartOpen(true)}
+        onProfileOpen={() => setFlowcutProfileOpen(true)}
+      />
 
       {/* 2. Hero Presentation Track */}
       <Hero onLearnMoreClick={handleScrollToOverview} />
@@ -147,6 +154,19 @@ export default function App() {
         onNavigate={handlePortalNavigation}
         onOpenFlowCut={handleOpenFlowCut}
         onOpenContact={handleContactClick}
+      />
+      <CartDrawer
+        isOpen={flowcutCartOpen}
+        onClose={() => setFlowcutCartOpen(false)}
+        cart={[]}
+        onUpdateQuantity={() => undefined}
+        onRemoveItem={() => undefined}
+        onClearCart={() => undefined}
+      />
+      <ProfileModal
+        isOpen={flowcutProfileOpen}
+        onClose={() => setFlowcutProfileOpen(false)}
+        setActiveTab={handlePortalNavigation}
       />
     </div>
   );

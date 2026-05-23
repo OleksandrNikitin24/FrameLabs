@@ -1,7 +1,12 @@
 import { useState } from "react";
-import { Menu, X, Shield, ExternalLink, ChevronRight } from "lucide-react";
+import { Menu, ShoppingCart, User, X } from "lucide-react";
 
-export function Navigation() {
+interface NavigationProps {
+  onCartOpen: () => void;
+  onProfileOpen: () => void;
+}
+
+export function Navigation({ onCartOpen, onProfileOpen }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const scrollToSection = (id: string) => {
@@ -43,29 +48,34 @@ export function Navigation() {
           ))}
         </div>
 
-        {/* Action Buttons */}
-        <div className="hidden md:flex items-center gap-5">
-          <button 
-            onClick={() => alert("Simulated: Log in or account access setup details can be accessed in production environment.")}
-            className="cursor-pointer text-sm font-bold text-text-muted hover:text-white transition"
+        {/* Workspace actions */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={onCartOpen}
+            className="group flex h-12 w-12 cursor-pointer items-center justify-center rounded-xl border border-brand-border bg-brand-surface/40 text-brand-text transition-all duration-200 hover:border-brand-border-high hover:bg-brand-surface"
+            aria-label="Workspace Licensing Cart"
+            title="Workspace Licensing Cart"
           >
-            Log In
+            <ShoppingCart className="h-5 w-5 text-brand-text group-hover:text-brand-primary-light" />
           </button>
           <button
-            onClick={() => scrollToSection("pricing-tier")}
-            className="cursor-pointer px-4.5 py-2 text-xs font-semibold rounded bg-brand-purple text-white hover:bg-brand-purple-hover transition-all duration-200 shadow-md shadow-brand-purple/20 flex items-center gap-1"
+            onClick={onProfileOpen}
+            className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-xl border border-brand-border bg-brand-surface/40 text-brand-text transition-all duration-200 hover:border-brand-border-high hover:bg-brand-surface"
+            aria-label="Editor Workspace Profile"
+            title="Editor Workspace Profile"
           >
-            Get FlowCut <ChevronRight className="w-3.5 h-3.5" />
+            <User className="h-5 w-5 text-brand-text-muted hover:text-white" />
+          </button>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="cursor-pointer md:hidden text-white p-1 hover:bg-white/5 rounded"
+            aria-label="Open navigation menu"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="cursor-pointer md:hidden text-white p-1 hover:bg-white/5 rounded"
-        >
-          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
       </div>
 
       {/* Mobile Drawer */}
@@ -88,19 +98,6 @@ export function Navigation() {
             className="cursor-pointer text-left text-base font-medium text-text-muted hover:text-white py-1"
           >
             Support
-          </button>
-          <div className="h-[1px] bg-white/5 my-1"></div>
-          <button
-            onClick={() => alert("Simulated: Log in flow")}
-            className="cursor-pointer text-left text-base font-medium text-white py-1"
-          >
-            Log In
-          </button>
-          <button
-            onClick={() => scrollToSection("pricing-tier")}
-            className="cursor-pointer w-full text-center py-3 text-sm font-semibold rounded-md bg-brand-purple text-white hover:bg-brand-purple-hover transition"
-          >
-            Get FlowCut Now
           </button>
         </div>
       )}
