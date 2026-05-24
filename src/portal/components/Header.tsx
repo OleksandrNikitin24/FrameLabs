@@ -6,7 +6,7 @@ interface HeaderProps {
   setActiveTab: (tab: AppTab) => void;
   cart: CartItem[];
   setCartOpen: (open: boolean) => void;
-  setProfileOpen: (open: boolean) => void;
+  onOpenAccount: () => void;
 }
 
 export default function Header({
@@ -14,7 +14,7 @@ export default function Header({
   setActiveTab,
   cart,
   setCartOpen,
-  setProfileOpen
+  onOpenAccount
 }: HeaderProps) {
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -76,10 +76,10 @@ export default function Header({
           {/* User Profile avatar */}
           <button
             id="profile-trigger-btn"
-            onClick={() => setProfileOpen(true)}
+            onClick={onOpenAccount}
             className="rounded-lg border border-brand-border bg-brand-surface/40 p-2 text-brand-text transition-all duration-200 hover:border-brand-border-high hover:bg-brand-surface"
-            aria-label="Editor Workspace Profile"
-            title="Editor Workspace Profile"
+            aria-label="Sign in or register"
+            title="Sign in or register"
           >
             <User className="h-4 w-4 text-brand-text-muted hover:text-white" />
           </button>

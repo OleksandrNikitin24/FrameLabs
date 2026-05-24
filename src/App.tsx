@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useLayoutEffect, useState } from "react";
 import { Navigation } from "./components/Navigation";
 import { Hero } from "./components/Hero";
 import { FeatureCards } from "./components/FeatureCards";
@@ -8,14 +8,14 @@ import { ContactPage } from "./components/ContactPage";
 import { PortalFooter } from "./components/PortalFooter";
 import { PortalPage } from "./components/PortalPage";
 import CartDrawer from "./portal/components/CartDrawer";
-import ProfileModal from "./portal/components/ProfileModal";
 import { AppTab } from "./portal/types";
 import { Sparkles, Tv, Box, Orbit, Compass } from "lucide-react";
+
+const AuthPage = lazy(() => import("./components/AuthPage").then(({ AuthPage: page }) => ({ default: page })));
 
 export default function App() {
   const [route, setRoute] = useState(window.location.hash);
   const [flowcutCartOpen, setFlowcutCartOpen] = useState(false);
-  const [flowcutProfileOpen, setFlowcutProfileOpen] = useState(false);
 
   useEffect(() => {
     const handleLocationChange = () => setRoute(window.location.hash);
@@ -26,6 +26,13 @@ export default function App() {
       window.removeEventListener("popstate", handleLocationChange);
     };
   }, []);
+
+  useEffect(() => {
+    const isAuthCallback = new URLSearchParams(window.location.search).has("code");
+    if (isAuthCallback && route !== "#/login") {
+      window.location.hash = "/login";
+    }
+  }, [route]);
 
   useLayoutEffect(() => {
     window.scrollTo({ top: 0 });
@@ -62,6 +69,11 @@ export default function App() {
     window.scrollTo({ top: 0 });
   };
 
+  const handleOpenAccount = () => {
+    window.location.hash = "/login";
+    window.scrollTo({ top: 0 });
+  };
+
   if (route === "#/contact") {
     return (
       <ContactPage
@@ -69,6 +81,18 @@ export default function App() {
         onOpenFlowCut={handleOpenFlowCut}
         onOpenContact={handleContactClick}
       />
+    );
+  }
+
+  if (route === "#/login") {
+    return (
+      <Suspense fallback={<div className="min-h-screen bg-brand-bg" />}>
+        <AuthPage
+          onNavigate={handlePortalNavigation}
+          onOpenFlowCut={handleOpenFlowCut}
+          onOpenContact={handleContactClick}
+        />
+      </Suspense>
     );
   }
 
@@ -87,6 +111,7 @@ export default function App() {
         onNavigate={handlePortalNavigation}
         onOpenFlowCut={handleOpenFlowCut}
         onOpenContact={handleContactClick}
+        onOpenAccount={handleOpenAccount}
       />
     );
   }
@@ -101,7 +126,7 @@ export default function App() {
       <Navigation
         onHome={() => handlePortalNavigation("extensions")}
         onCartOpen={() => setFlowcutCartOpen(true)}
-        onProfileOpen={() => setFlowcutProfileOpen(true)}
+        onOpenAccount={handleOpenAccount}
       />
 
       {/* 2. Hero Presentation Track */}
@@ -174,11 +199,6 @@ export default function App() {
         onUpdateQuantity={() => undefined}
         onRemoveItem={() => undefined}
         onClearCart={() => undefined}
-      />
-      <ProfileModal
-        isOpen={flowcutProfileOpen}
-        onClose={() => setFlowcutProfileOpen(false)}
-        setActiveTab={handlePortalNavigation}
       />
     </div>
   );

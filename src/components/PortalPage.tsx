@@ -4,7 +4,6 @@ import ExtensionsShowcase from "../portal/components/ExtensionsShowcase";
 import GDPRPortal from "../portal/components/GDPRPortal";
 import Header from "../portal/components/Header";
 import PrivacyPolicy from "../portal/components/PrivacyPolicy";
-import ProfileModal from "../portal/components/ProfileModal";
 import SupportCenter from "../portal/components/SupportCenter";
 import TermsOfService from "../portal/components/TermsOfService";
 import { AppTab, CartItem, Extension } from "../portal/types";
@@ -15,12 +14,12 @@ interface PortalPageProps {
   onNavigate: (page: AppTab) => void;
   onOpenFlowCut: () => void;
   onOpenContact: () => void;
+  onOpenAccount: () => void;
 }
 
-export function PortalPage({ page, onNavigate, onOpenFlowCut, onOpenContact }: PortalPageProps) {
+export function PortalPage({ page, onNavigate, onOpenFlowCut, onOpenContact, onOpenAccount }: PortalPageProps) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
 
   const updateQuantity = (id: string, quantity: number) => {
     if (quantity < 1) {
@@ -68,7 +67,7 @@ export function PortalPage({ page, onNavigate, onOpenFlowCut, onOpenContact }: P
         setActiveTab={onNavigate}
         cart={cart}
         setCartOpen={setCartOpen}
-        setProfileOpen={setProfileOpen}
+        onOpenAccount={onOpenAccount}
       />
       <main className="flex-1">{content()}</main>
       <PortalFooter onNavigate={onNavigate} onOpenFlowCut={onOpenFlowCut} onOpenContact={onOpenContact} />
@@ -81,7 +80,6 @@ export function PortalPage({ page, onNavigate, onOpenFlowCut, onOpenContact }: P
         onRemoveItem={(id) => setCart((items) => items.filter((item) => item.extension.id !== id))}
         onClearCart={() => setCart([])}
       />
-      <ProfileModal isOpen={profileOpen} onClose={() => setProfileOpen(false)} setActiveTab={onNavigate} />
     </div>
   );
 }

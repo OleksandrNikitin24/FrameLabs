@@ -56,6 +56,18 @@
   .animate-fade-in {
     animation: fadeIn 240ms ease-out both;
   }
+
+  .auth-input {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #0a0a0a;
+    outline: none;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .auth-input:focus {
+    border-color: rgba(124, 58, 237, 0.8);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.18);
+  }
 }
 
 /* Custom animations and styling additions */
