@@ -39,9 +39,9 @@ export function PortalFooter({ onNavigate, onOpenFlowCut, onOpenContact }: Porta
             <div className="space-y-3.5">
               <h4 className="font-mono text-[10px] font-bold uppercase tracking-wider text-white">Legal</h4>
               <div className="flex flex-col gap-2.5 font-light text-text-muted">
-                <button onClick={() => onNavigate("privacy")} className="text-left transition hover:text-white">Privacy Policy</button>
-                <button onClick={() => onNavigate("terms")} className="text-left transition hover:text-white">Terms of Service</button>
-                <button onClick={() => onNavigate("gdpr")} className="text-left transition hover:text-white">GDPR Portal</button>
+                <a href="/privacy/" className="text-left transition hover:text-white">Privacy Policy</a>
+                <a href="/terms/" className="text-left transition hover:text-white">Terms of Service</a>
+                <a href="/gdpr/" className="text-left transition hover:text-white">GDPR Portal</a>
               </div>
             </div>
 
@@ -49,8 +49,8 @@ export function PortalFooter({ onNavigate, onOpenFlowCut, onOpenContact }: Porta
               <h4 className="font-mono text-[10px] font-bold uppercase tracking-wider text-white">Support</h4>
               <div className="flex flex-col gap-2.5 font-light text-text-muted">
                 <span className="text-left">Documentation</span>
-                <button onClick={onOpenContact} className="text-left transition hover:text-white">Contact Us</button>
-                <button onClick={() => onNavigate("support")} className="text-left transition hover:text-white">Support &amp; FAQ</button>
+                <a href="/contact/" className="text-left transition hover:text-white">Contact Us</a>
+                <a href="/support/" className="text-left transition hover:text-white">Support &amp; FAQ</a>
               </div>
             </div>
           </div>

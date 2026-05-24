@@ -4,7 +4,6 @@ import { Hero } from "./components/Hero";
 import { FeatureCards } from "./components/FeatureCards";
 import { InteractiveShowcase } from "./components/InteractiveShowcase";
 import { Pricing } from "./components/Pricing";
-import { ContactPage } from "./components/ContactPage";
 import { PortalFooter } from "./components/PortalFooter";
 import { PortalPage } from "./components/PortalPage";
 import CartDrawer from "./portal/components/CartDrawer";
@@ -35,6 +34,20 @@ export default function App() {
     }
   }, [route]);
 
+  useEffect(() => {
+    const legacyStaticRoutes: Record<string, string> = {
+      "#/contact": "/contact/",
+      "#/gdpr": "/gdpr/",
+      "#/privacy": "/privacy/",
+      "#/support": "/support/",
+      "#/terms": "/terms/",
+    };
+    const staticRoute = legacyStaticRoutes[route];
+    if (staticRoute) {
+      window.location.replace(staticRoute);
+    }
+  }, [route]);
+
   useLayoutEffect(() => {
     window.scrollTo({ top: 0 });
     const resetFrame = window.requestAnimationFrame(() => window.scrollTo({ top: 0 }));
@@ -49,8 +62,7 @@ export default function App() {
   };
 
   const handleContactClick = () => {
-    window.location.hash = "/contact";
-    window.scrollTo({ top: 0 });
+    window.location.assign("/contact/");
   };
 
   const handlePortalNavigation = (page: AppTab) => {
@@ -60,7 +72,7 @@ export default function App() {
         setRoute("");
       }
     } else {
-      window.location.hash = `/${page}`;
+      window.location.assign(`/${page}/`);
     }
     window.scrollTo({ top: 0 });
   };
@@ -79,16 +91,6 @@ export default function App() {
     window.location.hash = "/login";
     window.scrollTo({ top: 0 });
   };
-
-  if (route === "#/contact") {
-    return (
-      <ContactPage
-        onNavigate={handlePortalNavigation}
-        onOpenFlowCut={handleOpenFlowCut}
-        onOpenContact={handleContactClick}
-      />
-    );
-  }
 
   if (route === "#/login") {
     return (
@@ -117,17 +119,9 @@ export default function App() {
   }
 
   if (route !== "#/flowcut") {
-    const portalRoutes: Record<string, AppTab> = {
-      "#/privacy": "privacy",
-      "#/terms": "terms",
-      "#/gdpr": "gdpr",
-      "#/support": "support",
-      "#/extensions": "extensions",
-    };
-
     return (
       <PortalPage
-        page={portalRoutes[route] ?? "extensions"}
+        page="extensions"
         onNavigate={handlePortalNavigation}
         onOpenFlowCut={handleOpenFlowCut}
         onOpenContact={handleContactClick}

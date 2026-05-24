@@ -336,13 +336,13 @@ export function AuthPage({ onNavigate, onOpenFlowCut, onOpenContact, onAuthentic
 
             {!hasSession && <p className="mt-7 text-center text-xs text-brand-text-muted">
               By continuing, you agree to the{" "}
-              <button type="button" onClick={() => onNavigate("terms")} className="text-brand-primary-light hover:text-white">
+              <a href="/terms/" className="text-brand-primary-light hover:text-white">
                 Terms of Service
-              </button>{" "}
+              </a>{" "}
               and{" "}
-              <button type="button" onClick={() => onNavigate("privacy")} className="text-brand-primary-light hover:text-white">
+              <a href="/privacy/" className="text-brand-primary-light hover:text-white">
                 Privacy Policy
-              </button>
+              </a>
               .
             </p>}
           </div>
