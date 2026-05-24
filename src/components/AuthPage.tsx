@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { ArrowLeft, ArrowRight, CheckCircle2, Cpu, Eye, EyeOff, LogOut, UserPlus } from "lucide-react";
+import { ArrowLeft, ArrowRight, Cpu, Eye, EyeOff, UserPlus } from "lucide-react";
 import { getAuthRedirectUrl, supabase } from "../lib/supabase";
 import { AppTab } from "../portal/types";
 import { PortalFooter } from "./PortalFooter";
@@ -10,9 +10,10 @@ interface AuthPageProps {
   onNavigate: (page: AppTab) => void;
   onOpenFlowCut: () => void;
   onOpenContact: () => void;
+  onAuthenticated: () => void;
 }
 
-export function AuthPage({ onNavigate, onOpenFlowCut, onOpenContact }: AuthPageProps) {
+export function AuthPage({ onNavigate, onOpenFlowCut, onOpenContact, onAuthenticated }: AuthPageProps) {
   const [mode, setMode] = useState<AuthMode>("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +23,7 @@ export function AuthPage({ onNavigate, onOpenFlowCut, onOpenContact }: AuthPageP
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [sessionEmail, setSessionEmail] = useState<string | null>(null);
+  const [hasSession, setHasSession] = useState(false);
 
   useEffect(() => {
     if (!supabase) {
@@ -32,18 +33,26 @@ export function AuthPage({ onNavigate, onOpenFlowCut, onOpenContact }: AuthPageP
 
     let isMounted = true;
     supabase.auth.getSession().then(({ data }) => {
-      if (isMounted) setSessionEmail(data.session?.user.email ?? null);
+      if (isMounted && data.session) {
+        setHasSession(true);
+        onAuthenticated();
+      }
     });
 
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSessionEmail(session?.user.email ?? null);
+      if (session) {
+        setHasSession(true);
+        onAuthenticated();
+      } else {
+        setHasSession(false);
+      }
     });
 
     return () => {
       isMounted = false;
       data.subscription.unsubscribe();
     };
-  }, []);
+  }, [onAuthenticated]);
 
   const switchMode = (nextMode: AuthMode) => {
     setMode(nextMode);
@@ -81,7 +90,7 @@ export function AuthPage({ onNavigate, onOpenFlowCut, onOpenContact }: AuthPageP
     setIsSubmitting(true);
     if (mode === "signin") {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
-      setMessage(error ? error.message : "You are signed in.");
+      setMessage(error ? error.message : "Opening your account...");
       setIsSubmitting(false);
       return;
     }
@@ -119,14 +128,6 @@ export function AuthPage({ onNavigate, onOpenFlowCut, onOpenContact }: AuthPageP
       redirectTo: getAuthRedirectUrl(),
     });
     setMessage(error ? error.message : "Check your email for the password reset link.");
-    setIsSubmitting(false);
-  };
-
-  const signOut = async () => {
-    if (!supabase) return;
-    setIsSubmitting(true);
-    const { error } = await supabase.auth.signOut({ scope: "local" });
-    setMessage(error ? error.message : "You have signed out.");
     setIsSubmitting(false);
   };
 
@@ -181,26 +182,6 @@ export function AuthPage({ onNavigate, onOpenFlowCut, onOpenContact }: AuthPageP
 
         <section className="flex items-center justify-center px-5 py-12 sm:px-10">
           <div className="w-full max-w-md rounded-lg border border-brand-border bg-brand-surface-card/70 p-6 shadow-2xl sm:p-9">
-            {sessionEmail ? (
-              <div className="mb-7 rounded-lg border border-brand-border-high bg-brand-primary/10 p-5">
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand-secondary" />
-                  <div className="min-w-0">
-                    <p className="font-sora text-base font-bold">Signed in</p>
-                    <p className="mt-1 truncate font-mono text-xs text-brand-text-muted">{sessionEmail}</p>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  onClick={signOut}
-                  disabled={isSubmitting}
-                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-md border border-brand-border bg-brand-bg px-4 py-3 text-sm font-medium transition hover:border-brand-border-high disabled:opacity-50"
-                >
-                  <LogOut className="h-4 w-4" />
-                  Sign Out
-                </button>
-              </div>
-            ) : null}
             <div className="mb-7">
               <p className="mb-2 font-mono text-[10px] uppercase text-brand-primary-light">FlowCut Account</p>
               <h2 className="font-sora text-2xl font-bold">
@@ -213,7 +194,7 @@ export function AuthPage({ onNavigate, onOpenFlowCut, onOpenContact }: AuthPageP
               </p>
             </div>
 
-            {!sessionEmail && <div className="mb-7 grid grid-cols-2 rounded-lg border border-brand-border bg-brand-bg p-1">
+            {!hasSession && <div className="mb-7 grid grid-cols-2 rounded-lg border border-brand-border bg-brand-bg p-1">
               <button
                 type="button"
                 onClick={() => switchMode("signin")}
@@ -243,7 +224,7 @@ export function AuthPage({ onNavigate, onOpenFlowCut, onOpenContact }: AuthPageP
               </p>
             )}
 
-            {!sessionEmail && <form className="space-y-4" onSubmit={submit}>
+            {!hasSession && <form className="space-y-4" onSubmit={submit}>
               {mode === "register" && (
                 <label className="block space-y-2 text-xs font-semibold uppercase text-brand-text-muted">
                   Full Name
@@ -353,7 +334,7 @@ export function AuthPage({ onNavigate, onOpenFlowCut, onOpenContact }: AuthPageP
               </button>
             </form>}
 
-            {!sessionEmail && <p className="mt-7 text-center text-xs text-brand-text-muted">
+            {!hasSession && <p className="mt-7 text-center text-xs text-brand-text-muted">
               By continuing, you agree to the{" "}
               <button type="button" onClick={() => onNavigate("terms")} className="text-brand-primary-light hover:text-white">
                 Terms of Service

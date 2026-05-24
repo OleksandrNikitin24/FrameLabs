@@ -62,8 +62,8 @@ export function Navigation({ onHome, onCartOpen, onOpenAccount }: NavigationProp
           <button
             onClick={onOpenAccount}
             className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-xl border border-brand-border bg-brand-surface/40 text-brand-text transition-all duration-200 hover:border-brand-border-high hover:bg-brand-surface"
-            aria-label="Sign in or register"
-            title="Sign in or register"
+            aria-label="My account"
+            title="My account"
           >
             <User className="h-5 w-5 text-brand-text-muted hover:text-white" />
           </button>

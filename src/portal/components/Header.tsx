@@ -78,8 +78,8 @@ export default function Header({
             id="profile-trigger-btn"
             onClick={onOpenAccount}
             className="rounded-lg border border-brand-border bg-brand-surface/40 p-2 text-brand-text transition-all duration-200 hover:border-brand-border-high hover:bg-brand-surface"
-            aria-label="Sign in or register"
-            title="Sign in or register"
+            aria-label="My account"
+            title="My account"
           >
             <User className="h-4 w-4 text-brand-text-muted hover:text-white" />
           </button>

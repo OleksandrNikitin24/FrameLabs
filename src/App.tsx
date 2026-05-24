@@ -12,6 +12,7 @@ import { AppTab } from "./portal/types";
 import { Sparkles, Tv, Box, Orbit, Compass } from "lucide-react";
 
 const AuthPage = lazy(() => import("./components/AuthPage").then(({ AuthPage: page }) => ({ default: page })));
+const AccountPage = lazy(() => import("./components/AccountPage").then(({ AccountPage: page }) => ({ default: page })));
 
 export default function App() {
   const [route, setRoute] = useState(window.location.hash);
@@ -70,6 +71,11 @@ export default function App() {
   };
 
   const handleOpenAccount = () => {
+    window.location.hash = "/account";
+    window.scrollTo({ top: 0 });
+  };
+
+  const handleRequireSignIn = () => {
     window.location.hash = "/login";
     window.scrollTo({ top: 0 });
   };
@@ -91,6 +97,20 @@ export default function App() {
           onNavigate={handlePortalNavigation}
           onOpenFlowCut={handleOpenFlowCut}
           onOpenContact={handleContactClick}
+          onAuthenticated={handleOpenAccount}
+        />
+      </Suspense>
+    );
+  }
+
+  if (route === "#/account") {
+    return (
+      <Suspense fallback={<div className="min-h-screen bg-brand-bg" />}>
+        <AccountPage
+          onNavigate={handlePortalNavigation}
+          onOpenFlowCut={handleOpenFlowCut}
+          onOpenContact={handleContactClick}
+          onRequireSignIn={handleRequireSignIn}
         />
       </Suspense>
     );
