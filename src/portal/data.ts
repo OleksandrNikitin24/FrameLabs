@@ -22,7 +22,7 @@ export const EXTENSIONS_DATA: Extension[] = [
       "Automatic silence trimmer with fluid speed-ramping presets",
       "ProRes & DNxHR smart rendering optimization proxies"
     ],
-    thumbnailUrl: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop&q=80"
+    thumbnailUrl: "./assets/flowcut-timeline-thumbnail.jpg"
   },
   {
     id: "precision-tracker",
