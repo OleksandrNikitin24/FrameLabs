@@ -5,6 +5,7 @@ import { AppTab } from "../portal/types";
 import { PortalFooter } from "./PortalFooter";
 
 type AuthMode = "signin" | "register";
+type OAuthProvider = "google" | "apple";
 
 interface AuthPageProps {
   onNavigate: (page: AppTab) => void;
@@ -129,6 +130,27 @@ export function AuthPage({ onNavigate, onOpenFlowCut, onOpenContact, onAuthentic
     });
     setMessage(error ? error.message : "Check your email for the password reset link.");
     setIsSubmitting(false);
+  };
+
+  const signInWithProvider = async (provider: OAuthProvider) => {
+    if (!supabase) {
+      setMessage("Authentication is not configured for this deployment.");
+      return;
+    }
+
+    setMessage("");
+    setIsSubmitting(true);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: getAuthRedirectUrl(),
+      },
+    });
+
+    if (error) {
+      setMessage(error.message);
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -313,6 +335,32 @@ export function AuthPage({ onNavigate, onOpenFlowCut, onOpenContact, onAuthentic
                     className="text-xs text-brand-primary-light transition hover:text-white"
                   >
                     Forgot password?
+                  </button>
+                </div>
+              )}
+
+              {mode === "signin" && (
+                <div className="space-y-3 pt-1">
+                  <div className="flex items-center gap-3">
+                    <span className="h-px flex-1 bg-brand-border" />
+                    <span className="font-mono text-[10px] uppercase text-brand-text-muted">Or continue with</span>
+                    <span className="h-px flex-1 bg-brand-border" />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => signInWithProvider("google")}
+                    disabled={isSubmitting}
+                    className="flex w-full items-center justify-center rounded-md border border-brand-border-high bg-brand-bg px-4 py-3 text-sm font-medium text-white transition hover:border-brand-primary-light hover:bg-brand-primary/10 disabled:cursor-not-allowed disabled:opacity-55"
+                  >
+                    Continue with Google
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => signInWithProvider("apple")}
+                    disabled={isSubmitting}
+                    className="flex w-full items-center justify-center rounded-md border border-brand-border-high bg-brand-bg px-4 py-3 text-sm font-medium text-white transition hover:border-brand-primary-light hover:bg-brand-primary/10 disabled:cursor-not-allowed disabled:opacity-55"
+                  >
+                    Continue with Apple
                   </button>
                 </div>
               )}
