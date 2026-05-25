@@ -284,12 +284,28 @@ h1 {
   cursor: pointer;
 }
 
+.contact-form button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.website-trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .form-note {
   margin: 18px 0 0;
   color: var(--muted);
   font-size: 13px;
   line-height: 1.6;
 }
+
+.form-note[data-state="success"] { color: #65d6ad; }
+.form-note[data-state="error"] { color: #ff9d9d; }
 
 .footer {
   border-top: 1px solid var(--border);
