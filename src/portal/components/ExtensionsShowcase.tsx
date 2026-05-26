@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { KeyboardEvent, useState } from "react";
 import {
   Check,
-  ShoppingCart,
-  Star,
+  ChevronRight,
   Cpu,
+  Shield,
   ShieldCheck,
+  ShoppingCart,
   Sparkles,
-  Terminal,
+  Star,
+  Zap,
 } from "lucide-react";
 import { EXTENSIONS_DATA } from "../data";
 import { Extension } from "../types";
@@ -16,240 +18,304 @@ interface ExtensionsShowcaseProps {
   onAddToCart: (extension: Extension) => void;
 }
 
+const comingSoonExtensions = [
+  {
+    id: "precision-track",
+    name: "Precision Track",
+    category: "Tracking",
+    version: "V3.0.2",
+    description: "Sub-pixel geometric solver and camera lens nodal point matching overlay.",
+    hosts: ["After Effects", "DaVinci Resolve"],
+    image: "./assets/precision-track-ui-optimized.jpg",
+  },
+  {
+    id: "clean-vfx",
+    name: "CleanVFX",
+    category: "VFX",
+    version: "V1.0.0",
+    description: "Ultra-precise analog tape noise synthesizer and signal decay simulator.",
+    hosts: ["Premiere Pro", "Final Cut Pro"],
+    image: "./assets/clean-vfx-ui-optimized.jpg",
+  },
+  {
+    id: "auto-caption-pro",
+    name: "Auto Caption Pro",
+    category: "Captions",
+    version: "V1.0.0",
+    description: "AI-powered transcription and subtitle generator for any workflow.",
+    hosts: ["Final Cut Pro"],
+    image: "./assets/auto-caption-ui-optimized.jpg",
+  },
+];
+
 export default function ExtensionsShowcase({ onOpenFlowCut, onAddToCart }: ExtensionsShowcaseProps) {
+  const flowCut = EXTENSIONS_DATA[0];
   const [selectedProduct, setSelectedProduct] = useState<Extension | null>(null);
 
+  const openFlowCutFromCard = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      onOpenFlowCut();
+    }
+  };
+
   return (
-    <div className="animate-fade-in bg-brand-bg px-4 py-16 sm:px-6">
-      <div className="mx-auto max-w-7xl">
-
-        {/* Marketplace Hero Header */}
-        <div className="mb-12 text-center sm:text-left">
-          <div className="inline-flex items-center gap-2 rounded-full border border-brand-primary/30 bg-brand-primary/10 px-3 py-1 text-xs font-semibold text-brand-primary-light">
-            <Sparkles className="h-3 w-3 animate-pulse" />
-            <span>High-End Creative Host Extensions</span>
-          </div>
-          <h1 className="mt-4 font-sora text-4xl font-extrabold tracking-tight text-white md:text-5xl">
-            Workspace Extension Marketplace
+    <div className="animate-fade-in bg-brand-bg text-white">
+      <section className="mx-auto grid max-w-7xl gap-12 px-6 pb-14 pt-14 lg:grid-cols-12 lg:items-center lg:pb-20 lg:pt-18">
+        <div className="space-y-7 lg:col-span-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-brand-primary/25 bg-brand-primary/10 px-3 py-1 font-mono text-[10px] font-bold uppercase text-brand-primary-light">
+            <Sparkles className="h-3.5 w-3.5" />
+            High-End Creative Host Extensions
+          </span>
+          <h1 className="max-w-xl font-sora text-4xl font-semibold leading-[1.08] text-white sm:text-5xl">
+            Professional Workflow <span className="text-brand-primary-light">Tools</span> for Video Editors
           </h1>
-          <p className="mt-3 max-w-2xl text-base text-brand-text-muted">
-            Engineered exclusively for video production professionals, editors, and motion designers. Integrate ultra-performant utilities directly into your workspace.
+          <p className="max-w-lg text-sm leading-relaxed text-brand-text-muted sm:text-base">
+            High-performance extensions designed to save you time, automate repetitive tasks, and keep your creative flow fast and uninterrupted.
           </p>
+          <div className="grid max-w-lg gap-5 pt-2 sm:grid-cols-3">
+            {[
+              { icon: Zap, title: "Built for Speed", copy: "Zero-latency native performance.", color: "text-brand-primary-light" },
+              { icon: Cpu, title: "Local Processing", copy: "Your media stays on device.", color: "text-emerald-400" },
+              { icon: Shield, title: "Secure & Private", copy: "No media cloud uploads.", color: "text-brand-secondary" },
+            ].map(({ icon: Icon, title, copy, color }) => (
+              <div key={title} className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Icon className={`h-4 w-4 ${color}`} />
+                  <h2 className="text-xs font-semibold">{title}</h2>
+                </div>
+                <p className="text-[11px] leading-snug text-brand-text-muted">{copy}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Extensions List Grid */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {EXTENSIONS_DATA.map((ext) => {
-            const isFlowCut = ext.id === "flowcut-pro";
-            const unavailable = !isFlowCut;
-
-            return (
-              <div
-                key={ext.id}
-                id={`extension-card-${ext.id}`}
-                className={`group relative flex flex-col justify-between overflow-hidden rounded-xl border border-brand-border bg-brand-surface/40 p-1 transition-all duration-300 hover:border-brand-primary/40 hover:bg-brand-surface-card/45 hover:shadow-2xl hover:shadow-brand-primary/5 ${
-                  isFlowCut ? "cursor-pointer" : ""
-                }`}
-              >
-                {isFlowCut && (
-                  <button
-                    type="button"
-                    onClick={onOpenFlowCut}
-                    aria-label="Open FlowCut Pro page"
-                    className="absolute inset-0 z-10 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
-                  />
-                )}
-
-                {unavailable && (
-                  <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/65 px-6 text-center backdrop-blur-[2px]">
-                    <span className="rounded border border-brand-primary/40 bg-brand-bg/95 px-4 py-3 font-mono text-xs font-bold uppercase tracking-wider text-brand-primary-light">
-                      Currently not available for purchase
-                    </span>
-                  </div>
-                )}
-
-                {/* Top-down shimmer edge highlight */}
-                <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-primary/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-
-                {/* Thumbnail Layer */}
-                <div className="relative h-48 w-full overflow-hidden rounded-lg bg-black/45">
-                  <img
-                    src={ext.thumbnailUrl}
-                    alt={ext.name}
-                    referrerPolicy="no-referrer"
-                    className="h-full w-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105 group-hover:opacity-95"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-4 flex justify-between items-end">
-                    <span className="rounded bg-brand-bg/90 border border-brand-border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-brand-secondary">
-                      {ext.category}
-                    </span>
-                    <span className="font-mono text-xs font-bold text-white uppercase tracking-wider bg-brand-primary px-2.5 py-1 rounded">
-                      v{ext.version}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Body Content Description */}
-                <div className="flex-1 p-5">
-
-                  {/* Rating or Metadata header */}
-                  <div className="flex items-center gap-1 mb-2">
-                    <div className="flex items-center text-brand-tertiary">
-                      <Star className="h-3.5 w-3.5 fill-current" />
-                      <span className="ml-1 font-mono text-xs font-semibold text-brand-text">
-                        {ext.rating}
-                      </span>
-                    </div>
-                    <span className="text-xs text-brand-text-muted">•</span>
-                    <span className="font-mono text-[11px] text-brand-text-muted">
-                      ({ext.reviewsCount} editors verified)
-                    </span>
-                  </div>
-
-                  <h3 className="font-sora text-xl font-bold tracking-tight text-white group-hover:text-brand-primary-light">
-                    {ext.name}
-                  </h3>
-
-                  <p className="mt-2 text-xs leading-relaxed text-brand-text-muted min-h-[40px]">
-                    {ext.tagline}
-                  </p>
-
-                  {/* Systems Compatibility logos */}
-                  <div className="mt-4 flex flex-wrap items-center gap-1.5 border-t border-brand-border pt-4">
-                    <span className="text-[10px] font-mono text-[#9c93a8] uppercase tracking-wider mr-1">
-                      Compatible Hosts:
-                    </span>
-                    {ext.hosts.map((host, idx) => (
-                      <span
-                        key={idx}
-                        className="rounded bg-brand-surface-bright/20 border border-brand-border px-2 py-0.5 font-sans text-[10px] text-white font-medium"
-                      >
-                        {host}
-                      </span>
-                    ))}
-                  </div>
-
-                </div>
-
-                {/* Interactive Footer Row */}
-                <div className="relative z-20 border-t border-brand-border bg-black/15 p-5 flex items-center justify-between rounded-b-xl">
-                  <div>
-                    <span className="font-mono text-[10px] text-[#9c93a8] uppercase tracking-wider block">
-                      Single-Seat Seat Licenses
-                    </span>
-                    <span className="font-sora text-2xl font-black text-white">
-                      ${ext.price}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => isFlowCut && setSelectedProduct(ext)}
-                      disabled={unavailable}
-                      className="rounded border border-brand-border bg-brand-surface/40 p-2 text-brand-text transition-all duration-200 hover:border-brand-primary hover:bg-brand-surface hover:text-white"
-                      title="Inspect Specifications"
-                    >
-                      <Terminal className="h-4 w-4" />
-                    </button>
-
-                    <button
-                      onClick={() => isFlowCut && onAddToCart(ext)}
-                      disabled={unavailable}
-                      className="inline-flex items-center gap-2 rounded bg-brand-primary px-4 py-2 font-sans text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-brand-primary/10 transition-all duration-200 hover:bg-brand-primary/90 hover:shadow-brand-primary/20"
-                    >
-                      <ShoppingCart className="h-3.5 w-3.5" /> Get License
-                    </button>
-                  </div>
-                </div>
-
-              </div>
-            );
-          })}
+        <div className="lg:col-span-6">
+          <div className="marketplace-panel overflow-hidden rounded-xl p-3">
+            <div className="flex items-center gap-1.5 border-b border-brand-border px-2 pb-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
+              <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
+              <span className="h-2.5 w-2.5 rounded-full bg-green-500/80" />
+              <span className="ml-2 font-mono text-[10px] text-brand-text-muted">FlowCut</span>
+            </div>
+            <img
+              src="./assets/flowcut-ui-showcase.jpg"
+              alt="FlowCut silence-removal timeline interface"
+              className="mt-3 aspect-[1.62/1] w-full rounded-lg object-cover"
+            />
+          </div>
         </div>
+      </section>
 
-        {/* Modal Overlay / Specs inspector */}
-        {selectedProduct && (
-          <div id="product-spec-modal" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-            <div className="relative w-full max-w-xl overflow-hidden rounded-xl border border-brand-border bg-brand-surface-card p-6 shadow-2xl">
-
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="font-sora text-xl font-bold text-white">
-                    {selectedProduct.name} Specs & Requirements
-                  </h3>
-                  <p className="text-xs text-brand-secondary">
-                    Standard Verification Handshake: Complies with GDPR Art. 5 Data Integrity
-                  </p>
-                </div>
-                <button
-                  onClick={() => setSelectedProduct(null)}
-                  className="rounded-lg border border-brand-border bg-brand-surface p-1.5 text-brand-text-muted hover:text-white"
-                >
-                  Close
-                </button>
-              </div>
-
-              {/* Hardware specifications list */}
-              <div className="space-y-4 text-sm mt-2">
-                <div className="rounded-lg bg-brand-bg/60 border border-brand-border p-4">
-                  <h4 className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-brand-primary-light mb-3">
-                    <Cpu className="h-4 w-4" /> Required Workspace Hardware Profile
-                  </h4>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex justify-between border-b border-brand-border pb-1.5">
-                      <span className="text-brand-text-muted">Processor Family:</span>
-                      <span className="text-white font-medium">{selectedProduct.specs.processor}</span>
-                    </div>
-                    <div className="flex justify-between border-b border-brand-border pb-1.5">
-                      <span className="text-brand-text-muted">RAM Boundary:</span>
-                      <span className="text-white font-medium">{selectedProduct.specs.ram}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-brand-text-muted">Accelerator / GPU VRAM:</span>
-                      <span className="text-white font-medium">{selectedProduct.specs.gpu}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Telemetry disclosure warning */}
-                <div className="rounded-lg bg-[#221e28]/25 border border-brand-border/80 p-4">
-                  <h4 className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-brand-secondary mb-3">
-                    <ShieldCheck className="h-4 w-4" /> Compliance & Privacy Guarantee
-                  </h4>
-                  <ul className="space-y-2 text-xs text-brand-text-muted">
-                    {selectedProduct.features.map((feat, i) => (
-                      <li key={i} className="flex gap-2 items-start">
-                        <Check className="h-3.5 w-3.5 text-brand-secondary shrink-0 mt-0.5" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="mt-6 flex justify-end gap-3">
-                <button
-                  onClick={() => setSelectedProduct(null)}
-                  className="rounded border border-brand-border px-4 py-2 font-sans text-xs font-bold uppercase tracking-wider text-brand-text hover:bg-brand-surface"
-                >
-                  Dismiss
-                </button>
-                <button
-                  onClick={() => {
-                    setSelectedProduct(null);
-                    onAddToCart(selectedProduct);
-                  }}
-                  className="rounded bg-brand-primary px-4 py-2 font-sans text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-brand-primary/20 hover:bg-brand-primary/95"
-                >
-                  Get License
-                </button>
-              </div>
-
+      <section id="featured-extension-section" className="mx-auto max-w-7xl px-6 pb-16">
+        <p className="mb-6 font-mono text-[10px] font-bold uppercase tracking-widest text-brand-primary-light">
+          Featured Extension
+        </p>
+        <article
+          role="link"
+          tabIndex={0}
+          onClick={onOpenFlowCut}
+          onKeyDown={openFlowCutFromCard}
+          aria-label="Open FlowCut product page"
+          className="marketplace-panel-interactive grid cursor-pointer gap-8 rounded-xl p-5 outline-none focus-visible:ring-2 focus-visible:ring-brand-primary lg:grid-cols-12 lg:p-8"
+        >
+          <div className="lg:col-span-6">
+            <div className="relative overflow-hidden rounded-xl border border-brand-border bg-black">
+              <img
+                src={flowCut.thumbnailUrl}
+                alt="FlowCut application interface showing silence cuts"
+                className="aspect-[1.62/1] w-full object-cover"
+              />
+              <span className="absolute bottom-4 left-4 rounded bg-brand-primary px-3 py-1.5 font-mono text-xs font-bold uppercase text-white">
+                V{flowCut.version}
+              </span>
             </div>
           </div>
-        )}
 
-      </div>
+          <div className="flex flex-col justify-between gap-6 lg:col-span-6">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-sm">
+                <Star className="h-4 w-4 fill-brand-tertiary text-brand-tertiary" />
+                <span className="font-semibold">{flowCut.rating}</span>
+                <span className="text-brand-text-muted">({flowCut.reviewsCount} editors verified)</span>
+              </div>
+              <h2 className="font-sora text-4xl font-semibold tracking-tight sm:text-5xl">{flowCut.name}</h2>
+              <p className="max-w-xl text-sm leading-relaxed text-brand-text-muted sm:text-base">
+                {flowCut.tagline}
+              </p>
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <span className="font-mono text-[10px] font-bold uppercase text-brand-text-muted">Compatible Hosts:</span>
+                <span className="rounded-md border border-emerald-400/25 bg-emerald-400/10 px-3 py-1 font-mono text-xs font-bold text-emerald-400">
+                  Final Cut Pro
+                </span>
+              </div>
+            </div>
+
+            <div className="relative z-10 border-t border-brand-border pt-6" onClick={(event) => event.stopPropagation()}>
+              <div className="mb-6 grid grid-cols-3 gap-2">
+                {[
+                  { name: "1 Seat", price: "$14.99", active: true },
+                  { name: "5 Seats", price: "$52.46", active: false },
+                  { name: "Studio", price: "$149.90", active: false },
+                ].map(({ name, price, active }) => (
+                  <div
+                    key={name}
+                    className={`rounded-lg border px-2 py-3 text-center ${
+                      active
+                        ? "border-brand-primary bg-brand-primary/10 text-white"
+                        : "border-brand-border text-brand-text-muted"
+                    }`}
+                  >
+                    <span className="block font-mono text-[10px] font-bold uppercase">{name}</span>
+                    <span className="mt-1 block text-sm font-semibold">{price}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+                <div>
+                  <span className="block font-mono text-[10px] font-bold uppercase tracking-widest text-brand-text-muted">
+                    Single-Seat License
+                  </span>
+                  <span className="mt-1 block font-sora text-4xl font-bold">${flowCut.price.toFixed(2)}</span>
+                  <span className="mt-2 inline-block rounded border border-brand-tertiary/25 bg-brand-tertiary/10 px-2.5 py-1 font-mono text-[10px] font-bold uppercase text-brand-tertiary">
+                    On sale for limited time
+                  </span>
+                </div>
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedProduct(flowCut)}
+                    aria-label="Open FlowCut specifications"
+                    className="flex h-14 w-14 items-center justify-center rounded-xl border border-brand-border text-white transition hover:border-brand-primary-light hover:bg-brand-primary/10"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onAddToCart(flowCut)}
+                    className="inline-flex h-14 items-center gap-2 rounded-xl bg-brand-primary px-6 font-sora text-sm font-bold uppercase text-white transition hover:bg-brand-purple-hover"
+                  >
+                    <ShoppingCart className="h-4 w-4" />
+                    Get License
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 pb-20">
+        <div className="mb-8 flex items-center gap-3">
+          <h2 className="font-sora text-2xl font-semibold text-white sm:text-3xl">More Extensions</h2>
+          <span className="rounded bg-brand-primary/10 px-2 py-1 font-mono text-[10px] font-bold uppercase text-brand-primary-light">
+            Coming Soon
+          </span>
+        </div>
+        <div className="grid gap-6 md:grid-cols-3">
+          {comingSoonExtensions.map((extension) => (
+            <article key={extension.id} className="marketplace-panel flex overflow-hidden rounded-xl flex-col">
+              <div className="relative aspect-[4/3] overflow-hidden border-b border-brand-border bg-black">
+                <img src={extension.image} alt={extension.name} className="h-full w-full object-cover opacity-85" />
+                <span className="absolute right-3 top-3 rounded bg-brand-primary px-2.5 py-1 font-mono text-[10px] font-bold text-white">
+                  {extension.version}
+                </span>
+              </div>
+              <div className="flex flex-1 flex-col gap-3 p-5">
+                <span className="font-mono text-[10px] font-bold uppercase text-brand-secondary">{extension.category}</span>
+                <h3 className="font-sora text-lg font-semibold">{extension.name}</h3>
+                <p className="flex-1 text-xs leading-relaxed text-brand-text-muted">{extension.description}</p>
+                <div className="flex flex-wrap gap-1.5 border-t border-brand-border pt-4">
+                  {extension.hosts.map((host) => (
+                    <span key={host} className="rounded border border-brand-border bg-white/[0.03] px-2 py-1 text-[10px] text-brand-text-muted">
+                      {host}
+                    </span>
+                  ))}
+                </div>
+                <span className="mt-2 rounded border border-brand-border px-3 py-2 text-center font-mono text-[10px] font-bold uppercase text-brand-text-muted">
+                  Currently not available for purchase
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {selectedProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm" role="dialog" aria-modal="true">
+          <div className="w-full max-w-xl rounded-xl border border-brand-border bg-brand-surface-card p-6 shadow-2xl">
+            <div className="mb-4 flex items-start justify-between gap-4">
+              <div>
+                <h2 className="font-sora text-xl font-bold">FlowCut Pro Specs &amp; Requirements</h2>
+                <p className="mt-1 text-xs text-brand-secondary">
+                  Standard Verification Handshake: Complies with GDPR Art. 5 Data Integrity
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedProduct(null)}
+                className="rounded-lg border border-brand-border bg-brand-surface px-3 py-2 text-brand-text-muted transition hover:text-white"
+              >
+                Close
+              </button>
+            </div>
+
+            <div className="mt-6 space-y-4 text-sm">
+              <div className="rounded-lg border border-brand-border bg-brand-bg/60 p-4">
+                <h3 className="mb-3 flex items-center gap-2 font-mono text-xs uppercase text-brand-primary-light">
+                  <Cpu className="h-4 w-4" /> Required Workspace Hardware Profile
+                </h3>
+                {[
+                  ["Processor Family:", selectedProduct.specs.processor],
+                  ["RAM Boundary:", selectedProduct.specs.ram],
+                  ["Accelerator / GPU VRAM:", selectedProduct.specs.gpu],
+                ].map(([label, value]) => (
+                  <div key={label} className="flex flex-col justify-between gap-2 border-b border-brand-border py-2 last:border-0 sm:flex-row">
+                    <span className="text-brand-text-muted">{label}</span>
+                    <span className="font-medium text-white">{value}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="rounded-lg border border-brand-border bg-brand-bg/30 p-4">
+                <h3 className="mb-3 flex items-center gap-2 font-mono text-xs uppercase text-brand-secondary">
+                  <ShieldCheck className="h-4 w-4" /> Compliance &amp; Privacy Guarantee
+                </h3>
+                <ul className="space-y-2 text-xs text-brand-text-muted">
+                  {selectedProduct.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2">
+                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-secondary" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setSelectedProduct(null)}
+                className="rounded border border-brand-border px-4 py-2 text-xs font-bold uppercase text-brand-text transition hover:bg-brand-surface"
+              >
+                Dismiss
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedProduct(null);
+                  onAddToCart(selectedProduct);
+                }}
+                className="rounded bg-brand-primary px-4 py-2 text-xs font-bold uppercase text-white transition hover:bg-brand-purple-hover"
+              >
+                Get License
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

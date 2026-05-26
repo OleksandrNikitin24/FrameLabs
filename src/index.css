@@ -53,6 +53,23 @@
     -webkit-backdrop-filter: blur(32px);
   }
 
+  .marketplace-panel {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .marketplace-panel-interactive {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    transition: border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  }
+
+  .marketplace-panel-interactive:hover {
+    border-color: rgba(124, 58, 237, 0.4);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.018));
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+  }
+
   .animate-fade-in {
     animation: fadeIn 240ms ease-out both;
   }

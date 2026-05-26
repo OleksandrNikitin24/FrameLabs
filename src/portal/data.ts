@@ -3,9 +3,9 @@ import { Extension } from "./types";
 export const EXTENSIONS_DATA: Extension[] = [
   {
     id: "flowcut-pro",
-    name: "FlowCut Pro",
-    tagline: "Intellectual timeline rhythm tracker & smart automatic cut companion.",
-    price: 9.99,
+    name: "FlowCut",
+    tagline: "FlowCut identifies and cuts out dead air automatically, so you can focus on the story. The fastest way to clean up interviews, podcasts, and vlogs in Final Cut Pro.",
+    price: 14.99,
     rating: 4.9,
     reviewsCount: 384,
     version: "2.4.1",
@@ -22,7 +22,7 @@ export const EXTENSIONS_DATA: Extension[] = [
       "Automatic silence trimmer with fluid speed-ramping presets",
       "ProRes & DNxHR smart rendering optimization proxies"
     ],
-    thumbnailUrl: "./assets/flowcut-timeline-thumbnail.jpg"
+    thumbnailUrl: "./assets/flowcut-ui-showcase.jpg"
   },
   {
     id: "precision-tracker",

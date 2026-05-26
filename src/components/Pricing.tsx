@@ -14,7 +14,7 @@ export function Pricing() {
   const [generatedKey, setGeneratedKey] = useState("");
 
   // Base price configs
-  const basePricePerSeat = 9.99; // $9.99 one-time
+  const basePricePerSeat = 14.99; // $14.99 one-time
   
   // Volumetric scale discounts trigger logic
   let discount = 0;
@@ -137,6 +137,9 @@ export function Pricing() {
             <div className="space-y-2">
               <span className="inline-block px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-widest text-brand-purple-light rounded bg-brand-purple/15 border border-brand-purple/20">
                 STANDARD LICENSE
+              </span>
+              <span className="block text-[10px] font-mono font-bold uppercase tracking-wider text-brand-tertiary">
+                On sale for limited time
               </span>
               <div className="pt-2">
                 <div className="flex items-baseline justify-center gap-1">
