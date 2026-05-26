@@ -48,9 +48,25 @@ const comingSoonExtensions = [
   },
 ];
 
+const licenseTiers = [
+  { id: "single", name: "1 Seat", label: "Single-Seat License", price: 14.99 },
+  { id: "team", name: "5 Seats", label: "5-Seat License", price: 52.46 },
+  { id: "studio", name: "Studio", label: "Studio License", price: 149.90 },
+] as const;
+
+type LicenseTierId = typeof licenseTiers[number]["id"];
+
 export default function ExtensionsShowcase({ onOpenFlowCut, onAddToCart }: ExtensionsShowcaseProps) {
   const flowCut = EXTENSIONS_DATA[0];
+  const [selectedTierId, setSelectedTierId] = useState<LicenseTierId>("single");
   const [selectedProduct, setSelectedProduct] = useState<Extension | null>(null);
+  const selectedTier = licenseTiers.find((tier) => tier.id === selectedTierId) ?? licenseTiers[0];
+  const selectedOffer: Extension = {
+    ...flowCut,
+    id: `${flowCut.id}-${selectedTier.id}`,
+    licenseLabel: selectedTier.label,
+    price: selectedTier.price,
+  };
 
   const openFlowCutFromCard = (event: KeyboardEvent<HTMLElement>) => {
     if (event.target !== event.currentTarget) {
@@ -156,30 +172,33 @@ export default function ExtensionsShowcase({ onOpenFlowCut, onAddToCart }: Exten
 
             <div className="relative z-10 border-t border-brand-border pt-6" onClick={(event) => event.stopPropagation()}>
               <div className="mb-6 grid grid-cols-3 gap-2">
-                {[
-                  { name: "1 Seat", price: "$14.99", active: true },
-                  { name: "5 Seats", price: "$52.46", active: false },
-                  { name: "Studio", price: "$149.90", active: false },
-                ].map(({ name, price, active }) => (
-                  <div
-                    key={name}
+                {licenseTiers.map((tier) => {
+                  const isSelected = tier.id === selectedTierId;
+                  return (
+                  <button
+                    type="button"
+                    key={tier.id}
+                    onClick={() => setSelectedTierId(tier.id)}
+                    aria-pressed={isSelected}
+                    aria-label={`Select ${tier.label} for $${tier.price.toFixed(2)}`}
                     className={`rounded-lg border px-2 py-3 text-center ${
-                      active
+                      isSelected
                         ? "border-brand-primary bg-brand-primary/10 text-white"
-                        : "border-brand-border text-brand-text-muted"
+                        : "border-brand-border text-brand-text-muted transition hover:border-brand-primary-light hover:text-white"
                     }`}
                   >
-                    <span className="block font-mono text-[10px] font-bold uppercase">{name}</span>
-                    <span className="mt-1 block text-sm font-semibold">{price}</span>
-                  </div>
-                ))}
+                    <span className="block font-mono text-[10px] font-bold uppercase">{tier.name}</span>
+                    <span className="mt-1 block text-sm font-semibold">${tier.price.toFixed(2)}</span>
+                  </button>
+                  );
+                })}
               </div>
               <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
                 <div>
                   <span className="block font-mono text-[10px] font-bold uppercase tracking-widest text-brand-text-muted">
-                    Single-Seat License
+                    {selectedTier.label}
                   </span>
-                  <span className="mt-1 block font-sora text-4xl font-bold">${flowCut.price.toFixed(2)}</span>
+                  <span className="mt-1 block font-sora text-4xl font-bold">${selectedTier.price.toFixed(2)}</span>
                   <span className="mt-2 inline-block rounded border border-brand-tertiary/25 bg-brand-tertiary/10 px-2.5 py-1 font-mono text-[10px] font-bold uppercase text-brand-tertiary">
                     On sale for limited time
                   </span>
@@ -187,7 +206,7 @@ export default function ExtensionsShowcase({ onOpenFlowCut, onAddToCart }: Exten
                 <div className="flex gap-3">
                   <button
                     type="button"
-                    onClick={() => setSelectedProduct(flowCut)}
+                    onClick={() => setSelectedProduct(selectedOffer)}
                     aria-label="Open FlowCut specifications"
                     className="flex h-14 w-14 items-center justify-center rounded-xl border border-brand-border text-white transition hover:border-brand-primary-light hover:bg-brand-primary/10"
                   >
@@ -195,7 +214,7 @@ export default function ExtensionsShowcase({ onOpenFlowCut, onAddToCart }: Exten
                   </button>
                   <button
                     type="button"
-                    onClick={() => onAddToCart(flowCut)}
+                    onClick={() => onAddToCart(selectedOffer)}
                     className="inline-flex h-14 items-center gap-2 rounded-xl bg-brand-primary px-6 font-sora text-sm font-bold uppercase text-white transition hover:bg-brand-purple-hover"
                   >
                     <ShoppingCart className="h-4 w-4" />

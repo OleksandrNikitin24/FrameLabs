@@ -111,7 +111,9 @@ export default function CartDrawer({
                   <div key={item.extension.id} className="rounded-lg border border-brand-border bg-brand-bg/60 p-3 flex justify-between items-center">
                     <div className="space-y-1">
                       <h4 className="font-sora text-xs font-bold text-white">{item.extension.name}</h4>
-                      <p className="font-mono text-[10px] text-brand-text-muted">${formatPrice(item.extension.price)} • Single-Seat License</p>
+                      <p className="font-mono text-[10px] text-brand-text-muted">
+                        ${formatPrice(item.extension.price)} • {item.extension.licenseLabel ?? "Single-Seat License"}
+                      </p>
                     </div>
 
                     <div className="flex items-center gap-3">

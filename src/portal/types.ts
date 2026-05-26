@@ -3,6 +3,7 @@ export type AppTab = "privacy" | "terms" | "support" | "extensions" | "gdpr";
 export interface Extension {
   id: string;
   name: string;
+  licenseLabel?: string;
   tagline: string;
   price: number;
   rating: number;
