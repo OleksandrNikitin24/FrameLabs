@@ -50,7 +50,7 @@ const comingSoonExtensions = [
 
 const licenseTiers = [
   { id: "single", name: "1 Seat", label: "Single-Seat License", price: 14.99 },
-  { id: "team", name: "5 Seats", label: "5-Seat License", price: 52.46 },
+  { id: "team", name: "5 Seats", label: "5-Seat License", price: 44.97 },
   { id: "studio", name: "Studio", label: "Studio License", price: 149.90 },
 ] as const;
 
