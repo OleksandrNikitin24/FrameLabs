@@ -13,7 +13,7 @@ export const EXTENSIONS_DATA: Extension[] = [
     hosts: ["Final Cut Pro"],
     specs: {
       processor: "Apple Silicon M1/M2/M3 or Intel i7/i9 10th Gen+",
-      ram: "16 GB Minimum (32 GB Recommended)",
+      ram: "8 GB Minimum (16 GB Recommended)",
       gpu: "Metal or DirectX 12 compatible GPU with 4GB+ VRAM"
     },
     features: [
