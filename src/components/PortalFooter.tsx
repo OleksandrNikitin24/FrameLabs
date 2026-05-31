@@ -5,10 +5,15 @@ interface PortalFooterProps {
   onNavigate: (page: AppTab) => void;
   onOpenFlowCut: () => void;
   onOpenContact: () => void;
+  onOpenDocumentation?: () => void;
 }
 
-export function PortalFooter({ onNavigate, onOpenFlowCut, onOpenContact }: PortalFooterProps) {
+export function PortalFooter({ onNavigate, onOpenFlowCut, onOpenContact, onOpenDocumentation }: PortalFooterProps) {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const openDocumentation = onOpenDocumentation ?? (() => {
+    window.location.hash = "/flowcut/documentation";
+    window.scrollTo({ top: 0 });
+  });
 
   return (
     <footer className="border-t border-white/5 bg-brand-bg px-6 pb-10 pt-18 sm:px-8">
@@ -45,10 +50,10 @@ export function PortalFooter({ onNavigate, onOpenFlowCut, onOpenContact }: Porta
               </div>
             </div>
 
-            <div className="space-y-3.5">
+            <div className="space-y-3.5" id="footer-support">
               <h4 className="font-mono text-[10px] font-bold uppercase tracking-wider text-white">Support</h4>
               <div className="flex flex-col gap-2.5 font-light text-text-muted">
-                <span className="text-left">Documentation</span>
+                <button onClick={openDocumentation} className="text-left transition hover:text-white">Documentation</button>
                 <a href="/contact/" className="text-left transition hover:text-white">Contact Us</a>
                 <a href="/support/" className="text-left transition hover:text-white">Support &amp; FAQ</a>
               </div>

@@ -5,9 +5,10 @@ interface NavigationProps {
   onHome: () => void;
   onCartOpen: () => void;
   onOpenAccount: () => void;
+  onOpenDocumentation: () => void;
 }
 
-export function Navigation({ onHome, onCartOpen, onOpenAccount }: NavigationProps) {
+export function Navigation({ onHome, onCartOpen, onOpenAccount, onOpenDocumentation }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const scrollToSection = (id: string) => {
@@ -15,7 +16,13 @@ export function Navigation({ onHome, onCartOpen, onOpenAccount }: NavigationProp
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
+      return;
     }
+
+    window.location.hash = "/flowcut";
+    window.setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }, 120);
   };
 
   return (
@@ -47,6 +54,15 @@ export function Navigation({ onHome, onCartOpen, onOpenAccount }: NavigationProp
               {item.label}
             </button>
           ))}
+          <button
+            onClick={() => {
+              setIsOpen(false);
+              onOpenDocumentation();
+            }}
+            className="cursor-pointer text-sm font-medium text-text-muted hover:text-white transition-all duration-150"
+          >
+            Documentation
+          </button>
         </div>
 
         {/* Workspace actions */}
@@ -99,6 +115,15 @@ export function Navigation({ onHome, onCartOpen, onOpenAccount }: NavigationProp
             className="cursor-pointer text-left text-base font-medium text-text-muted hover:text-white py-1"
           >
             Support
+          </button>
+          <button
+            onClick={() => {
+              setIsOpen(false);
+              onOpenDocumentation();
+            }}
+            className="cursor-pointer text-left text-base font-medium text-text-muted hover:text-white py-1"
+          >
+            Documentation
           </button>
         </div>
       )}

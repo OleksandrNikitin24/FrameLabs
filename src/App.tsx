@@ -6,6 +6,7 @@ import { InteractiveShowcase } from "./components/InteractiveShowcase";
 import { Pricing } from "./components/Pricing";
 import { PortalFooter } from "./components/PortalFooter";
 import { PortalPage } from "./components/PortalPage";
+import { FlowCutDocumentationPage } from "./components/FlowCutDocumentationPage";
 import CartDrawer from "./portal/components/CartDrawer";
 import { AppTab } from "./portal/types";
 import { Sparkles, Tv, Box, Orbit, Compass } from "lucide-react";
@@ -87,6 +88,11 @@ export default function App() {
     window.scrollTo({ top: 0 });
   };
 
+  const handleOpenDocumentation = () => {
+    window.location.hash = "/flowcut/documentation";
+    window.scrollTo({ top: 0 });
+  };
+
   const handleRequireSignIn = () => {
     window.location.hash = "/login";
     window.scrollTo({ top: 0 });
@@ -118,6 +124,21 @@ export default function App() {
     );
   }
 
+  if (route === "#/flowcut/documentation") {
+    return (
+      <FlowCutDocumentationPage
+        onNavigate={handlePortalNavigation}
+        onOpenFlowCut={handleOpenFlowCut}
+        onOpenContact={handleContactClick}
+        onOpenAccount={handleOpenAccount}
+        onOpenDocumentation={handleOpenDocumentation}
+        isCartOpen={flowcutCartOpen}
+        onCartOpen={() => setFlowcutCartOpen(true)}
+        onCartClose={() => setFlowcutCartOpen(false)}
+      />
+    );
+  }
+
   if (route !== "#/flowcut") {
     return (
       <PortalPage
@@ -141,6 +162,7 @@ export default function App() {
         onHome={() => handlePortalNavigation("extensions")}
         onCartOpen={() => setFlowcutCartOpen(true)}
         onOpenAccount={handleOpenAccount}
+        onOpenDocumentation={handleOpenDocumentation}
       />
 
       {/* 2. Hero Presentation Track */}
@@ -205,6 +227,7 @@ export default function App() {
         onNavigate={handlePortalNavigation}
         onOpenFlowCut={handleOpenFlowCut}
         onOpenContact={handleContactClick}
+        onOpenDocumentation={handleOpenDocumentation}
       />
       <CartDrawer
         isOpen={flowcutCartOpen}
