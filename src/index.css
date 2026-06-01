@@ -5,6 +5,7 @@
   --font-sans: "Sora", system-ui, -apple-system, sans-serif;
   --font-sora: "Sora", system-ui, -apple-system, sans-serif;
   --font-body: "Geist", "Inter", system-ui, sans-serif;
+  --font-display: "Sora", system-ui, -apple-system, sans-serif;
   --font-mono: "Geist Mono", "JetBrains Mono", monospace;
   
   --color-brand-bg: #0A0A0A;
@@ -14,10 +15,14 @@
   --color-brand-blue: #0EA5E9;
   --color-brand-yellow: #FBCB0A;
   --color-brand-primary: #7C3AED;
+  --color-brand-primary-dim: #D2BBFF;
   --color-brand-primary-light: #A78BFA;
   --color-brand-secondary: #0EA5E9;
   --color-brand-tertiary: #FBCB0A;
   --color-brand-surface: #120E1A;
+  --color-brand-surface-low: #100D16;
+  --color-brand-surface-high: #221E28;
+  --color-brand-surface-highest: #2C2833;
   --color-brand-surface-card: #1B1625;
   --color-brand-surface-bright: #2C2833;
   --color-brand-border: rgba(255, 255, 255, 0.08);
