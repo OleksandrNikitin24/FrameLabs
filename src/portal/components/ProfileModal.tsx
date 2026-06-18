@@ -63,7 +63,7 @@ export default function ProfileModal({ isOpen, onClose, setActiveTab }: ProfileM
                     required
                     value={userEmail}
                     onChange={(e) => setUserEmail(e.target.value)}
-                    className="w-full rounded border border-brand-border bg-[#0a0a0f] pl-9 pr-3 py-2 text-xs text-white outline-none focus:border-brand-primary"
+                    className="w-full rounded border border-brand-border bg-[#161617] pl-9 pr-3 py-2 text-xs text-white outline-none focus:border-brand-primary"
                   />
                 </div>
                 <button

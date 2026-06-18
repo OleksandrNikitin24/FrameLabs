@@ -152,12 +152,8 @@ export default function App() {
   }
 
   return (
-    <div className="relative min-h-screen bg-brand-bg font-body selection:bg-brand-purple/30 selection:text-white">
-      {/* Dynamic light glows globally */}
-      <div className="absolute top-[1800px] left-[10%] w-[500px] h-[500px] bg-brand-blue/5 rounded-full filter blur-[100px] pointer-events-none"></div>
-      <div className="absolute top-[3200px] right-[5%] w-[400px] h-[400px] bg-brand-purple/5 rounded-full filter blur-[80px] pointer-events-none"></div>
-
-      {/* 1. Glassmorphic Header Navigation */}
+    <div className="relative min-h-screen bg-canvas font-body text-ink selection:bg-action/20">
+      {/* 1. Global + sub nav */}
       <Navigation
         onHome={() => handlePortalNavigation("extensions")}
         onCartOpen={() => setFlowcutCartOpen(true)}
@@ -175,46 +171,36 @@ export default function App() {
       <InteractiveShowcase />
 
       {/* 5. Logo Wall / Proof Segment */}
-      <section className="border-t border-b border-white/5 bg-brand-surface-dim/30 py-12 px-6 sm:px-8">
-        <div className="max-w-7xl mx-auto text-center space-y-8">
-          <p className="text-[10px] font-bold text-text-muted/60 uppercase tracking-widest font-mono">
-            EMPOWERING 50,000+ FLOWCUT POWER USERS WORLDWIDE
+      <section className="bg-parchment px-6 py-16 sm:px-8">
+        <div className="mx-auto max-w-[980px] space-y-8 text-center">
+          <p className="text-[12px] font-semibold uppercase tracking-widest text-ink-48">
+            Empowering 50,000+ FlowCut power users worldwide
           </p>
-          
-          <div className="flex flex-wrap items-center justify-center gap-12 sm:gap-16 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition duration-300">
-            
+
+          <div className="flex flex-wrap items-center justify-center gap-12 text-ink-80 sm:gap-16">
             {/* Logo 1 */}
             <div className="flex items-center gap-2">
-              <Box className="w-5 h-5 text-white" />
-              <span className="font-sans font-extrabold text-white text-sm tracking-widest uppercase">
-                AETHERIA
-              </span>
+              <Box className="h-5 w-5" />
+              <span className="font-sans text-[15px] font-semibold tracking-tight">Aetheria</span>
             </div>
 
             {/* Logo 2 */}
             <div className="flex items-center gap-2">
-              <Tv className="w-5 h-5 text-white" />
-              <span className="font-sans font-extrabold text-white text-sm tracking-widest uppercase">
-                VOX_MEDIA
-              </span>
+              <Tv className="h-5 w-5" />
+              <span className="font-sans text-[15px] font-semibold tracking-tight">Vox Media</span>
             </div>
 
             {/* Logo 3 */}
             <div className="flex items-center gap-2">
-              <Orbit className="w-5 h-5 text-white" />
-              <span className="font-sans font-extrabold text-white text-sm tracking-widest uppercase">
-                NEON_LABS
-              </span>
+              <Orbit className="h-5 w-5" />
+              <span className="font-sans text-[15px] font-semibold tracking-tight">Neon Labs</span>
             </div>
 
             {/* Logo 4 */}
             <div className="flex items-center gap-2">
-              <Compass className="w-5 h-5 text-white" />
-              <span className="font-sans font-extrabold text-white text-sm tracking-widest uppercase">
-                VELOCITY_HQ
-              </span>
+              <Compass className="h-5 w-5" />
+              <span className="font-sans text-[15px] font-semibold tracking-tight">Velocity HQ</span>
             </div>
-
           </div>
         </div>
       </section>

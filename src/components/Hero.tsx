@@ -1,4 +1,4 @@
-import { Download, Film, ChevronDown, PlayCircle } from "lucide-react";
+import { Download, PlayCircle } from "lucide-react";
 import { WaveformSimulator } from "./WaveformSimulator";
 
 interface HeroProps {
@@ -7,67 +7,47 @@ interface HeroProps {
 
 export function Hero({ onLearnMoreClick }: HeroProps) {
   return (
-    <section className="relative pt-32 pb-20 px-6 sm:px-8 max-w-7xl mx-auto flex flex-col items-center text-center overflow-hidden">
-      {/* Absolute ambient lights background */}
-      <div className="absolute top-20 right-[15%] w-[450px] h-[450px] bg-brand-purple/10 rounded-full filter blur-[80px] pointer-events-none animation-pulse duration-5000"></div>
-      <div className="absolute top-40 left-[15%] w-[350px] h-[350px] bg-brand-blue/10 rounded-full filter blur-[60px] pointer-events-none"></div>
-
-      {/* Product Tag Badge */}
-      <div className="mb-6 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300">
-        <span className="w-2 h-2 rounded-full bg-brand-purple shadow-sm animate-pulse"></span>
-        <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8DFEE] font-mono">
-          FLOWCUT 3.0 NOW AVAILABLE
+    <section className="relative mx-auto flex max-w-[980px] flex-col items-center px-6 pb-20 pt-36 text-center sm:px-8">
+      {/* Eyebrow */}
+      <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-parchment px-3.5 py-1.5">
+        <span className="h-1.5 w-1.5 rounded-full bg-action"></span>
+        <span className="text-[12px] font-semibold tracking-[-0.12px] text-ink-80">
+          FlowCut 3.0 now available
         </span>
       </div>
 
-      {/* Main Large Display Headings */}
-      <h1 className="text-4xl sm:text-6xl lg:text-7xl font-sans font-black text-white leading-[1.1] tracking-tight max-w-4xl mx-auto">
-        Remove Silence from Your{" "}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple via-brand-purple-light to-brand-blue">
-          Edits in Seconds
-        </span>
+      {/* Hero headline */}
+      <h1 className="mx-auto max-w-4xl font-sans text-[40px] font-semibold leading-[1.07] tracking-[-0.28px] text-ink sm:text-[56px]">
+        Remove silence from your edits in seconds.
       </h1>
 
-      {/* Subtitle Body Description */}
-      <p className="mt-6 text-sm sm:text-lg text-text-muted max-w-2xl mx-auto leading-relaxed font-body font-light">
+      {/* Subhead */}
+      <p className="mx-auto mt-5 max-w-2xl text-[21px] font-[400] leading-[1.3] tracking-[0.011em] text-ink-48 sm:text-[24px]">
         FlowCut identifies and cuts out dead air automatically, so you can focus on the story. The fastest way to clean up interviews, podcasts, and vlogs in Final Cut Pro.
       </p>
 
-      {/* Calls-to-Action Buttons */}
-      <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4.5 w-full">
+      {/* CTAs */}
+      <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
         <button
           onClick={() => {
             const el = document.getElementById("pricing-tier");
             if (el) el.scrollIntoView({ behavior: "smooth" });
           }}
-          className="cursor-pointer w-full sm:w-auto px-7 py-3.5 text-xs font-bold rounded-lg bg-brand-purple text-white hover:bg-brand-purple-hover hover:scale-[1.02] transform transition-all duration-200 shadow-xl shadow-brand-purple/20 flex items-center justify-center gap-2"
+          className="btn-pill w-full sm:w-auto"
         >
-          <Download className="w-4 h-4" /> Download Free Trial
+          <Download className="h-4 w-4" /> Download free trial
         </button>
 
-        <button
-          onClick={onLearnMoreClick}
-          className="cursor-pointer w-full sm:w-auto px-7 py-3.5 text-xs font-bold rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/25 text-white transition-all duration-250 flex items-center justify-center gap-2"
-        >
-          <PlayCircle className="w-4 h-4 text-brand-blue" /> See FlowCut in Action
+        <button onClick={onLearnMoreClick} className="btn-pill-ghost w-full sm:w-auto">
+          <PlayCircle className="h-4 w-4" /> See FlowCut in action
         </button>
       </div>
 
-      {/* Floating features quick highlight - scroll driver */}
-      <div className="mt-8">
-        <button
-          onClick={onLearnMoreClick}
-          className="cursor-pointer inline-flex flex-col items-center gap-1.5 text-[11px] font-semibold text-text-muted/60 hover:text-white transition duration-200 mt-2"
-        >
-          <span>Scroll to explore parameters</span>
-          <ChevronDown className="w-4 h-4 animate-bounce" />
-        </button>
-      </div>
-
-      {/* Embedded Dynamic Workspace simulator */}
-      <div className="mt-16 w-full relative z-10">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none"></div>
-        <WaveformSimulator />
+      {/* Product panel resting on the canvas */}
+      <div className="relative z-10 mt-16 w-full">
+        <div className="product-shadow overflow-hidden rounded-[18px] bg-black">
+          <WaveformSimulator />
+        </div>
       </div>
     </section>
   );

@@ -492,7 +492,7 @@ function InteractiveWaveform() {
   const fileReductionMb = Math.round(totalSilencesCount * 4.8);
 
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/5 bg-[#15121b] p-5 shadow-2xl">
+    <div className="relative overflow-hidden rounded-xl border border-white/5 bg-[#1d1d1f] p-5 shadow-2xl">
       <div className="mb-5 flex flex-col justify-between gap-4 border-b border-white/5 pb-4 sm:flex-row sm:items-center">
         <div className="flex items-center gap-2.5">
           <div className="rounded border border-brand-primary/20 bg-brand-primary/10 p-2 text-brand-primary-dim">
@@ -503,7 +503,7 @@ function InteractiveWaveform() {
             <span className="text-xs text-brand-text-muted">Drag the vertical decibel slider to set smart silence thresholds.</span>
           </div>
         </div>
-        <div className="flex gap-1.5 rounded-lg border border-white/5 bg-[#100d16] p-1">
+        <div className="flex gap-1.5 rounded-lg border border-white/5 bg-[#1d1d1f] p-1">
           {(["podcast", "vlog", "lecture"] as const).map((opt) => (
             <button
               key={opt}
@@ -518,10 +518,10 @@ function InteractiveWaveform() {
         </div>
       </div>
 
-      <div className="relative flex h-64 items-end gap-1.5 overflow-hidden rounded-lg border border-white/10 bg-[#0d0a14] p-6 py-10">
+      <div className="relative flex h-64 items-end gap-1.5 overflow-hidden rounded-lg border border-white/10 bg-[#161617] p-6 py-10">
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:24px_24px]" />
         <div className="absolute left-0 right-0 z-10 flex items-center justify-end border-t border-dashed border-red-500/40 pr-4 text-[10px] font-mono text-red-400 transition-all duration-150" style={{ bottom: `${thresholdPercentage}%` }}>
-          <span className="rounded-sm border border-red-500/10 bg-[#0d0a14] px-1.5 py-0.5">Gate Limit: {dbThreshold} dB</span>
+          <span className="rounded-sm border border-red-500/10 bg-[#161617] px-1.5 py-0.5">Gate Limit: {dbThreshold} dB</span>
         </div>
         <div className="z-0 flex h-full flex-1 items-end gap-1 md:gap-1.5">
           {waveBars.map((bar, index) => {
@@ -569,7 +569,7 @@ function InteractiveWaveform() {
           <button
             onClick={() => setIsPlaying(!isPlaying)}
             className={`flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-lg border px-4 py-2.5 text-xs font-semibold transition ${
-              isPlaying ? "border-white/10 bg-[#100d16] text-white hover:bg-white/5" : "border-brand-primary bg-brand-primary text-white shadow-lg shadow-purple-950/20 hover:opacity-95"
+              isPlaying ? "border-white/10 bg-[#1d1d1f] text-white hover:bg-white/5" : "border-brand-primary bg-brand-primary text-white shadow-lg  hover:opacity-95"
             }`}
           >
             {isPlaying ? <><Pause className="h-4 w-4" /> Pause Simulation</> : <><Play className="h-4 w-4 fill-white" /> Play Workspace</>}
@@ -580,7 +580,7 @@ function InteractiveWaveform() {
         </div>
       </div>
 
-      <div className="mt-6 grid grid-cols-3 gap-2.5 divide-x divide-white/5 rounded-lg border border-white/5 bg-[#100d16]/70 p-4 text-center">
+      <div className="mt-6 grid grid-cols-3 gap-2.5 divide-x divide-white/5 rounded-lg border border-white/5 bg-[#1d1d1f]/70 p-4 text-center">
         <div>
           <span className="block font-mono text-[10px] uppercase tracking-wider text-brand-text-muted">Silence Gaps Detected</span>
           <span className="mt-1 block font-display text-lg font-bold text-red-400 md:text-xl">{totalSilencesCount} silent blocks</span>
@@ -601,12 +601,12 @@ function InteractiveWaveform() {
 function IntroSideCards() {
   return (
     <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-      <div className="relative overflow-hidden rounded-xl border border-white/5 bg-[#15121b] p-5 transition-colors hover:border-white/10">
+      <div className="relative overflow-hidden rounded-xl border border-white/5 bg-[#1d1d1f] p-5 transition-colors hover:border-white/10">
         <div className="absolute left-0 top-0 h-full w-1 bg-brand-primary" />
         <h4 className="font-display text-sm font-semibold text-white">Integrated with Editing Software</h4>
         <p className="mt-2 text-xs leading-relaxed text-brand-text-muted">Works with Final Cut Pro sequence export and keeps timelines easy to continue editing.</p>
       </div>
-      <div className="relative overflow-hidden rounded-xl border border-white/5 bg-[#15121b] p-5 transition-colors hover:border-white/10">
+      <div className="relative overflow-hidden rounded-xl border border-white/5 bg-[#1d1d1f] p-5 transition-colors hover:border-white/10">
         <div className="absolute left-0 top-0 h-full w-1 bg-brand-secondary" />
         <h4 className="font-display text-sm font-semibold text-white">Local and Offline</h4>
         <p className="mt-2 text-xs leading-relaxed text-brand-text-muted">Everything runs locally on your device. No cloud uploads, no external telemetry, and no internet connection required for media processing.</p>
@@ -624,7 +624,7 @@ function HowItWorksSteps() {
           ["1", "Analyze media", "Select and analyze videos or audio files locally to isolate confidential client media."],
           ["2", "Remove dead air", "FlowCut maps silence boundaries and turns repetitive cleanup into a fast review pass."],
         ].map(([num, title, body], index) => (
-          <div key={title} className="flex min-h-[140px] flex-col justify-between overflow-hidden rounded-xl border border-white/5 bg-[#15121b] p-5">
+          <div key={title} className="flex min-h-[140px] flex-col justify-between overflow-hidden rounded-xl border border-white/5 bg-[#1d1d1f] p-5">
             <div className={`flex h-7 w-7 items-center justify-center rounded-full border font-mono text-xs font-bold ${index === 0 ? "border-brand-primary/20 bg-brand-primary/10 text-brand-primary-dim" : "border-brand-secondary/20 bg-brand-secondary/10 text-brand-secondary"}`}>{num}</div>
             <div className="mt-4">
               <h4 className="font-display text-sm font-semibold text-white">{title}</h4>
@@ -649,7 +649,7 @@ function KeyFeaturesGrid() {
       <h3 className="mt-10 font-display text-lg font-bold text-white" id="key-features">Key Features</h3>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {feats.map(([title, desc, icon, bg]) => (
-          <div key={String(title)} className="flex gap-4 rounded-xl border border-white/5 bg-[#15121b] p-5 transition-colors hover:border-white/10">
+          <div key={String(title)} className="flex gap-4 rounded-xl border border-white/5 bg-[#1d1d1f] p-5 transition-colors hover:border-white/10">
             <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border p-2.5 ${bg}`}>{icon}</div>
             <div className="space-y-1">
               <h4 className="font-display text-sm font-semibold text-white">{title}</h4>
@@ -709,7 +709,7 @@ function QuickstartFlow({ purchasedKey }: { purchasedKey: string }) {
 
   return (
     <div className="mt-6 space-y-8">
-      <div className="rounded-xl border border-white/5 bg-[#15121b] p-5 shadow-lg">
+      <div className="rounded-xl border border-white/5 bg-[#1d1d1f] p-5 shadow-lg">
         <span className="mb-3 block font-mono text-[10px] font-semibold uppercase tracking-wider text-brand-primary-dim">ACTION PHASE 01</span>
         <h4 className="font-display text-base font-semibold text-white">Retrieve Native Helper Core Binary</h4>
         <div className="mt-4 grid grid-cols-1 items-center gap-5 md:grid-cols-12">
@@ -730,11 +730,11 @@ function QuickstartFlow({ purchasedKey }: { purchasedKey: string }) {
               </button>
             ))}
           </div>
-          <div className="flex min-h-[140px] flex-col justify-center rounded-lg border border-white/5 bg-[#100d16] p-5 md:col-span-8">
+          <div className="flex min-h-[140px] flex-col justify-center rounded-lg border border-white/5 bg-[#1d1d1f] p-5 md:col-span-8">
             {isDownloading ? (
               <div className="space-y-3">
                 <div className="flex items-center justify-between font-mono text-xs"><span className="text-brand-secondary">Downloading FlowCut_Universal_Setup ({activeTab})...</span><span>{downloadProgress}%</span></div>
-                <div className="h-1 w-full overflow-hidden rounded-full bg-[#15121b]"><div className="h-1 bg-brand-secondary" style={{ width: `${downloadProgress}%` }} /></div>
+                <div className="h-1 w-full overflow-hidden rounded-full bg-[#1d1d1f]"><div className="h-1 bg-brand-secondary" style={{ width: `${downloadProgress}%` }} /></div>
                 <span className="block font-mono text-[10px] text-brand-text-muted">Transfer speed: 45 MB/s - Local SSD Cache Active</span>
               </div>
             ) : downloadComplete ? (
@@ -746,7 +746,7 @@ function QuickstartFlow({ purchasedKey }: { purchasedKey: string }) {
             ) : (
               <div className="py-4 text-center">
                 <p className="mb-4 text-xs leading-relaxed text-brand-text-muted">Requires 112 MB storage. Includes optimized standard binaries for local GPU-accelerated computing.</p>
-                <button onClick={handleDownload} className="mx-auto flex cursor-pointer items-center justify-center gap-2 rounded-md bg-brand-primary px-6 py-2.5 text-xs font-semibold text-white shadow-lg shadow-purple-950/30 transition hover:bg-opacity-90">
+                <button onClick={handleDownload} className="mx-auto flex cursor-pointer items-center justify-center gap-2 rounded-md bg-brand-primary px-6 py-2.5 text-xs font-semibold text-white shadow-lg  transition hover:bg-opacity-90">
                   <Download className="h-4 w-4" /> Download Node Helper Installer
                 </button>
               </div>
@@ -755,7 +755,7 @@ function QuickstartFlow({ purchasedKey }: { purchasedKey: string }) {
         </div>
       </div>
 
-      <div className="rounded-xl border border-white/5 bg-[#15121b] p-5 shadow-lg">
+      <div className="rounded-xl border border-white/5 bg-[#1d1d1f] p-5 shadow-lg">
         <span className="mb-3 block font-mono text-[10px] font-semibold uppercase tracking-wider text-brand-primary-dim">ACTION PHASE 02</span>
         <h4 className="font-display text-base font-semibold text-white">Key Authentication Node</h4>
         {activeLicensePlan ? (
@@ -772,7 +772,7 @@ function QuickstartFlow({ purchasedKey }: { purchasedKey: string }) {
               <div className="flex gap-2">
                 <div className="relative flex-1">
                   <KeyRound className="absolute left-3 top-2.5 h-4.5 w-4.5 text-brand-text-muted" />
-                  <input value={licenseKey} onChange={(e) => setLicenseKey(e.target.value)} placeholder="FCUT-XXXX-XXXX-XXXX or type AISTUDIO" className="w-full rounded border border-white/10 bg-[#100d16] px-3 py-2 pl-10 font-mono text-sm uppercase text-white placeholder:font-sans placeholder:text-brand-text-muted focus:border-brand-primary focus:outline-none" />
+                  <input value={licenseKey} onChange={(e) => setLicenseKey(e.target.value)} placeholder="FCUT-XXXX-XXXX-XXXX or type AISTUDIO" className="w-full rounded border border-white/10 bg-[#1d1d1f] px-3 py-2 pl-10 font-mono text-sm uppercase text-white placeholder:font-sans placeholder:text-brand-text-muted focus:border-brand-primary focus:outline-none" />
                 </div>
                 <button disabled={isActivating} className="flex shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded bg-brand-primary px-5 text-xs font-semibold text-white transition hover:bg-opacity-95">
                   {isActivating ? <RefreshCw className="h-3.5 w-3.5 animate-spin" /> : "Unlock Core"}
@@ -780,7 +780,7 @@ function QuickstartFlow({ purchasedKey }: { purchasedKey: string }) {
               </div>
               {activateError && <span className="block font-mono text-xs text-red-400">{activateError}</span>}
             </div>
-            <div className="flex h-full min-h-[110px] flex-col justify-center space-y-3 rounded-lg border border-white/5 bg-[#100d16] p-4 text-center md:col-span-4">
+            <div className="flex h-full min-h-[110px] flex-col justify-center space-y-3 rounded-lg border border-white/5 bg-[#1d1d1f] p-4 text-center md:col-span-4">
               <span className="font-mono text-[10px] uppercase text-brand-text-muted">Sandbox VIP Bypass</span>
               <span className="block text-[11px] leading-normal text-brand-text-muted">Instantly assign a lifetime digital mock license:</span>
               <button type="button" onClick={() => setLicenseKey("AISTUDIO-VIP")} className="w-full cursor-pointer rounded border border-white/10 bg-brand-surface-high py-1.5 text-xs font-semibold text-brand-primary-dim transition hover:border-white/20 hover:text-white">Insert Free VIP Key Token</button>
@@ -789,14 +789,14 @@ function QuickstartFlow({ purchasedKey }: { purchasedKey: string }) {
         )}
       </div>
 
-      <div className="rounded-xl border border-white/5 bg-[#15121b] p-5 shadow-lg">
+      <div className="rounded-xl border border-white/5 bg-[#1d1d1f] p-5 shadow-lg">
         <span className="mb-2 block font-mono text-[10px] font-semibold uppercase tracking-wider text-brand-primary-dim">ACTION PHASE 03</span>
         <h4 className="font-display text-base font-semibold text-white">Terminal Automation Plugin Link</h4>
         <p className="mt-1 text-xs leading-relaxed text-brand-text-muted">Open your system terminal and run this automatic connector setup command.</p>
-        <div className="mt-4 flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-[#100d16] p-3.5">
+        <div className="mt-4 flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-[#1d1d1f] p-3.5">
           <div className="flex min-w-0 flex-1 items-center gap-3">
             <Terminal className="h-4 w-4 shrink-0 text-brand-secondary" />
-            <code className="truncate select-all font-mono text-xs text-purple-200">npm install -g @flowcut/cli-connector && flowcut install-nle-extensions</code>
+            <code className="truncate select-all font-mono text-xs text-[#aed0ff]">npm install -g @flowcut/cli-connector && flowcut install-nle-extensions</code>
           </div>
           <button onClick={() => { navigator.clipboard.writeText("npm install -g @flowcut/cli-connector && flowcut install-nle-extensions"); setTerminalCopied(true); setTimeout(() => setTerminalCopied(false), 2000); }} className="shrink-0 cursor-pointer rounded border border-white/5 bg-brand-surface p-2 text-brand-text-muted transition hover:border-white/10 hover:text-white" title="Copy command to clipboard">
             {terminalCopied ? <span className="font-mono text-[11px] font-bold text-green-400">Copied!</span> : <Copy className="h-4 w-4" />}
@@ -864,37 +864,37 @@ function InteractiveDemo() {
   const totalCutsSeconds = clips.filter((c) => c.status === "Cut").reduce((acc, c) => acc + parseFloat(c.duration), 0).toFixed(2);
 
   return (
-    <div className="relative mt-6 overflow-hidden rounded-xl border border-white/5 bg-[#15121b] p-5 shadow-2xl">
+    <div className="relative mt-6 overflow-hidden rounded-xl border border-white/5 bg-[#1d1d1f] p-5 shadow-2xl">
       <div className="mb-4 flex flex-col justify-between gap-4 border-b border-white/5 pb-4 sm:flex-row sm:items-center">
         <div>
           <h4 className="font-display text-base font-semibold text-white">FlowCut Local Processing Box</h4>
           <p className="mt-0.5 text-xs text-brand-text-muted">Select a feed file type below to trigger a local automated clip-trimming sequence.</p>
         </div>
         <div className="flex items-center gap-2">
-          <select value={selectedFile} onChange={(e) => { setSelectedFile(e.target.value as typeof selectedFile); setClips([]); }} disabled={isProcessing} className="cursor-pointer rounded border border-white/10 bg-[#100d16] px-2.5 py-1.5 text-xs text-white focus:border-brand-primary focus:outline-none">
+          <select value={selectedFile} onChange={(e) => { setSelectedFile(e.target.value as typeof selectedFile); setClips([]); }} disabled={isProcessing} className="cursor-pointer rounded border border-white/10 bg-[#1d1d1f] px-2.5 py-1.5 text-xs text-white focus:border-brand-primary focus:outline-none">
             <option value="podcast">Double mic Podcast (Audio Only)</option>
             <option value="screencast">K-12 Video Tutorial (1080p WebGL)</option>
             <option value="vlog">4K RAW Hiking Vlog (ProRes 422)</option>
           </select>
-          <button onClick={handleStartProcessing} disabled={isProcessing} className="flex shrink-0 cursor-pointer items-center gap-1.5 rounded bg-brand-primary px-4 py-1.5 text-xs font-semibold text-white shadow-lg shadow-purple-900/10 transition hover:bg-opacity-95">
+          <button onClick={handleStartProcessing} disabled={isProcessing} className="flex shrink-0 cursor-pointer items-center gap-1.5 rounded bg-brand-primary px-4 py-1.5 text-xs font-semibold text-white shadow-lg  transition hover:bg-opacity-95">
             {isProcessing ? <><RefreshCw className="h-3.5 w-3.5 animate-spin" /><span>Trimming...</span></> : <><Scissors className="h-3.5 w-3.5" /><span>Execute Silence Cut</span></>}
           </button>
         </div>
       </div>
 
       {isProcessing && (
-        <div className="space-y-4 rounded-lg border border-white/5 bg-[#100d16] p-6 text-center">
+        <div className="space-y-4 rounded-lg border border-white/5 bg-[#1d1d1f] p-6 text-center">
           <div className="mx-auto h-10 w-10 animate-spin rounded-full border-2 border-brand-primary border-t-transparent" />
           <span className="block font-mono text-xs uppercase tracking-wider text-brand-primary-dim">{processStep}</span>
           <span className="block font-display text-sm font-bold text-white">Analyzing Track: {percent}%</span>
-          <div className="mx-auto h-1.5 w-48 overflow-hidden rounded-full bg-[#15121b]"><div className="h-1.5 bg-brand-primary transition-all duration-100" style={{ width: `${percent}%` }} /></div>
+          <div className="mx-auto h-1.5 w-48 overflow-hidden rounded-full bg-[#1d1d1f]"><div className="h-1.5 bg-brand-primary transition-all duration-100" style={{ width: `${percent}%` }} /></div>
         </div>
       )}
 
       {clips.length > 0 && !isProcessing && (
         <div className="space-y-5">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
-            <div className="overflow-hidden rounded-lg border border-white/5 bg-[#100d16] md:col-span-8">
+            <div className="overflow-hidden rounded-lg border border-white/5 bg-[#1d1d1f] md:col-span-8">
               <div className="flex items-center justify-between border-b border-white/5 px-4 py-2 font-mono text-[10px] text-brand-text-muted">
                 <span>SUBFRAME CLIP INDEX</span><span>STATUS ACTIONS</span>
               </div>
@@ -928,7 +928,7 @@ function InteractiveDemo() {
                 </div>
                 <div className="border-t border-white/5 pt-3"><span className="block font-mono text-[10px] uppercase text-brand-text-muted">Total Cut Duration Removed</span><span className="mt-1 block font-display text-2xl font-bold text-green-400">{totalCutsSeconds}s Cut</span></div>
               </div>
-              <div className="mt-4 rounded border border-white/10 bg-[#100d16] p-3 text-[10px] leading-relaxed text-brand-text-muted">
+              <div className="mt-4 rounded border border-white/10 bg-[#1d1d1f] p-3 text-[10px] leading-relaxed text-brand-text-muted">
                 <span className="mb-1 flex items-center gap-1 font-semibold text-slate-200"><Sparkles className="h-3 w-3 text-brand-primary-dim" /> Native Export Complete!</span>
                 Click RESTORE CLIP to modify silence boundaries. Exporting will write final FCPXML files directly.
               </div>
@@ -1004,7 +1004,7 @@ function CompatibilityTab() {
   }, []);
 
   return (
-    <div className="mt-6 space-y-6 rounded-xl border border-white/5 bg-[#15121b] p-6">
+    <div className="mt-6 space-y-6 rounded-xl border border-white/5 bg-[#1d1d1f] p-6">
       <div className="flex flex-col justify-between gap-4 border-b border-white/5 pb-4 sm:flex-row sm:items-center">
         <div>
           <h4 className="font-display text-base font-semibold text-white">Local GPU Diagnostics Suite</h4>
@@ -1017,7 +1017,7 @@ function CompatibilityTab() {
       {running && (
         <div className="space-y-4 py-6">
           <div className="flex items-center justify-between font-mono text-xs"><span className="animate-pulse text-brand-primary-dim">Initializing Web Assembly GPU drivers...</span><span>{progress}%</span></div>
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#100d16]"><div className="h-1.5 rounded-full bg-brand-primary transition-all duration-75" style={{ width: `${progress}%` }} /></div>
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#1d1d1f]"><div className="h-1.5 rounded-full bg-brand-primary transition-all duration-75" style={{ width: `${progress}%` }} /></div>
         </div>
       )}
       {report && (
@@ -1033,16 +1033,16 @@ function CompatibilityTab() {
               ["Detected host", report.os.split(" ")[0], report.os, <Disc className="h-4 w-4 text-brand-text-muted" />],
               ["Security Sandboxing", "Guaranteed Local", "100% cloud isolating lock", <Shield className="h-4 w-4 text-green-400" />],
             ].map(([label, value, sub, icon]) => (
-              <div key={String(label)} className="flex flex-col justify-between rounded-lg border border-white/5 bg-[#100d16] p-4">
+              <div key={String(label)} className="flex flex-col justify-between rounded-lg border border-white/5 bg-[#1d1d1f] p-4">
                 <div className="mb-2 flex items-center justify-between text-brand-text-muted"><span className="font-mono text-[10px] uppercase tracking-wider">{label}</span>{icon}</div>
                 <span className="block truncate font-display text-lg font-semibold text-white">{value}</span>
                 <span className="mt-0.5 block truncate text-[9px] text-brand-text-muted">{sub}</span>
               </div>
             ))}
           </div>
-          <div className="space-y-2 rounded-lg border border-white/5 bg-[#100d16] p-4">
+          <div className="space-y-2 rounded-lg border border-white/5 bg-[#1d1d1f] p-4">
             <span className="inline-block font-mono text-[10px] uppercase tracking-wider text-brand-text-muted">RAW SYS METRIC REPORT LOG</span>
-            <pre className="max-w-full overflow-x-auto rounded border border-white/5 bg-[#0d0a14] p-2 font-mono text-[11px] leading-5 text-green-400">{`{
+            <pre className="max-w-full overflow-x-auto rounded border border-white/5 bg-[#161617] p-2 font-mono text-[11px] leading-5 text-green-400">{`{
   "client_environment": {
     "user_agent_host": "${report.browser}",
     "rendering_pipeline": "WebGL context",
@@ -1178,8 +1178,8 @@ export function FlowCutDocumentationPage({
             ["Advanced Multicam Speech Indexing", "3:20", "8.4k views", "Advanced"],
             ["Setting Decibel Gate Threshold Envelopes", "2:15", "19k views", "Pro"],
           ].map(([title, duration, views, level]) => (
-            <button key={title} onClick={() => setActiveVideoPlayer({ title, duration, playing: true, playtime: 0 })} className="group cursor-pointer overflow-hidden rounded-xl border border-white/5 bg-[#15121b] text-left transition-all duration-300 hover:border-brand-primary/30">
-              <div className="relative flex h-40 items-center justify-center overflow-hidden bg-[#0d0a14]">
+            <button key={title} onClick={() => setActiveVideoPlayer({ title, duration, playing: true, playtime: 0 })} className="group cursor-pointer overflow-hidden rounded-xl border border-white/5 bg-[#1d1d1f] text-left transition-all duration-300 hover:border-brand-primary/30">
+              <div className="relative flex h-40 items-center justify-center overflow-hidden bg-[#161617]">
                 <div className="absolute inset-x-0 bottom-0 top-1/2 bg-[linear-gradient(to_top,#7c3aed30,transparent)]" />
                 <div className="flex gap-1 opacity-20"><span className="h-12 w-1.5 rounded-full bg-white/70" /><span className="h-16 w-1.5 rounded-full bg-white/70" /><span className="h-20 w-1.5 rounded-full bg-white/70" /><span className="h-12 w-1.5 rounded-full bg-white/70" /></div>
                 <div className="absolute flex h-10 w-10 items-center justify-center rounded-full border border-brand-primary/20 bg-brand-primary/10 text-brand-primary-dim transition duration-300 group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white"><Play className="ml-0.5 h-4 w-4 fill-current" /></div>
@@ -1202,11 +1202,11 @@ export function FlowCutDocumentationPage({
             ["Does it support ProRes files?", "Yes, FlowCut is designed around professional macOS editing formats and Final Cut Pro workflows."],
             ["How does it integrate back into Final Cut Pro?", "FlowCut generates sequence XML that can be imported into Final Cut Pro."],
           ].map(([q, a]) => (
-            <details key={q} className="group overflow-hidden rounded-lg border border-white/5 bg-[#15121b] transition-all duration-300">
+            <details key={q} className="group overflow-hidden rounded-lg border border-white/5 bg-[#1d1d1f] transition-all duration-300">
               <summary className="flex cursor-pointer list-none select-none items-center justify-between px-5 py-4 font-display text-sm font-medium text-white transition hover:text-brand-primary-dim">
                 <span>{q}</span><ChevronRight className="h-4 w-4 text-brand-text-muted transition group-open:rotate-90" />
               </summary>
-              <div className="border-t border-white/[0.02] bg-[#100d16]/30 px-5 pb-5 pt-1 text-xs leading-relaxed text-brand-text-muted">{a}</div>
+              <div className="border-t border-white/[0.02] bg-[#1d1d1f]/30 px-5 pb-5 pt-1 text-xs leading-relaxed text-brand-text-muted">{a}</div>
             </details>
           ))}
         </div>
@@ -1216,20 +1216,20 @@ export function FlowCutDocumentationPage({
     if (activePage === "report-issue") {
       return (
         <div className="space-y-6">
-          <div className="rounded-xl border border-white/5 bg-[#15121b] p-5 shadow-lg">
+          <div className="rounded-xl border border-white/5 bg-[#1d1d1f] p-5 shadow-lg">
             <h4 className="font-display text-base font-semibold text-white">File a Diagnostic Ticket</h4>
             <p className="mt-0.5 text-xs text-brand-text-muted">Submit terminal crash reports or XML mismatch drift samples directly to the local thread.</p>
             <form onSubmit={handleCreateTicket} className="mt-4 space-y-4">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <div className="space-y-1.5 md:col-span-2"><label className="block font-mono text-[10px] uppercase tracking-wider text-brand-text-muted">Short Issue Summary</label><input required value={newTicket.title} onChange={(e) => setNewTicket({ ...newTicket, title: e.target.value })} placeholder="e.g. XML mismatch when processing WAV waveforms" className="w-full rounded border border-white/10 bg-[#100d16] px-3 py-2 text-xs text-white focus:border-brand-primary focus:outline-none" /></div>
-                <div className="space-y-1.5"><label className="block font-mono text-[10px] uppercase tracking-wider text-brand-text-muted">Severity Level</label><select value={newTicket.priority} onChange={(e) => setNewTicket({ ...newTicket, priority: e.target.value as typeof newTicket.priority })} className="w-full cursor-pointer rounded border border-white/10 bg-[#100d16] px-2.5 py-2 text-xs text-white focus:border-brand-primary focus:outline-none"><option value="Low">Low - Cosmetic Warnings</option><option value="Medium">Medium - Workflow Bottleneck</option><option value="High">High - Crash / XML Drift</option></select></div>
+                <div className="space-y-1.5 md:col-span-2"><label className="block font-mono text-[10px] uppercase tracking-wider text-brand-text-muted">Short Issue Summary</label><input required value={newTicket.title} onChange={(e) => setNewTicket({ ...newTicket, title: e.target.value })} placeholder="e.g. XML mismatch when processing WAV waveforms" className="w-full rounded border border-white/10 bg-[#1d1d1f] px-3 py-2 text-xs text-white focus:border-brand-primary focus:outline-none" /></div>
+                <div className="space-y-1.5"><label className="block font-mono text-[10px] uppercase tracking-wider text-brand-text-muted">Severity Level</label><select value={newTicket.priority} onChange={(e) => setNewTicket({ ...newTicket, priority: e.target.value as typeof newTicket.priority })} className="w-full cursor-pointer rounded border border-white/10 bg-[#1d1d1f] px-2.5 py-2 text-xs text-white focus:border-brand-primary focus:outline-none"><option value="Low">Low - Cosmetic Warnings</option><option value="Medium">Medium - Workflow Bottleneck</option><option value="High">High - Crash / XML Drift</option></select></div>
               </div>
-              <div className="space-y-1.5"><label className="block font-mono text-[10px] uppercase tracking-wider text-brand-text-muted">Diagnostics Dump / Description</label><textarea value={newTicket.desc} onChange={(e) => setNewTicket({ ...newTicket, desc: e.target.value })} placeholder="Paste terminal log traces, FCPXML fragments, or NLE version numbers..." className="h-24 w-full rounded border border-white/10 bg-[#100d16] px-3 py-2 font-mono text-xs text-white placeholder:font-sans focus:border-brand-primary focus:outline-none" /></div>
+              <div className="space-y-1.5"><label className="block font-mono text-[10px] uppercase tracking-wider text-brand-text-muted">Diagnostics Dump / Description</label><textarea value={newTicket.desc} onChange={(e) => setNewTicket({ ...newTicket, desc: e.target.value })} placeholder="Paste terminal log traces, FCPXML fragments, or NLE version numbers..." className="h-24 w-full rounded border border-white/10 bg-[#1d1d1f] px-3 py-2 font-mono text-xs text-white placeholder:font-sans focus:border-brand-primary focus:outline-none" /></div>
               <div className="flex items-center justify-between gap-4">{ticketSubmitMessage ? <span className="font-mono text-xs font-medium text-green-400">{ticketSubmitMessage}</span> : <span className="font-mono text-[10px] uppercase text-brand-text-muted">Ticket will sync to table dynamically</span>}<button type="submit" className="cursor-pointer rounded bg-brand-primary px-5 py-2 text-xs font-semibold text-white transition hover:bg-opacity-95">Submit Ticket</button></div>
             </form>
           </div>
-          <div className="overflow-hidden rounded-xl border border-white/5 bg-[#15121b] shadow-lg">
-            <div className="flex items-center justify-between border-b border-white/5 bg-[#1a1622] px-5 py-3"><h5 className="font-display text-xs font-semibold text-white">Active System Tickets logs</h5><span className="font-mono text-[10px] text-brand-text-muted">{tickets.length} tickets tracked</span></div>
+          <div className="overflow-hidden rounded-xl border border-white/5 bg-[#1d1d1f] shadow-lg">
+            <div className="flex items-center justify-between border-b border-white/5 bg-[#2a2a2c] px-5 py-3"><h5 className="font-display text-xs font-semibold text-white">Active System Tickets logs</h5><span className="font-mono text-[10px] text-brand-text-muted">{tickets.length} tickets tracked</span></div>
             <div className="divide-y divide-white/5">
               {tickets.map((t) => (
                 <div key={t.id} className="flex flex-col justify-between gap-3 p-4 text-xs sm:flex-row sm:items-center">
@@ -1246,7 +1246,7 @@ export function FlowCutDocumentationPage({
     if (activePage === "local-offline") {
       return (
         <div className="space-y-6">
-          <div className="rounded-xl border border-white/5 bg-[#15121b] p-6">
+          <div className="rounded-xl border border-white/5 bg-[#1d1d1f] p-6">
             <h4 className="font-display text-sm font-semibold text-white">Offline Transcription Processing Benchmarks</h4>
             <p className="mt-0.5 text-xs text-brand-text-muted">Time to analyze 1 hour of raw dialogue material.</p>
             <div className="mt-6 space-y-5">
@@ -1255,7 +1255,7 @@ export function FlowCutDocumentationPage({
                 ["Standard Cloud API", "78.0 seconds", "w-[60%]", "from-white/20 to-white/10"],
                 ["Manual Hand Trimming", "1,200 seconds", "w-full", "from-white/10 to-white/5"],
               ].map(([label, value, width, gradient]) => (
-                <div key={label} className="space-y-1.5"><div className="flex items-center justify-between text-xs"><span className="font-semibold text-white">{label}</span><span className="font-mono font-bold text-green-300">{value}</span></div><div className="h-4 w-full overflow-hidden rounded bg-[#100d16] p-0.5"><div className={`h-full rounded bg-gradient-to-r ${gradient} ${width}`} /></div></div>
+                <div key={label} className="space-y-1.5"><div className="flex items-center justify-between text-xs"><span className="font-semibold text-white">{label}</span><span className="font-mono font-bold text-green-300">{value}</span></div><div className="h-4 w-full overflow-hidden rounded bg-[#1d1d1f] p-0.5"><div className={`h-full rounded bg-gradient-to-r ${gradient} ${width}`} /></div></div>
               ))}
             </div>
           </div>
@@ -1270,9 +1270,9 @@ export function FlowCutDocumentationPage({
             ["Creator Indie License", "$14.99", "Ideal for independent videographers, YouTubers, and podcast editors.", ["Full standalone companion desktop app", "ProRes workflow support", "Uncapped exports", "Final Cut Pro XML export", "Perpetual offline license support"]],
             ["Studio Production License", "$149.90", "Tailored for production teams and multi-user editorial workspaces.", ["Everything included inside Creator", "Multi-seat workspace licensing", "Priority diagnostics support", "Team account management", "Future studio feature access"]],
           ].map(([plan, price, desc, checks]) => (
-            <div key={String(plan)} className="flex flex-col justify-between space-y-6 rounded-xl border border-white/5 bg-[#15121b] p-6 transition duration-300 hover:border-brand-primary/35">
-              <div className="space-y-4"><h4 className="font-display text-lg font-semibold text-white">{plan}</h4><div className="flex items-baseline gap-1 rounded-lg border border-white/[0.03] bg-[#100d16] p-4"><span className="font-display text-3xl font-extrabold text-white">{price}</span><span className="font-mono text-xs text-brand-text-muted">PERPETUAL ONE-TIME PAYMENT</span></div><p className="text-xs leading-relaxed text-brand-text-muted">{desc}</p><div className="space-y-2.5 border-t border-white/5 pt-4">{(checks as string[]).map((chk) => <div key={chk} className="flex items-start gap-2.5 text-xs text-brand-text"><span className="shrink-0 font-bold text-green-400">✓</span><span>{chk}</span></div>)}</div></div>
-              <button onClick={onCartOpen} className="w-full cursor-pointer rounded-lg border border-brand-primary bg-brand-primary/10 py-2.5 text-center text-xs font-semibold text-brand-primary-dim shadow shadow-purple-950/20 transition hover:bg-brand-primary hover:text-white">Initiate Secure Purchase</button>
+            <div key={String(plan)} className="flex flex-col justify-between space-y-6 rounded-xl border border-white/5 bg-[#1d1d1f] p-6 transition duration-300 hover:border-brand-primary/35">
+              <div className="space-y-4"><h4 className="font-display text-lg font-semibold text-white">{plan}</h4><div className="flex items-baseline gap-1 rounded-lg border border-white/[0.03] bg-[#1d1d1f] p-4"><span className="font-display text-3xl font-extrabold text-white">{price}</span><span className="font-mono text-xs text-brand-text-muted">PERPETUAL ONE-TIME PAYMENT</span></div><p className="text-xs leading-relaxed text-brand-text-muted">{desc}</p><div className="space-y-2.5 border-t border-white/5 pt-4">{(checks as string[]).map((chk) => <div key={chk} className="flex items-start gap-2.5 text-xs text-brand-text"><span className="shrink-0 font-bold text-green-400">✓</span><span>{chk}</span></div>)}</div></div>
+              <button onClick={onCartOpen} className="w-full cursor-pointer rounded-lg border border-brand-primary bg-brand-primary/10 py-2.5 text-center text-xs font-semibold text-brand-primary-dim shadow  transition hover:bg-brand-primary hover:text-white">Initiate Secure Purchase</button>
             </div>
           ))}
         </div>
@@ -1283,14 +1283,14 @@ export function FlowCutDocumentationPage({
   };
 
   return (
-    <div className="relative flex min-h-screen bg-[#0d0a14] font-sans text-brand-text">
+    <div className="relative flex min-h-screen bg-[#161617] font-sans text-brand-text">
       {mobileSidebarOpen && <div onClick={() => setMobileSidebarOpen(false)} className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden" />}
 
-      <aside className={`fixed top-0 z-40 flex h-screen w-[260px] shrink-0 flex-col justify-between overflow-y-auto border-r border-white/5 bg-[#0d0a14] pb-6 transition-transform duration-200 lg:sticky ${mobileSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}>
+      <aside className={`fixed top-0 z-40 flex h-screen w-[260px] shrink-0 flex-col justify-between overflow-y-auto border-r border-white/5 bg-[#161617] pb-6 transition-transform duration-200 lg:sticky ${mobileSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}>
         <div>
-          <div className="flex items-center justify-between border-b border-white/5 bg-[#100d16] p-5">
+          <div className="flex items-center justify-between border-b border-white/5 bg-[#1d1d1f] p-5">
             <button onClick={() => { handleSelectPage("introduction"); setMobileSidebarOpen(false); }} className="flex cursor-pointer items-center gap-2.5 p-0 text-left">
-              <div className="flex h-7 w-7 items-center justify-center rounded bg-brand-primary text-white shadow-lg shadow-purple-900/30"><span className="font-display text-sm font-extrabold leading-none tracking-tighter">F</span></div>
+              <div className="flex h-7 w-7 items-center justify-center rounded bg-brand-primary text-white shadow-lg "><span className="font-display text-sm font-extrabold leading-none tracking-tighter">F</span></div>
               <span className="flex items-center gap-1.5 font-display text-base font-bold tracking-tight text-white">FlowCut <span className="origin-left scale-95 rounded border border-white/10 bg-white/5 px-1 font-mono text-[10px] text-brand-secondary">PRO</span></span>
             </button>
             <button onClick={() => setMobileSidebarOpen(false)} className="rounded bg-white/5 p-1 text-brand-text transition hover:bg-white/10 lg:hidden"><X className="h-4.5 w-4.5" /></button>
@@ -1303,9 +1303,9 @@ export function FlowCutDocumentationPage({
                   {sec.items.map((item) => {
                     const isActive = activePage === item.id;
                     return (
-                      <button key={item.id} onClick={() => { handleSelectPage(item.id); setMobileSidebarOpen(false); }} className={`flex w-full cursor-pointer select-none items-center justify-between rounded-md px-3 py-1.5 text-left font-sans text-xs font-medium transition ${isActive ? "bg-brand-primary/15 text-white shadow-sm shadow-purple-950/10" : "text-brand-text-muted hover:bg-white/5 hover:text-white"}`}>
+                      <button key={item.id} onClick={() => { handleSelectPage(item.id); setMobileSidebarOpen(false); }} className={`flex w-full cursor-pointer select-none items-center justify-between rounded-md px-3 py-1.5 text-left font-sans text-xs font-medium transition ${isActive ? "bg-brand-primary/15 text-white shadow-sm " : "text-brand-text-muted hover:bg-white/5 hover:text-white"}`}>
                         <div className="flex items-center gap-2.5"><span className={isActive ? "text-brand-primary-dim" : "text-brand-text-muted opacity-80"}>{pageIcon(item.id)}</span><span>{item.label}</span></div>
-                        {item.badge && <span className="rounded bg-brand-primary px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wide text-purple-100">{item.badge}</span>}
+                        {item.badge && <span className="rounded bg-brand-primary px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wide text-white">{item.badge}</span>}
                         {item.hasChevron && <ChevronRight className={`h-3.5 w-3.5 opacity-50 transition ${isActive ? "translate-x-0.5" : ""}`} />}
                       </button>
                     );
@@ -1318,32 +1318,32 @@ export function FlowCutDocumentationPage({
 
         <div className="mt-8 space-y-3 px-4">
           <div className="my-3 border-t border-white/5" />
-          <button onClick={onCartOpen} className="group relative w-full cursor-pointer overflow-hidden rounded-lg border border-purple-500/20 bg-gradient-to-r from-brand-primary to-[#5b21b6] p-3 text-left text-white shadow-md shadow-purple-950/20 transition duration-300 active:scale-[0.99]">
+          <button onClick={onCartOpen} className="group relative w-full cursor-pointer overflow-hidden rounded-lg border border-white/10 bg-action p-3 text-left text-white shadow-md  transition duration-300 active:scale-[0.99]">
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             <div className="flex items-center justify-between"><span className="font-display text-xs font-semibold tracking-wide">{purchasedKey ? "Workspace Activated" : "Buy FlowCut"}</span><ShoppingCart className="h-3.5 w-3.5 text-brand-primary-dim transition group-hover:translate-x-0.5" /></div>
-            <p className="mt-1 text-[10px] leading-normal text-purple-200">{purchasedKey ? "Keys synced. Open quickstart to review license tags." : "Perpetual multi-editor licenses. Instant core activation key."}</p>
+            <p className="mt-1 text-[10px] leading-normal text-[#aed0ff]">{purchasedKey ? "Keys synced. Open quickstart to review license tags." : "Perpetual multi-editor licenses. Instant core activation key."}</p>
           </button>
-          <button onClick={() => handleSelectPage("report-issue")} className="flex w-full cursor-pointer items-center justify-between rounded-md border border-white/5 bg-[#100d16] px-3 py-2 text-xs text-brand-text transition hover:bg-[#1a1723] hover:text-white">
+          <button onClick={() => handleSelectPage("report-issue")} className="flex w-full cursor-pointer items-center justify-between rounded-md border border-white/5 bg-[#1d1d1f] px-3 py-2 text-xs text-brand-text transition hover:bg-[#2a2a2c] hover:text-white">
             <div className="flex items-center gap-2"><Info className="h-4 w-4 text-brand-text-muted" /><span>Discord Community</span></div><span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
           </button>
         </div>
       </aside>
 
       <div className="flex max-h-screen min-w-0 flex-1 flex-col overflow-y-auto">
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-white/5 bg-[#0d0a14]/85 px-4 backdrop-blur-md md:px-6">
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-white/5 bg-[#161617]/85 px-4 backdrop-blur-md md:px-6">
           <div className="flex items-center gap-3">
-            <button onClick={() => setMobileSidebarOpen(true)} className="rounded border border-white/5 bg-[#15121b] p-1.5 text-brand-text transition hover:text-white lg:hidden" title="Open Navigation"><Menu className="h-5 w-5" /></button>
+            <button onClick={() => setMobileSidebarOpen(true)} className="rounded border border-white/5 bg-[#1d1d1f] p-1.5 text-brand-text transition hover:text-white lg:hidden" title="Open Navigation"><Menu className="h-5 w-5" /></button>
             <button onClick={() => handleSelectPage("introduction")} className="flex cursor-pointer items-center gap-2 p-0 text-left lg:hidden"><div className="flex h-6.5 w-6.5 items-center justify-center rounded bg-brand-primary text-xs font-extrabold text-white">F</div><span className="font-display text-sm font-bold text-white">FlowCut</span></button>
-            <button onClick={() => handleSelectPage("introduction")} className="hidden cursor-pointer items-center gap-1 text-xs text-brand-text-muted transition hover:text-purple-300 lg:flex"><BookOpen className="h-3.5 w-3.5" /><span>Documentation Hub</span></button>
+            <button onClick={() => handleSelectPage("introduction")} className="hidden cursor-pointer items-center gap-1 text-xs text-brand-text-muted transition hover:text-sky lg:flex"><BookOpen className="h-3.5 w-3.5" /><span>Documentation Hub</span></button>
           </div>
           <div className="mx-4 max-w-sm flex-1">
-            <button onClick={() => setSearchOpen(true)} className="flex w-full cursor-pointer items-center justify-between rounded-lg border border-white/10 bg-[#100d16] px-3 py-1.5 text-xs text-brand-text-muted transition hover:border-white/20 hover:text-brand-text">
+            <button onClick={() => setSearchOpen(true)} className="flex w-full cursor-pointer items-center justify-between rounded-lg border border-white/10 bg-[#1d1d1f] px-3 py-1.5 text-xs text-brand-text-muted transition hover:border-white/20 hover:text-brand-text">
               <div className="flex items-center gap-2"><Search className="h-4 w-4 text-brand-text-muted" /><span>Search documentation...</span></div><kbd className="hidden select-none rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-[10px] sm:inline-block">⌘K</kbd>
             </button>
           </div>
           <div className="flex items-center gap-3">
             {purchasedKey && <div className="hidden items-center gap-1.5 rounded border border-green-500/20 bg-green-500/10 px-2.5 py-1 font-mono text-[10px] font-semibold text-green-300 sm:flex"><CheckCircle2 className="h-3.5 w-3.5 text-green-400" /><span>VIP ACTIVE</span></div>}
-            <button onClick={() => handleSelectPage("quickstart")} className="cursor-pointer rounded-md bg-brand-primary px-4 py-2 text-xs font-semibold text-white shadow shadow-purple-950/20 transition active:scale-[0.98]">Get Started</button>
+            <button onClick={() => handleSelectPage("quickstart")} className="cursor-pointer rounded-md bg-brand-primary px-4 py-2 text-xs font-semibold text-white shadow  transition active:scale-[0.98]">Get Started</button>
           </div>
         </header>
 
@@ -1367,21 +1367,21 @@ export function FlowCutDocumentationPage({
                   <h3 className="group flex items-center gap-2 font-display text-lg font-bold text-white md:text-xl"><span>{sec.heading}</span><a href={`#${sec.anchor}`} className="font-mono text-sm font-normal text-brand-primary-dim opacity-0 transition group-hover:opacity-100">#</a></h3>
                   <p className="text-xs leading-relaxed text-brand-text-muted md:text-sm">{sec.body}</p>
                   {sec.code && (
-                    <div className="group relative mt-4 overflow-hidden rounded-lg border border-white/10 bg-[#100d16] font-mono text-xs shadow-inner">
+                    <div className="group relative mt-4 overflow-hidden rounded-lg border border-white/10 bg-[#1d1d1f] font-mono text-xs shadow-inner">
                       <div className="flex items-center justify-between border-b border-white/5 px-4 py-2 text-[10px] uppercase text-brand-text-muted"><span>{sec.lang || "code block"} format</span><button onClick={() => handleCopyCode(sec.code!, idx)} className="cursor-pointer font-sans font-bold uppercase transition hover:text-white">{copiedSectionIndex === idx ? <span className="text-green-400">copied!</span> : "Copy clip"}</button></div>
-                      <pre className="overflow-x-auto whitespace-pre p-4 text-left font-mono leading-relaxed text-purple-200"><code>{sec.code}</code></pre>
+                      <pre className="overflow-x-auto whitespace-pre p-4 text-left font-mono leading-relaxed text-[#aed0ff]"><code>{sec.code}</code></pre>
                     </div>
                   )}
                 </div>
               ))}
             </div>
 
-            <div className="rounded-xl border border-white/5 bg-[#15121b] p-5">
+            <div className="rounded-xl border border-white/5 bg-[#1d1d1f] p-5">
               <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                 <div><h4 className="font-display text-sm font-semibold text-white">Was this page helpful?</h4><p className="mt-1 text-xs text-brand-text-muted">Your feedback helps improve the FlowCut docs.</p></div>
                 <div className="flex gap-2"><button className="cursor-pointer rounded border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white transition hover:bg-white/10">Yes</button><button className="cursor-pointer rounded border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white transition hover:bg-white/10">No</button></div>
               </div>
-              {currentPageData.nextPage && <button onClick={() => handleSelectPage(currentPageData.nextPage!.id)} className="mt-5 flex w-full cursor-pointer items-center justify-between rounded-lg border border-white/10 bg-[#100d16] px-4 py-3 text-left transition hover:border-brand-primary/40"><span className="text-xs text-brand-text-muted">Next: <strong className="text-white">{currentPageData.nextPage.label}</strong></span><ChevronRight className="h-4 w-4 text-brand-primary-dim" /></button>}
+              {currentPageData.nextPage && <button onClick={() => handleSelectPage(currentPageData.nextPage!.id)} className="mt-5 flex w-full cursor-pointer items-center justify-between rounded-lg border border-white/10 bg-[#1d1d1f] px-4 py-3 text-left transition hover:border-brand-primary/40"><span className="text-xs text-brand-text-muted">Next: <strong className="text-white">{currentPageData.nextPage.label}</strong></span><ChevronRight className="h-4 w-4 text-brand-primary-dim" /></button>}
             </div>
           </main>
 
@@ -1398,15 +1398,15 @@ export function FlowCutDocumentationPage({
                 {currentPageData.sections.map((sec) => <li key={sec.anchor}><button onClick={() => handleSelectPage(activePage, sec.anchor)} className="cursor-pointer text-left text-xs capitalize leading-tight text-brand-text-muted transition hover:text-white">{sec.heading.replace(/[0-9]\.\s/, "").toLowerCase()}</button></li>)}
               </ul>
             </div>
-            <div className="space-y-3 rounded-xl border border-white/5 bg-[#15121b] p-4 shadow-lg">
+            <div className="space-y-3 rounded-xl border border-white/5 bg-[#1d1d1f] p-4 shadow-lg">
               <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase text-brand-secondary"><Info className="h-3.5 w-3.5" /> OFFLINE ENGINE STATUS</div>
               <p className="text-[11px] leading-relaxed text-brand-text-muted">FlowCut runs localized binaries in high performance blocks. Need a key to test?</p>
-              <button onClick={onCartOpen} className="w-full cursor-pointer rounded border border-white/10 bg-[#100d16] py-1.5 text-[11px] font-semibold text-brand-primary-dim transition hover:border-white/20 hover:text-purple-300">Acquire Free Sandbox VIP Key</button>
+              <button onClick={onCartOpen} className="w-full cursor-pointer rounded border border-white/10 bg-[#1d1d1f] py-1.5 text-[11px] font-semibold text-brand-primary-dim transition hover:border-white/20 hover:text-sky">Acquire Free Sandbox VIP Key</button>
             </div>
           </aside>
         </div>
 
-        <footer className="mt-auto flex flex-col items-center justify-between gap-4 border-t border-white/5 bg-[#100d16]/40 px-6 py-8 text-xs sm:flex-row">
+        <footer className="mt-auto flex flex-col items-center justify-between gap-4 border-t border-white/5 bg-[#1d1d1f]/40 px-6 py-8 text-xs sm:flex-row">
           <div className="text-brand-text-muted"><span className="font-display font-semibold text-white">FlowCut Pro Documentation</span><span className="mt-0.5 block text-[10px]">&copy; 2026 FlowCut Pro SRL. All rights protected.</span></div>
           <div className="flex gap-4 font-mono text-[10px] text-brand-text-muted"><button onClick={() => onNavigate("extensions")} className="cursor-pointer hover:text-white">PRIVACY</button><button onClick={onOpenFlowCut} className="cursor-pointer hover:text-white">TERMS</button><button onClick={onOpenContact} className="cursor-pointer hover:text-white">SUPPORT</button></div>
         </footer>
@@ -1414,7 +1414,7 @@ export function FlowCutDocumentationPage({
 
       {searchOpen && (
         <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/70 p-4 pt-24 backdrop-blur-sm" onClick={() => setSearchOpen(false)}>
-          <div className="w-full max-w-xl rounded-xl border border-white/10 bg-[#15121b] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+          <div className="w-full max-w-xl rounded-xl border border-white/10 bg-[#1d1d1f] shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center gap-3 border-b border-white/5 p-4"><Search className="h-4 w-4 text-brand-text-muted" /><input autoFocus placeholder="Search documentation..." className="flex-1 bg-transparent text-sm text-white outline-none placeholder:text-brand-text-muted" /></div>
             <div className="max-h-[420px] overflow-y-auto p-2">
               {Object.values(docPages).map((page) => <button key={page.id} onClick={() => { handleSelectPage(page.id); setSearchOpen(false); }} className="block w-full cursor-pointer rounded-lg p-3 text-left transition hover:bg-white/5"><span className="block text-sm font-semibold text-white">{page.title}</span><span className="mt-1 block text-xs text-brand-text-muted">{page.subtitle}</span></button>)}
@@ -1426,15 +1426,15 @@ export function FlowCutDocumentationPage({
       {activeVideoPlayer && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div onClick={() => setActiveVideoPlayer(null)} className="absolute inset-0 bg-black/85 backdrop-blur-sm" />
-          <div className="relative w-full max-w-xl overflow-hidden rounded-xl border border-white/10 bg-[#15121b] shadow-2xl">
-            <div className="flex items-center justify-between border-b border-white/5 bg-[#1a1622] p-4 text-xs"><span className="max-w-xs truncate font-semibold text-white">{activeVideoPlayer.title}</span><button onClick={() => setActiveVideoPlayer(null)} className="rounded p-1 text-brand-text transition hover:bg-white/10"><X className="h-4 w-4" /></button></div>
-            <div className="relative flex aspect-video items-center justify-center bg-[#0d0a14]">
+          <div className="relative w-full max-w-xl overflow-hidden rounded-xl border border-white/10 bg-[#1d1d1f] shadow-2xl">
+            <div className="flex items-center justify-between border-b border-white/5 bg-[#2a2a2c] p-4 text-xs"><span className="max-w-xs truncate font-semibold text-white">{activeVideoPlayer.title}</span><button onClick={() => setActiveVideoPlayer(null)} className="rounded p-1 text-brand-text transition hover:bg-white/10"><X className="h-4 w-4" /></button></div>
+            <div className="relative flex aspect-video items-center justify-center bg-[#161617]">
               <div className="z-0 flex scale-125 items-center gap-1"><span className={`w-1 rounded-full bg-brand-primary-dim transition-all duration-300 ${activeVideoPlayer.playing ? "h-16 animate-bounce" : "h-8"}`} /><span className={`w-1 rounded-full bg-brand-primary transition-all duration-300 ${activeVideoPlayer.playing ? "h-24 animate-bounce" : "h-10"}`} /><span className={`w-1 rounded-full bg-brand-secondary transition-all duration-300 ${activeVideoPlayer.playing ? "h-32 animate-bounce" : "h-12"}`} /></div>
-              {!activeVideoPlayer.playing && <div className="absolute inset-0 flex items-center justify-center bg-black/30"><button onClick={() => setActiveVideoPlayer({ ...activeVideoPlayer, playing: true })} className="cursor-pointer rounded-full bg-brand-primary p-4 text-white shadow-lg shadow-purple-950/50 transition hover:scale-110"><Play className="ml-0.5 h-6 w-6 fill-current" /></button></div>}
+              {!activeVideoPlayer.playing && <div className="absolute inset-0 flex items-center justify-center bg-black/30"><button onClick={() => setActiveVideoPlayer({ ...activeVideoPlayer, playing: true })} className="cursor-pointer rounded-full bg-brand-primary p-4 text-white shadow-lg  transition hover:scale-110"><Play className="ml-0.5 h-6 w-6 fill-current" /></button></div>}
             </div>
-            <div className="space-y-3.5 bg-[#100d16] p-4">
+            <div className="space-y-3.5 bg-[#1d1d1f] p-4">
               <div className="flex items-center justify-between font-mono text-[10px] text-brand-text-muted"><span>{Math.floor(activeVideoPlayer.playtime / 60)}:{(activeVideoPlayer.playtime % 60).toString().padStart(2, "0")}</span><span>{activeVideoPlayer.duration}</span></div>
-              <div className="h-1 w-full overflow-hidden rounded-full bg-[#15121b]"><div className="h-1 rounded-full bg-brand-primary transition-all duration-1000" style={{ width: `${(activeVideoPlayer.playtime / (Number(activeVideoPlayer.duration.split(":")[0]) * 60 + Number(activeVideoPlayer.duration.split(":")[1]))) * 100}%` }} /></div>
+              <div className="h-1 w-full overflow-hidden rounded-full bg-[#1d1d1f]"><div className="h-1 rounded-full bg-brand-primary transition-all duration-1000" style={{ width: `${(activeVideoPlayer.playtime / (Number(activeVideoPlayer.duration.split(":")[0]) * 60 + Number(activeVideoPlayer.duration.split(":")[1]))) * 100}%` }} /></div>
               <div className="flex items-center justify-between"><button onClick={() => setActiveVideoPlayer({ ...activeVideoPlayer, playing: !activeVideoPlayer.playing })} className="flex cursor-pointer items-center gap-1.5 rounded border border-white/5 bg-white/5 px-3 p-1.5 text-xs font-semibold text-white transition hover:border-white/10 hover:bg-white/10">{activeVideoPlayer.playing ? <><Pause className="h-4.5 w-4.5 fill-current" /> Pause Sequence</> : <><Play className="h-4.5 w-4.5 fill-current" /> Play Tutorial</>}</button><span className="flex items-center gap-1 font-mono text-[10px] text-brand-text-muted"><Volume2 className="h-3.5 w-3.5" /> MUTE OVERLAY ENABLED</span></div>
             </div>
           </div>

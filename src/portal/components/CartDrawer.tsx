@@ -157,7 +157,7 @@ export default function CartDrawer({
                     value={licenseEmail}
                     onChange={(e) => setLicenseEmail(e.target.value)}
                     placeholder="creative@editor.io"
-                    className="w-full rounded border border-brand-border bg-[#0a0a0f] px-3 py-2 text-xs text-white placeholder-brand-text-muted outline-none focus:border-brand-primary"
+                    className="w-full rounded border border-brand-border bg-[#161617] px-3 py-2 text-xs text-white placeholder-brand-text-muted outline-none focus:border-brand-primary"
                   />
                 </div>
 
@@ -177,7 +177,7 @@ export default function CartDrawer({
                 </div>
 
                 {/* Pricing Summary */}
-                <div className="bg-[#100d16] rounded border border-brand-border p-3 space-y-2 text-xs font-mono">
+                <div className="bg-[#1d1d1f] rounded border border-brand-border p-3 space-y-2 text-xs font-mono">
                   <div className="flex justify-between text-brand-text-muted">
                     <span>License Subtotal:</span>
                     <span>${formatPrice(subtotal)}</span>

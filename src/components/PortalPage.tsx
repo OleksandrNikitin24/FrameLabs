@@ -40,7 +40,7 @@ export function PortalPage({ page, onNavigate, onOpenFlowCut, onOpenContact, onO
 
   return (
     <div
-      className="flex min-h-screen flex-col bg-brand-bg font-body selection:bg-brand-purple/30 selection:text-white"
+      className="flex min-h-screen flex-col bg-canvas font-body text-ink selection:bg-action/20"
       style={{ overflowAnchor: "none" }}
     >
       <Header
