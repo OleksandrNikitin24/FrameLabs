@@ -601,15 +601,15 @@ function InteractiveWaveform() {
 function IntroSideCards() {
   return (
     <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-      <div className="relative overflow-hidden rounded-xl border border-white/5 bg-[#1d1d1f] p-5 transition-colors hover:border-white/10">
-        <div className="absolute left-0 top-0 h-full w-1 bg-brand-primary" />
-        <h4 className="font-display text-sm font-semibold text-white">Integrated with Editing Software</h4>
-        <p className="mt-2 text-xs leading-relaxed text-brand-text-muted">Works with Final Cut Pro sequence export and keeps timelines easy to continue editing.</p>
+      <div className="store-card relative overflow-hidden p-5">
+        <div className="absolute left-0 top-0 h-full w-1 bg-action" />
+        <h4 className="font-display text-sm font-semibold text-ink">Integrated with Editing Software</h4>
+        <p className="mt-2 text-xs leading-relaxed text-ink-48">Works with Final Cut Pro sequence export and keeps timelines easy to continue editing.</p>
       </div>
-      <div className="relative overflow-hidden rounded-xl border border-white/5 bg-[#1d1d1f] p-5 transition-colors hover:border-white/10">
-        <div className="absolute left-0 top-0 h-full w-1 bg-brand-secondary" />
-        <h4 className="font-display text-sm font-semibold text-white">Local and Offline</h4>
-        <p className="mt-2 text-xs leading-relaxed text-brand-text-muted">Everything runs locally on your device. No cloud uploads, no external telemetry, and no internet connection required for media processing.</p>
+      <div className="store-card relative overflow-hidden p-5">
+        <div className="absolute left-0 top-0 h-full w-1 bg-action" />
+        <h4 className="font-display text-sm font-semibold text-ink">Local and Offline</h4>
+        <p className="mt-2 text-xs leading-relaxed text-ink-48">Everything runs locally on your device. No cloud uploads, no external telemetry, and no internet connection required for media processing.</p>
       </div>
     </div>
   );
@@ -618,17 +618,17 @@ function IntroSideCards() {
 function HowItWorksSteps() {
   return (
     <div className="space-y-4">
-      <h3 className="mt-10 font-display text-lg font-bold text-white" id="how-it-works">How it works</h3>
+      <h3 className="mt-10 font-display text-lg font-semibold text-ink" id="how-it-works">How it works</h3>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {[
           ["1", "Analyze media", "Select and analyze videos or audio files locally to isolate confidential client media."],
           ["2", "Remove dead air", "FlowCut maps silence boundaries and turns repetitive cleanup into a fast review pass."],
         ].map(([num, title, body], index) => (
-          <div key={title} className="flex min-h-[140px] flex-col justify-between overflow-hidden rounded-xl border border-white/5 bg-[#1d1d1f] p-5">
-            <div className={`flex h-7 w-7 items-center justify-center rounded-full border font-mono text-xs font-bold ${index === 0 ? "border-brand-primary/20 bg-brand-primary/10 text-brand-primary-dim" : "border-brand-secondary/20 bg-brand-secondary/10 text-brand-secondary"}`}>{num}</div>
+          <div key={title} className="store-card flex min-h-[140px] flex-col justify-between overflow-hidden p-5">
+            <div className={`flex h-7 w-7 items-center justify-center rounded-full border font-mono text-xs font-bold border-action/20 bg-action/10 text-action`}>{num}</div>
             <div className="mt-4">
-              <h4 className="font-display text-sm font-semibold text-white">{title}</h4>
-              <p className="mt-1.5 text-xs leading-relaxed text-brand-text-muted">{body}</p>
+              <h4 className="font-display text-sm font-semibold text-ink">{title}</h4>
+              <p className="mt-1.5 text-xs leading-relaxed text-ink-48">{body}</p>
             </div>
           </div>
         ))}
@@ -639,21 +639,21 @@ function HowItWorksSteps() {
 
 function KeyFeaturesGrid() {
   const feats = [
-    ["Visual waveform review", "Review detected speech and silence regions before committing to edits.", <Search className="h-4 w-4 text-brand-secondary" />, "bg-brand-secondary/10 border-brand-secondary/20"],
-    ["Frame-based controls", "Adjust minimum strip duration, pre-roll, and post-roll in frames.", <Scissors className="h-4 w-4 text-brand-primary-dim" />, "bg-brand-primary/10 border-brand-primary/20"],
-    ["Final Cut Pro export", "Export clean FCPXML sequences that keep your original media references.", <Apple className="h-4 w-4 text-emerald-400" />, "bg-emerald-500/10 border-emerald-500/20"],
-    ["Local processing", "Keep sensitive client footage on your Mac during standard silence removal.", <Shield className="h-4 w-4 text-yellow-300" />, "bg-yellow-500/10 border-yellow-500/20"],
+    ["Visual waveform review", "Review detected speech and silence regions before committing to edits.", <Search className="h-4 w-4 text-action" />, "bg-action/10 border-action/20"],
+    ["Frame-based controls", "Adjust minimum strip duration, pre-roll, and post-roll in frames.", <Scissors className="h-4 w-4 text-action" />, "bg-action/10 border-action/20"],
+    ["Final Cut Pro export", "Export clean FCPXML sequences that keep your original media references.", <Apple className="h-4 w-4 text-emerald-600" />, "bg-emerald-500/10 border-emerald-500/20"],
+    ["Local processing", "Keep sensitive client footage on your Mac during standard silence removal.", <Shield className="h-4 w-4 text-amber-600" />, "bg-amber-500/10 border-amber-500/20"],
   ];
   return (
     <div className="space-y-4">
-      <h3 className="mt-10 font-display text-lg font-bold text-white" id="key-features">Key Features</h3>
+      <h3 className="mt-10 font-display text-lg font-semibold text-ink" id="key-features">Key Features</h3>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {feats.map(([title, desc, icon, bg]) => (
-          <div key={String(title)} className="flex gap-4 rounded-xl border border-white/5 bg-[#1d1d1f] p-5 transition-colors hover:border-white/10">
+          <div key={String(title)} className="store-card flex gap-4 p-5">
             <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border p-2.5 ${bg}`}>{icon}</div>
             <div className="space-y-1">
-              <h4 className="font-display text-sm font-semibold text-white">{title}</h4>
-              <p className="text-xs leading-relaxed text-brand-text-muted">{desc}</p>
+              <h4 className="font-display text-sm font-semibold text-ink">{title}</h4>
+              <p className="text-xs leading-relaxed text-ink-48">{desc}</p>
             </div>
           </div>
         ))}
@@ -1152,7 +1152,7 @@ export function FlowCutDocumentationPage({
       return (
         <div className="space-y-6">
           <div className="not-prose my-6">
-            <div className="mb-2.5 flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider text-brand-primary-dim">
+            <div className="mb-2.5 flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider text-action">
               <span className="h-2 w-2 animate-ping rounded-full bg-brand-primary" />
               Interactive Feature Waveform Demo
             </div>
@@ -1166,7 +1166,7 @@ export function FlowCutDocumentationPage({
     }
 
     if (activePage === "quickstart") return <QuickstartFlow purchasedKey={purchasedKey} />;
-    if (activePage === "interface") return <><span className="mb-2 mt-6 block font-mono text-xs font-bold uppercase tracking-wider text-brand-primary-dim">INTERFACE PLAYGROUND</span><InteractiveDemo /></>;
+    if (activePage === "interface") return <><span className="mb-2 mt-6 block font-mono text-xs font-bold uppercase tracking-wider text-action">INTERFACE PLAYGROUND</span><InteractiveDemo /></>;
     if (activePage === "compatibility") return <CompatibilityTab />;
     if (activePage === "analyzing-media") return <div className="space-y-6"><InteractiveWaveform /></div>;
 
@@ -1202,11 +1202,11 @@ export function FlowCutDocumentationPage({
             ["Does it support ProRes files?", "Yes, FlowCut is designed around professional macOS editing formats and Final Cut Pro workflows."],
             ["How does it integrate back into Final Cut Pro?", "FlowCut generates sequence XML that can be imported into Final Cut Pro."],
           ].map(([q, a]) => (
-            <details key={q} className="group overflow-hidden rounded-lg border border-white/5 bg-[#1d1d1f] transition-all duration-300">
-              <summary className="flex cursor-pointer list-none select-none items-center justify-between px-5 py-4 font-display text-sm font-medium text-white transition hover:text-brand-primary-dim">
-                <span>{q}</span><ChevronRight className="h-4 w-4 text-brand-text-muted transition group-open:rotate-90" />
+            <details key={q} className="group store-card overflow-hidden transition-all duration-300">
+              <summary className="flex cursor-pointer list-none select-none items-center justify-between px-5 py-4 font-display text-sm font-medium text-ink transition hover:text-action">
+                <span>{q}</span><ChevronRight className="h-4 w-4 text-ink-48 transition group-open:rotate-90" />
               </summary>
-              <div className="border-t border-white/[0.02] bg-[#1d1d1f]/30 px-5 pb-5 pt-1 text-xs leading-relaxed text-brand-text-muted">{a}</div>
+              <div className="border-t border-divider px-5 pb-5 pt-1 text-xs leading-relaxed text-ink-80">{a}</div>
             </details>
           ))}
         </div>
@@ -1246,16 +1246,16 @@ export function FlowCutDocumentationPage({
     if (activePage === "local-offline") {
       return (
         <div className="space-y-6">
-          <div className="rounded-xl border border-white/5 bg-[#1d1d1f] p-6">
-            <h4 className="font-display text-sm font-semibold text-white">Offline Transcription Processing Benchmarks</h4>
-            <p className="mt-0.5 text-xs text-brand-text-muted">Time to analyze 1 hour of raw dialogue material.</p>
+          <div className="store-card p-6">
+            <h4 className="font-display text-sm font-semibold text-ink">Offline Transcription Processing Benchmarks</h4>
+            <p className="mt-0.5 text-xs text-ink-48">Time to analyze 1 hour of raw dialogue material.</p>
             <div className="mt-6 space-y-5">
               {[
-                ["FlowCut C++ Engine (Local M3/RTX)", "4.5 seconds", "w-[8%]", "from-brand-primary to-brand-secondary"],
-                ["Standard Cloud API", "78.0 seconds", "w-[60%]", "from-white/20 to-white/10"],
-                ["Manual Hand Trimming", "1,200 seconds", "w-full", "from-white/10 to-white/5"],
+                ["FlowCut C++ Engine (Local M3/RTX)", "4.5 seconds", "w-[8%]", "from-action to-sky"],
+                ["Standard Cloud API", "78.0 seconds", "w-[60%]", "from-ink-48 to-ink-48"],
+                ["Manual Hand Trimming", "1,200 seconds", "w-full", "from-hairline to-hairline"],
               ].map(([label, value, width, gradient]) => (
-                <div key={label} className="space-y-1.5"><div className="flex items-center justify-between text-xs"><span className="font-semibold text-white">{label}</span><span className="font-mono font-bold text-green-300">{value}</span></div><div className="h-4 w-full overflow-hidden rounded bg-[#1d1d1f] p-0.5"><div className={`h-full rounded bg-gradient-to-r ${gradient} ${width}`} /></div></div>
+                <div key={label} className="space-y-1.5"><div className="flex items-center justify-between text-xs"><span className="font-semibold text-ink">{label}</span><span className="font-mono font-bold text-emerald-600">{value}</span></div><div className="h-4 w-full overflow-hidden rounded bg-parchment p-0.5"><div className={`h-full rounded bg-gradient-to-r ${gradient} ${width}`} /></div></div>
               ))}
             </div>
           </div>
@@ -1270,9 +1270,9 @@ export function FlowCutDocumentationPage({
             ["Creator Indie License", "$14.99", "Ideal for independent videographers, YouTubers, and podcast editors.", ["Full standalone companion desktop app", "ProRes workflow support", "Uncapped exports", "Final Cut Pro XML export", "Perpetual offline license support"]],
             ["Studio Production License", "$149.90", "Tailored for production teams and multi-user editorial workspaces.", ["Everything included inside Creator", "Multi-seat workspace licensing", "Priority diagnostics support", "Team account management", "Future studio feature access"]],
           ].map(([plan, price, desc, checks]) => (
-            <div key={String(plan)} className="flex flex-col justify-between space-y-6 rounded-xl border border-white/5 bg-[#1d1d1f] p-6 transition duration-300 hover:border-brand-primary/35">
-              <div className="space-y-4"><h4 className="font-display text-lg font-semibold text-white">{plan}</h4><div className="flex items-baseline gap-1 rounded-lg border border-white/[0.03] bg-[#1d1d1f] p-4"><span className="font-display text-3xl font-extrabold text-white">{price}</span><span className="font-mono text-xs text-brand-text-muted">PERPETUAL ONE-TIME PAYMENT</span></div><p className="text-xs leading-relaxed text-brand-text-muted">{desc}</p><div className="space-y-2.5 border-t border-white/5 pt-4">{(checks as string[]).map((chk) => <div key={chk} className="flex items-start gap-2.5 text-xs text-brand-text"><span className="shrink-0 font-bold text-green-400">✓</span><span>{chk}</span></div>)}</div></div>
-              <button onClick={onCartOpen} className="w-full cursor-pointer rounded-lg border border-brand-primary bg-brand-primary/10 py-2.5 text-center text-xs font-semibold text-brand-primary-dim shadow  transition hover:bg-brand-primary hover:text-white">Initiate Secure Purchase</button>
+            <div key={String(plan)} className="store-card flex flex-col justify-between space-y-6 p-6">
+              <div className="space-y-4"><h4 className="font-display text-lg font-semibold text-ink">{plan}</h4><div className="flex items-baseline gap-1 rounded-[11px] border border-hairline bg-parchment p-4"><span className="font-display text-3xl font-extrabold text-ink">{price}</span><span className="font-mono text-xs text-ink-48">PERPETUAL ONE-TIME PAYMENT</span></div><p className="text-xs leading-relaxed text-ink-48">{desc}</p><div className="space-y-2.5 border-t border-hairline pt-4">{(checks as string[]).map((chk) => <div key={chk} className="flex items-start gap-2.5 text-xs text-ink-80"><span className="shrink-0 font-bold text-emerald-600">✓</span><span>{chk}</span></div>)}</div></div>
+              <button onClick={onCartOpen} className="btn-pill w-full !text-xs">Initiate Secure Purchase</button>
             </div>
           ))}
         </div>
@@ -1283,29 +1283,29 @@ export function FlowCutDocumentationPage({
   };
 
   return (
-    <div className="relative flex min-h-screen bg-[#161617] font-sans text-brand-text">
+    <div className="relative flex min-h-screen bg-canvas font-sans text-ink">
       {mobileSidebarOpen && <div onClick={() => setMobileSidebarOpen(false)} className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden" />}
 
-      <aside className={`fixed top-0 z-40 flex h-screen w-[260px] shrink-0 flex-col justify-between overflow-y-auto border-r border-white/5 bg-[#161617] pb-6 transition-transform duration-200 lg:sticky ${mobileSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}>
+      <aside className={`fixed top-0 z-40 flex h-screen w-[260px] shrink-0 flex-col justify-between overflow-y-auto border-r border-hairline bg-parchment pb-6 transition-transform duration-200 lg:sticky ${mobileSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}>
         <div>
-          <div className="flex items-center justify-between border-b border-white/5 bg-[#1d1d1f] p-5">
+          <div className="flex items-center justify-between border-b border-hairline bg-white p-5">
             <button onClick={() => { handleSelectPage("introduction"); setMobileSidebarOpen(false); }} className="flex cursor-pointer items-center gap-2.5 p-0 text-left">
               <div className="flex h-7 w-7 items-center justify-center rounded bg-brand-primary text-white shadow-lg "><span className="font-display text-sm font-extrabold leading-none tracking-tighter">F</span></div>
-              <span className="flex items-center gap-1.5 font-display text-base font-bold tracking-tight text-white">FlowCut <span className="origin-left scale-95 rounded border border-white/10 bg-white/5 px-1 font-mono text-[10px] text-brand-secondary">PRO</span></span>
+              <span className="flex items-center gap-1.5 font-display text-base font-bold tracking-tight text-ink">FlowCut <span className="origin-left scale-95 rounded border border-hairline bg-parchment px-1 font-mono text-[10px] text-action">PRO</span></span>
             </button>
-            <button onClick={() => setMobileSidebarOpen(false)} className="rounded bg-white/5 p-1 text-brand-text transition hover:bg-white/10 lg:hidden"><X className="h-4.5 w-4.5" /></button>
+            <button onClick={() => setMobileSidebarOpen(false)} className="rounded bg-parchment p-1 text-ink transition hover:bg-hairline lg:hidden"><X className="h-4.5 w-4.5" /></button>
           </div>
           <div className="space-y-6 p-4 pt-6">
             {navSections.map((sec) => (
               <div key={sec.title} className="space-y-1.5">
-                <h5 className="px-3 font-mono text-[10px] font-bold uppercase tracking-widest text-brand-text-muted">{sec.title}</h5>
+                <h5 className="px-3 font-mono text-[10px] font-bold uppercase tracking-widest text-ink-48">{sec.title}</h5>
                 <div className="space-y-0.5">
                   {sec.items.map((item) => {
                     const isActive = activePage === item.id;
                     return (
-                      <button key={item.id} onClick={() => { handleSelectPage(item.id); setMobileSidebarOpen(false); }} className={`flex w-full cursor-pointer select-none items-center justify-between rounded-md px-3 py-1.5 text-left font-sans text-xs font-medium transition ${isActive ? "bg-brand-primary/15 text-white shadow-sm " : "text-brand-text-muted hover:bg-white/5 hover:text-white"}`}>
-                        <div className="flex items-center gap-2.5"><span className={isActive ? "text-brand-primary-dim" : "text-brand-text-muted opacity-80"}>{pageIcon(item.id)}</span><span>{item.label}</span></div>
-                        {item.badge && <span className="rounded bg-brand-primary px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wide text-white">{item.badge}</span>}
+                      <button key={item.id} onClick={() => { handleSelectPage(item.id); setMobileSidebarOpen(false); }} className={`flex w-full cursor-pointer select-none items-center justify-between rounded-md px-3 py-1.5 text-left font-sans text-xs font-medium transition ${isActive ? "bg-action/10 text-action " : "text-ink-48 hover:bg-white hover:text-ink"}`}>
+                        <div className="flex items-center gap-2.5"><span className={isActive ? "text-action" : "text-ink-48 opacity-80"}>{pageIcon(item.id)}</span><span>{item.label}</span></div>
+                        {item.badge && <span className="rounded bg-action px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wide text-white">{item.badge}</span>}
                         {item.hasChevron && <ChevronRight className={`h-3.5 w-3.5 opacity-50 transition ${isActive ? "translate-x-0.5" : ""}`} />}
                       </button>
                     );
@@ -1317,46 +1317,46 @@ export function FlowCutDocumentationPage({
         </div>
 
         <div className="mt-8 space-y-3 px-4">
-          <div className="my-3 border-t border-white/5" />
+          <div className="my-3 border-t border-hairline" />
           <button onClick={onCartOpen} className="group relative w-full cursor-pointer overflow-hidden rounded-lg border border-white/10 bg-action p-3 text-left text-white shadow-md  transition duration-300 active:scale-[0.99]">
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             <div className="flex items-center justify-between"><span className="font-display text-xs font-semibold tracking-wide">{purchasedKey ? "Workspace Activated" : "Buy FlowCut"}</span><ShoppingCart className="h-3.5 w-3.5 text-brand-primary-dim transition group-hover:translate-x-0.5" /></div>
             <p className="mt-1 text-[10px] leading-normal text-[#aed0ff]">{purchasedKey ? "Keys synced. Open quickstart to review license tags." : "Perpetual multi-editor licenses. Instant core activation key."}</p>
           </button>
-          <button onClick={() => handleSelectPage("report-issue")} className="flex w-full cursor-pointer items-center justify-between rounded-md border border-white/5 bg-[#1d1d1f] px-3 py-2 text-xs text-brand-text transition hover:bg-[#2a2a2c] hover:text-white">
-            <div className="flex items-center gap-2"><Info className="h-4 w-4 text-brand-text-muted" /><span>Discord Community</span></div><span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
+          <button onClick={() => handleSelectPage("report-issue")} className="flex w-full cursor-pointer items-center justify-between rounded-md border border-hairline bg-white px-3 py-2 text-xs text-ink-80 transition hover:bg-parchment hover:text-ink">
+            <div className="flex items-center gap-2"><Info className="h-4 w-4 text-ink-48" /><span>Discord Community</span></div><span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
           </button>
         </div>
       </aside>
 
       <div className="flex max-h-screen min-w-0 flex-1 flex-col overflow-y-auto">
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-white/5 bg-[#161617]/85 px-4 backdrop-blur-md md:px-6">
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-hairline frost px-4 md:px-6">
           <div className="flex items-center gap-3">
-            <button onClick={() => setMobileSidebarOpen(true)} className="rounded border border-white/5 bg-[#1d1d1f] p-1.5 text-brand-text transition hover:text-white lg:hidden" title="Open Navigation"><Menu className="h-5 w-5" /></button>
-            <button onClick={() => handleSelectPage("introduction")} className="flex cursor-pointer items-center gap-2 p-0 text-left lg:hidden"><div className="flex h-6.5 w-6.5 items-center justify-center rounded bg-brand-primary text-xs font-extrabold text-white">F</div><span className="font-display text-sm font-bold text-white">FlowCut</span></button>
-            <button onClick={() => handleSelectPage("introduction")} className="hidden cursor-pointer items-center gap-1 text-xs text-brand-text-muted transition hover:text-sky lg:flex"><BookOpen className="h-3.5 w-3.5" /><span>Documentation Hub</span></button>
+            <button onClick={() => setMobileSidebarOpen(true)} className="rounded border border-hairline bg-white p-1.5 text-ink transition hover:text-action lg:hidden" title="Open Navigation"><Menu className="h-5 w-5" /></button>
+            <button onClick={() => handleSelectPage("introduction")} className="flex cursor-pointer items-center gap-2 p-0 text-left lg:hidden"><div className="flex h-6.5 w-6.5 items-center justify-center rounded bg-action text-xs font-extrabold text-white">F</div><span className="font-display text-sm font-bold text-ink">FlowCut</span></button>
+            <button onClick={() => handleSelectPage("introduction")} className="hidden cursor-pointer items-center gap-1 text-xs text-ink-48 transition hover:text-action lg:flex"><BookOpen className="h-3.5 w-3.5" /><span>Documentation Hub</span></button>
           </div>
           <div className="mx-4 max-w-sm flex-1">
-            <button onClick={() => setSearchOpen(true)} className="flex w-full cursor-pointer items-center justify-between rounded-lg border border-white/10 bg-[#1d1d1f] px-3 py-1.5 text-xs text-brand-text-muted transition hover:border-white/20 hover:text-brand-text">
-              <div className="flex items-center gap-2"><Search className="h-4 w-4 text-brand-text-muted" /><span>Search documentation...</span></div><kbd className="hidden select-none rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-[10px] sm:inline-block">⌘K</kbd>
+            <button onClick={() => setSearchOpen(true)} className="flex w-full cursor-pointer items-center justify-between rounded-full border border-hairline bg-white px-3 py-1.5 text-xs text-ink-48 transition hover:border-ink/30 hover:text-ink">
+              <div className="flex items-center gap-2"><Search className="h-4 w-4 text-ink-48" /><span>Search documentation...</span></div><kbd className="hidden select-none rounded border border-hairline bg-parchment px-1.5 py-0.5 font-mono text-[10px] sm:inline-block">⌘K</kbd>
             </button>
           </div>
           <div className="flex items-center gap-3">
             {purchasedKey && <div className="hidden items-center gap-1.5 rounded border border-green-500/20 bg-green-500/10 px-2.5 py-1 font-mono text-[10px] font-semibold text-green-300 sm:flex"><CheckCircle2 className="h-3.5 w-3.5 text-green-400" /><span>VIP ACTIVE</span></div>}
-            <button onClick={() => handleSelectPage("quickstart")} className="cursor-pointer rounded-md bg-brand-primary px-4 py-2 text-xs font-semibold text-white shadow  transition active:scale-[0.98]">Get Started</button>
+            <button onClick={() => handleSelectPage("quickstart")} className="btn-pill !px-4 !py-2 !text-xs">Get Started</button>
           </div>
         </header>
 
         <div className="mx-auto grid w-full max-w-7xl flex-1 grid-cols-1 items-start gap-8 px-4 py-8 md:px-8 lg:grid-cols-12 lg:py-12">
           <main className="space-y-6 lg:col-span-9">
-            <div className="flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-brand-text-muted">
+            <div className="flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-ink-48">
               {currentPageData.breadcrumbs.map((crumb, idx) => (
                 <Fragment key={crumb}>{idx > 0 && <ChevronRight className="h-3.5 w-3.5" />}<span>{crumb}</span></Fragment>
               ))}
             </div>
             <div className="space-y-4">
-              <h1 className="font-display text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">{currentPageData.title}</h1>
-              <p className="max-w-4xl text-sm leading-relaxed text-brand-text-muted md:text-base">{currentPageData.subtitle}</p>
+              <h1 className="font-display text-3xl font-semibold leading-tight tracking-tight text-ink md:text-4xl">{currentPageData.title}</h1>
+              <p className="max-w-4xl text-sm leading-relaxed text-ink-48 md:text-base">{currentPageData.subtitle}</p>
             </div>
 
             {renderPageSpecificContent()}
@@ -1364,8 +1364,8 @@ export function FlowCutDocumentationPage({
             <div className="space-y-8 py-4">
               {currentPageData.sections.map((sec, idx) => (
                 <div key={sec.anchor} id={sec.anchor} className="scroll-mt-20 space-y-3.5">
-                  <h3 className="group flex items-center gap-2 font-display text-lg font-bold text-white md:text-xl"><span>{sec.heading}</span><a href={`#${sec.anchor}`} className="font-mono text-sm font-normal text-brand-primary-dim opacity-0 transition group-hover:opacity-100">#</a></h3>
-                  <p className="text-xs leading-relaxed text-brand-text-muted md:text-sm">{sec.body}</p>
+                  <h3 className="group flex items-center gap-2 font-display text-lg font-semibold text-ink md:text-xl"><span>{sec.heading}</span><a href={`#${sec.anchor}`} className="font-mono text-sm font-normal text-action opacity-0 transition group-hover:opacity-100">#</a></h3>
+                  <p className="text-xs leading-relaxed text-ink-80 md:text-sm">{sec.body}</p>
                   {sec.code && (
                     <div className="group relative mt-4 overflow-hidden rounded-lg border border-white/10 bg-[#1d1d1f] font-mono text-xs shadow-inner">
                       <div className="flex items-center justify-between border-b border-white/5 px-4 py-2 text-[10px] uppercase text-brand-text-muted"><span>{sec.lang || "code block"} format</span><button onClick={() => handleCopyCode(sec.code!, idx)} className="cursor-pointer font-sans font-bold uppercase transition hover:text-white">{copiedSectionIndex === idx ? <span className="text-green-400">copied!</span> : "Copy clip"}</button></div>
@@ -1376,48 +1376,48 @@ export function FlowCutDocumentationPage({
               ))}
             </div>
 
-            <div className="rounded-xl border border-white/5 bg-[#1d1d1f] p-5">
+            <div className="store-card p-5">
               <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-                <div><h4 className="font-display text-sm font-semibold text-white">Was this page helpful?</h4><p className="mt-1 text-xs text-brand-text-muted">Your feedback helps improve the FlowCut docs.</p></div>
-                <div className="flex gap-2"><button className="cursor-pointer rounded border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white transition hover:bg-white/10">Yes</button><button className="cursor-pointer rounded border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white transition hover:bg-white/10">No</button></div>
+                <div><h4 className="font-display text-sm font-semibold text-ink">Was this page helpful?</h4><p className="mt-1 text-xs text-ink-48">Your feedback helps improve the FlowCut docs.</p></div>
+                <div className="flex gap-2"><button className="cursor-pointer rounded-full border border-hairline bg-white px-4 py-1.5 text-xs text-ink transition hover:bg-parchment">Yes</button><button className="cursor-pointer rounded-full border border-hairline bg-white px-4 py-1.5 text-xs text-ink transition hover:bg-parchment">No</button></div>
               </div>
-              {currentPageData.nextPage && <button onClick={() => handleSelectPage(currentPageData.nextPage!.id)} className="mt-5 flex w-full cursor-pointer items-center justify-between rounded-lg border border-white/10 bg-[#1d1d1f] px-4 py-3 text-left transition hover:border-brand-primary/40"><span className="text-xs text-brand-text-muted">Next: <strong className="text-white">{currentPageData.nextPage.label}</strong></span><ChevronRight className="h-4 w-4 text-brand-primary-dim" /></button>}
+              {currentPageData.nextPage && <button onClick={() => handleSelectPage(currentPageData.nextPage!.id)} className="mt-5 flex w-full cursor-pointer items-center justify-between rounded-[11px] border border-hairline bg-parchment px-4 py-3 text-left transition hover:border-action/40"><span className="text-xs text-ink-48">Next: <strong className="text-ink">{currentPageData.nextPage.label}</strong></span><ChevronRight className="h-4 w-4 text-action" /></button>}
             </div>
           </main>
 
-          <aside className="sticky top-24 hidden select-none space-y-8 self-start border-l border-white/5 pl-4 lg:col-span-3 lg:block">
+          <aside className="sticky top-24 hidden select-none space-y-8 self-start border-l border-hairline pl-4 lg:col-span-3 lg:block">
             <div className="space-y-4">
-              <span className="block font-mono text-[10px] font-bold uppercase tracking-widest text-slate-200">ON THIS PAGE</span>
+              <span className="block font-mono text-[10px] font-bold uppercase tracking-widest text-ink">ON THIS PAGE</span>
               <ul className="block space-y-3">
                 {activePage === "introduction" && (
                   <>
-                    <li><button onClick={() => handleSelectPage("introduction", "how-it-works")} className="cursor-pointer text-left text-xs text-brand-text-muted transition hover:text-white">How it works</button></li>
-                    <li><button onClick={() => handleSelectPage("introduction", "key-features")} className="cursor-pointer text-left text-xs text-brand-text-muted transition hover:text-white">Key Features</button></li>
+                    <li><button onClick={() => handleSelectPage("introduction", "how-it-works")} className="cursor-pointer text-left text-xs text-ink-48 transition hover:text-ink">How it works</button></li>
+                    <li><button onClick={() => handleSelectPage("introduction", "key-features")} className="cursor-pointer text-left text-xs text-ink-48 transition hover:text-ink">Key Features</button></li>
                   </>
                 )}
-                {currentPageData.sections.map((sec) => <li key={sec.anchor}><button onClick={() => handleSelectPage(activePage, sec.anchor)} className="cursor-pointer text-left text-xs capitalize leading-tight text-brand-text-muted transition hover:text-white">{sec.heading.replace(/[0-9]\.\s/, "").toLowerCase()}</button></li>)}
+                {currentPageData.sections.map((sec) => <li key={sec.anchor}><button onClick={() => handleSelectPage(activePage, sec.anchor)} className="cursor-pointer text-left text-xs capitalize leading-tight text-ink-48 transition hover:text-ink">{sec.heading.replace(/[0-9]\.\s/, "").toLowerCase()}</button></li>)}
               </ul>
             </div>
-            <div className="space-y-3 rounded-xl border border-white/5 bg-[#1d1d1f] p-4 shadow-lg">
-              <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase text-brand-secondary"><Info className="h-3.5 w-3.5" /> OFFLINE ENGINE STATUS</div>
-              <p className="text-[11px] leading-relaxed text-brand-text-muted">FlowCut runs localized binaries in high performance blocks. Need a key to test?</p>
-              <button onClick={onCartOpen} className="w-full cursor-pointer rounded border border-white/10 bg-[#1d1d1f] py-1.5 text-[11px] font-semibold text-brand-primary-dim transition hover:border-white/20 hover:text-sky">Acquire Free Sandbox VIP Key</button>
+            <div className="space-y-3 store-card p-4">
+              <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase text-action"><Info className="h-3.5 w-3.5" /> OFFLINE ENGINE STATUS</div>
+              <p className="text-[11px] leading-relaxed text-ink-48">FlowCut runs localized binaries in high performance blocks. Need a key to test?</p>
+              <button onClick={onCartOpen} className="w-full cursor-pointer rounded-full border border-hairline bg-white py-1.5 text-[11px] font-semibold text-action transition hover:bg-parchment">Acquire Free Sandbox VIP Key</button>
             </div>
           </aside>
         </div>
 
-        <footer className="mt-auto flex flex-col items-center justify-between gap-4 border-t border-white/5 bg-[#1d1d1f]/40 px-6 py-8 text-xs sm:flex-row">
-          <div className="text-brand-text-muted"><span className="font-display font-semibold text-white">FlowCut Pro Documentation</span><span className="mt-0.5 block text-[10px]">&copy; 2026 FlowCut Pro SRL. All rights protected.</span></div>
-          <div className="flex gap-4 font-mono text-[10px] text-brand-text-muted"><button onClick={() => onNavigate("extensions")} className="cursor-pointer hover:text-white">PRIVACY</button><button onClick={onOpenFlowCut} className="cursor-pointer hover:text-white">TERMS</button><button onClick={onOpenContact} className="cursor-pointer hover:text-white">SUPPORT</button></div>
+        <footer className="mt-auto flex flex-col items-center justify-between gap-4 border-t border-hairline bg-parchment px-6 py-8 text-xs sm:flex-row">
+          <div className="text-ink-48"><span className="font-display font-semibold text-ink">FlowCut Pro Documentation</span><span className="mt-0.5 block text-[10px]">&copy; 2026 FlowCut Pro SRL. All rights protected.</span></div>
+          <div className="flex gap-4 font-mono text-[10px] text-ink-48"><button onClick={() => onNavigate("extensions")} className="cursor-pointer hover:text-action">PRIVACY</button><button onClick={onOpenFlowCut} className="cursor-pointer hover:text-action">TERMS</button><button onClick={onOpenContact} className="cursor-pointer hover:text-action">SUPPORT</button></div>
         </footer>
       </div>
 
       {searchOpen && (
         <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/70 p-4 pt-24 backdrop-blur-sm" onClick={() => setSearchOpen(false)}>
-          <div className="w-full max-w-xl rounded-xl border border-white/10 bg-[#1d1d1f] shadow-2xl" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center gap-3 border-b border-white/5 p-4"><Search className="h-4 w-4 text-brand-text-muted" /><input autoFocus placeholder="Search documentation..." className="flex-1 bg-transparent text-sm text-white outline-none placeholder:text-brand-text-muted" /></div>
+          <div className="w-full max-w-xl rounded-[18px] border border-hairline bg-canvas shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center gap-3 border-b border-hairline p-4"><Search className="h-4 w-4 text-ink-48" /><input autoFocus placeholder="Search documentation..." className="flex-1 bg-transparent text-sm text-ink outline-none placeholder:text-ink-48" /></div>
             <div className="max-h-[420px] overflow-y-auto p-2">
-              {Object.values(docPages).map((page) => <button key={page.id} onClick={() => { handleSelectPage(page.id); setSearchOpen(false); }} className="block w-full cursor-pointer rounded-lg p-3 text-left transition hover:bg-white/5"><span className="block text-sm font-semibold text-white">{page.title}</span><span className="mt-1 block text-xs text-brand-text-muted">{page.subtitle}</span></button>)}
+              {Object.values(docPages).map((page) => <button key={page.id} onClick={() => { handleSelectPage(page.id); setSearchOpen(false); }} className="block w-full cursor-pointer rounded-lg p-3 text-left transition hover:bg-parchment"><span className="block text-sm font-semibold text-ink">{page.title}</span><span className="mt-1 block text-xs text-ink-48">{page.subtitle}</span></button>)}
             </div>
           </div>
         </div>
