@@ -27,7 +27,7 @@ export default function CartDrawer({
   if (!isOpen) return null;
 
   const subtotal = cart.reduce((sum, item) => sum + item.extension.price * item.quantity, 0);
-  const formatPrice = (amount: number) => amount.toFixed(2);
+  const formatPrice = (amount: number) => `€${amount.toFixed(2)}`;
 
   const handleCheckoutSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -101,7 +101,7 @@ export default function CartDrawer({
             <div className="h-60 flex flex-col items-center justify-center text-center text-brand-text-muted">
               <KeyRound className="h-10 w-10 opacity-40 mb-2" />
               <p className="text-xs font-medium">Your license cart is empty.</p>
-              <p className="text-[10px] max-w-xs mt-1">Navigate to our Extensions Marketplace to verify and download creative single-user seat packages.</p>
+              <p className="text-[10px] max-w-xs mt-1">Navigate to our Extensions Marketplace to verify and download creative individual license packages.</p>
             </div>
           ) : (
             <>
@@ -112,7 +112,7 @@ export default function CartDrawer({
                     <div className="space-y-1">
                       <h4 className="font-sora text-xs font-bold text-white">{item.extension.name}</h4>
                       <p className="font-mono text-[10px] text-brand-text-muted">
-                        ${formatPrice(item.extension.price)} • {item.extension.licenseLabel ?? "Single-Seat License"}
+                        {formatPrice(item.extension.price)} • {item.extension.licenseLabel ?? "Individual License"}
                       </p>
                     </div>
 
@@ -180,7 +180,7 @@ export default function CartDrawer({
                 <div className="bg-[#1d1d1f] rounded border border-brand-border p-3 space-y-2 text-xs font-mono">
                   <div className="flex justify-between text-brand-text-muted">
                     <span>License Subtotal:</span>
-                    <span>${formatPrice(subtotal)}</span>
+                    <span>{formatPrice(subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-brand-text-muted">
                     <span>Cryptographic Encryption:</span>
@@ -188,7 +188,7 @@ export default function CartDrawer({
                   </div>
                   <div className="flex justify-between text-white font-bold border-t border-brand-border/60 pt-2 text-sm">
                     <span>Total Cost:</span>
-                    <span>${formatPrice(subtotal)}</span>
+                    <span>{formatPrice(subtotal)}</span>
                   </div>
                 </div>
 
@@ -203,7 +203,7 @@ export default function CartDrawer({
                     </>
                   ) : (
                     <>
-                      Fulfill Secure Order • ${formatPrice(subtotal)}
+                      Fulfill Secure Order • {formatPrice(subtotal)}
                     </>
                   )}
                 </button>

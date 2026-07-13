@@ -5,7 +5,7 @@ export const EXTENSIONS_DATA: Extension[] = [
     id: "flowcut-pro",
     name: "FlowCut",
     tagline: "FlowCut identifies and cuts out dead air automatically, so you can focus on the story. The fastest way to clean up interviews, podcasts, and vlogs in Final Cut Pro.",
-    price: 14.99,
+    price: 99,
     rating: 4.9,
     reviewsCount: 384,
     version: "2.4.1",

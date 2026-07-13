@@ -89,7 +89,7 @@ const APPS: AppPlan[] = [
     name: "FlowCut",
     category: "Timeline",
     tagline: "Automatically detect and cut dead air, so you can focus on the story. Built for Final Cut Pro.",
-    price: 14.99,
+    price: 99,
     iconEl: <img src="/assets/flowcut-icon.png" alt="FlowCut" className="h-12 w-12 rounded-[11px]" />,
   },
   {
@@ -118,30 +118,34 @@ const APPS: AppPlan[] = [
   },
 ];
 
-const BUNDLE_FULL = 14.99 + 89 + 49; // 152.98
+const HUB_PRO_MONTHLY = 9.99;
+const BUSINESS_HUB_PLANS = [
+  { seats: "5 Seats", monthly: 49.99, yearly: 480 },
+  { seats: "10 Seats", monthly: 45.99, yearly: 550 },
+];
 
 // Per-tab pricing + button behaviour
 function tabConfig(tab: PlanTab) {
   switch (tab) {
     case "business":
       return {
-        subtitle: "Licenses for teams and organizations, with centralized seat management.",
-        priceLabel: (p: number) => `US$${p.toFixed(2)}/seat`,
-        priceNote: "Per seat, billed once",
+        subtitle: "Business subscriptions are available through FrameLabs Hub Pro for 5-seat and 10-seat workspaces.",
+        priceLabel: () => "Hub Pro",
+        priceNote: "Business subscription pricing shown above",
         transform: (p: number) => p,
-        primary: "Buy now",
+        primary: "Subscribe",
         secondary: "Contact sales",
-        bundleSave: 0.5,
+        bundleSave: 0,
       };
     case "students":
       return {
-        subtitle: "Save up to 60% with verified student or teacher status.",
-        priceLabel: (p: number) => `US$${(p * 0.4).toFixed(2)}`,
-        priceNote: "Education price, verification required",
-        transform: (p: number) => p * 0.4,
+        subtitle: "Student licenses receive 50% off every available FrameLabs price.",
+        priceLabel: (p: number) => `€${(p * 0.5).toFixed(2)}`,
+        priceNote: "Student license: 50% off",
+        transform: (p: number) => p * 0.5,
         primary: "Buy now",
         secondary: "Verify eligibility",
-        bundleSave: 0.6,
+        bundleSave: 0,
       };
     case "schools":
       return {
@@ -151,18 +155,18 @@ function tabConfig(tab: PlanTab) {
         transform: (p: number) => p,
         primary: "Request a quote",
         secondary: "",
-        bundleSave: 0.5,
+        bundleSave: 0,
       };
     case "individuals":
     default:
       return {
-        subtitle: "Start with confidence — you can cancel within 14 days for a full refund.",
-        priceLabel: (p: number) => `US$${p.toFixed(2)}`,
-        priceNote: "One-time purchase, lifetime updates",
+        subtitle: "Individual FlowCut license: one-time purchase, 2 Macs, lifetime ownership, and 2 year updates.",
+        priceLabel: (p: number) => `€${p.toFixed(2)}`,
+        priceNote: "Individual license: 2 Macs, lifetime ownership, 2 year updates",
         transform: (p: number) => p,
         primary: "Buy now",
         secondary: "Try now",
-        bundleSave: 0.5,
+        bundleSave: 0,
       };
   }
 }
@@ -182,9 +186,6 @@ export function PlansPage({
   const goHome = () => onNavigate("extensions");
   const visibleApps = APPS.filter((a) => category === "All" || a.category === category);
   const showBundle = category === "All" || category === "Bundles";
-
-  const bundleWas = BUNDLE_FULL;
-  const bundleNow = BUNDLE_FULL * (1 - cfg.bundleSave);
 
   return (
     <div className="flex min-h-screen flex-col bg-canvas font-body text-ink selection:bg-action/20">
@@ -248,32 +249,44 @@ export function PlansPage({
                   <div className="mb-4 flex items-center gap-3">
                     <img src="/assets/framelabs-hub-icon.png" alt="The Frame Labs Hub Pro" className="h-12 w-12 rounded-[11px]" />
                     <span className="rounded-full bg-action/10 px-3 py-1 text-[12px] font-semibold text-action">
-                      Save {Math.round(cfg.bundleSave * 100)}%
+                      Subscription
                     </span>
                   </div>
                   <h2 className="font-sans text-[28px] font-semibold tracking-[-0.374px] text-ink sm:text-[34px]">
-                    The Frame Labs Hub Pro
+                    FrameLabs Hub Pro
                   </h2>
                   <p className="mt-2 max-w-2xl text-[17px] leading-[1.47] tracking-[-0.374px] text-ink-48">
-                    Every FrameLabs extension in one workspace — FlowCut, Precision Tracker 3D, and ChronoGlitch VFX — plus
-                    priority diagnostics, early feature access, and lifetime updates.
+                    {tab === "business"
+                      ? "Business subscriptions for shared FrameLabs Hub Pro workspaces."
+                      : tab === "students"
+                        ? "Student licenses receive 50% off FrameLabs Hub Pro and all available individual pricing."
+                        : "Subscription access through FrameLabs Hub Pro for users who prefer monthly access instead of a one-time FlowCut purchase."}
                   </p>
-                  <div className="mt-5 flex flex-wrap items-baseline gap-2">
-                    {tab === "schools" ? (
-                      <span className="font-sans text-[34px] font-semibold tracking-[-0.28px] text-ink">Custom</span>
-                    ) : (
-                      <>
-                        <span className="text-[17px] text-ink-48 line-through">US${bundleWas.toFixed(2)}</span>
-                        <span className="font-sans text-[34px] font-semibold tracking-[-0.28px] text-ink">US${bundleNow.toFixed(2)}</span>
-                        <span className="text-[14px] text-ink-48">{cfg.priceNote}</span>
-                      </>
-                    )}
-                  </div>
+                  {tab === "business" ? (
+                    <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                      {BUSINESS_HUB_PLANS.map((plan) => (
+                        <div key={plan.seats} className="rounded-[14px] border border-hairline bg-parchment p-4">
+                          <span className="block text-[12px] font-semibold uppercase tracking-wider text-ink-48">{plan.seats}</span>
+                          <span className="mt-1 block font-sans text-[28px] font-semibold tracking-[-0.28px] text-ink">
+                            €{plan.monthly.toFixed(2)}/month
+                          </span>
+                          <span className="mt-1 block text-[13px] text-ink-48">or €{plan.yearly.toFixed(2)}/year</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="mt-5 flex flex-wrap items-baseline gap-2">
+                      <span className="font-sans text-[34px] font-semibold tracking-[-0.28px] text-ink">
+                        €{(tab === "students" ? HUB_PRO_MONTHLY * 0.5 : HUB_PRO_MONTHLY).toFixed(2)}
+                      </span>
+                      <span className="text-[14px] text-ink-48">per month</span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-3 lg:col-span-4 lg:items-end">
                   <button onClick={onCartOpen ?? onOpenFlowCut} className="btn-pill w-full justify-center lg:w-auto lg:px-10">
-                    {tab === "schools" ? "Request a quote" : "Buy now"}
+                    Subscribe
                   </button>
                   <button onClick={onOpenDocumentation} className="btn-pill-ghost w-full justify-center lg:w-auto lg:px-10">
                     Learn more
@@ -362,7 +375,7 @@ export function PlansPage({
               {[
                 ["14-day refund", "Cancel within 14 days for a full refund."],
                 ["Local & private", "Processing runs on your device — no cloud uploads."],
-                ["Lifetime updates", "Every purchase includes free version upgrades."],
+                ["Individual ownership", "FlowCut includes lifetime ownership with 2 year updates."],
               ].map(([t, d]) => (
                 <div key={t} className="flex items-start gap-2">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-action" />

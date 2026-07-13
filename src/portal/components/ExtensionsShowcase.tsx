@@ -49,21 +49,35 @@ const comingSoonExtensions = [
 ];
 
 const licenseTiers = [
-  { id: "single", name: "1 Seat", label: "Single-Seat License", price: 14.99 },
-  { id: "team", name: "5 Seats", label: "5-Seat License", price: 44.97 },
-  { id: "studio", name: "Studio", label: "Studio License", price: 149.90 },
+  {
+    id: "individual",
+    name: "Individual",
+    label: "FlowCut Individual License",
+    price: 99,
+    cadence: "one-time",
+    note: "2 Macs, lifetime ownership, 2 year updates",
+  },
+  {
+    id: "hub-pro",
+    name: "Hub Pro",
+    label: "FrameLabs Hub Pro Subscription",
+    price: 9.99,
+    cadence: "per month",
+    note: "Subscription access through FrameLabs Hub Pro",
+  },
 ] as const;
 
 type LicenseTierId = typeof licenseTiers[number]["id"];
 
 export default function ExtensionsShowcase({ onOpenFlowCut, onAddToCart, onOpenPlans }: ExtensionsShowcaseProps) {
   const flowCut = EXTENSIONS_DATA[0];
-  const [selectedTierId, setSelectedTierId] = useState<LicenseTierId>("single");
+  const [selectedTierId, setSelectedTierId] = useState<LicenseTierId>("individual");
   const [selectedProduct, setSelectedProduct] = useState<Extension | null>(null);
   const selectedTier = licenseTiers.find((tier) => tier.id === selectedTierId) ?? licenseTiers[0];
   const selectedOffer: Extension = {
     ...flowCut,
-    id: `${flowCut.id}-${selectedTier.id}`,
+    id: selectedTier.id === "hub-pro" ? "framelabs-hub-pro-monthly" : `${flowCut.id}-${selectedTier.id}`,
+    name: selectedTier.id === "hub-pro" ? "FrameLabs Hub Pro" : flowCut.name,
     licenseLabel: selectedTier.label,
     price: selectedTier.price,
   };
@@ -179,7 +193,7 @@ export default function ExtensionsShowcase({ onOpenFlowCut, onAddToCart, onOpenP
               </div>
 
               <div className="relative z-10 border-t border-hairline pt-6" onClick={(event) => event.stopPropagation()}>
-                <div className="mb-6 grid grid-cols-3 gap-2">
+                <div className="mb-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {licenseTiers.map((tier) => {
                     const isSelected = tier.id === selectedTierId;
                     return (
@@ -188,7 +202,7 @@ export default function ExtensionsShowcase({ onOpenFlowCut, onAddToCart, onOpenP
                       key={tier.id}
                       onClick={() => setSelectedTierId(tier.id)}
                       aria-pressed={isSelected}
-                      aria-label={`Select ${tier.label} for $${tier.price.toFixed(2)}`}
+                      aria-label={`Select ${tier.label} for €${tier.price.toFixed(2)}`}
                       className={`rounded-[11px] border px-2 py-3 text-center transition ${
                         isSelected
                           ? "border-action bg-action/5 text-ink"
@@ -196,7 +210,8 @@ export default function ExtensionsShowcase({ onOpenFlowCut, onAddToCart, onOpenP
                       }`}
                     >
                       <span className="block text-[11px] font-semibold uppercase">{tier.name}</span>
-                      <span className="mt-1 block text-[15px] font-semibold text-ink">${tier.price.toFixed(2)}</span>
+                      <span className="mt-1 block text-[15px] font-semibold text-ink">€{tier.price.toFixed(2)}</span>
+                      <span className="mt-1 block text-[11px] text-ink-48">{tier.cadence}</span>
                     </button>
                     );
                   })}
@@ -206,9 +221,9 @@ export default function ExtensionsShowcase({ onOpenFlowCut, onAddToCart, onOpenP
                     <span className="block text-[12px] font-semibold uppercase tracking-widest text-ink-48">
                       {selectedTier.label}
                     </span>
-                    <span className="mt-1 block font-sans text-[34px] font-semibold tracking-[-0.374px] text-ink">${selectedTier.price.toFixed(2)}</span>
+                    <span className="mt-1 block font-sans text-[34px] font-semibold tracking-[-0.374px] text-ink">€{selectedTier.price.toFixed(2)}</span>
                     <span className="mt-2 inline-block rounded-full bg-action/10 px-2.5 py-1 text-[11px] font-semibold uppercase text-action">
-                      On sale for a limited time
+                      {selectedTier.note}
                     </span>
                   </div>
                   <div className="flex gap-3">

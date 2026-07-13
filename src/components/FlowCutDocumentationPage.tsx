@@ -1267,11 +1267,11 @@ export function FlowCutDocumentationPage({
       return (
         <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2">
           {[
-            ["Creator Indie License", "$14.99", "Ideal for independent videographers, YouTubers, and podcast editors.", ["Full standalone companion desktop app", "ProRes workflow support", "Uncapped exports", "Final Cut Pro XML export", "Perpetual offline license support"]],
-            ["Studio Production License", "$149.90", "Tailored for production teams and multi-user editorial workspaces.", ["Everything included inside Creator", "Multi-seat workspace licensing", "Priority diagnostics support", "Team account management", "Future studio feature access"]],
+            ["FlowCut Individual License", "€99", "One-time purchase for individual Final Cut Pro editors.", ["2 Macs", "Lifetime ownership", "2 year updates", "Full standalone companion desktop app", "Final Cut Pro XML export"]],
+            ["FrameLabs Hub Pro", "€9.99/month", "Subscription access through FrameLabs Hub Pro.", ["Monthly billing", "FrameLabs Hub Pro access", "Account-based workspace access", "Cancel when needed", "Future hub feature access"]],
           ].map(([plan, price, desc, checks]) => (
             <div key={String(plan)} className="store-card flex flex-col justify-between space-y-6 p-6">
-              <div className="space-y-4"><h4 className="font-display text-lg font-semibold text-ink">{plan}</h4><div className="flex items-baseline gap-1 rounded-[11px] border border-hairline bg-parchment p-4"><span className="font-display text-3xl font-extrabold text-ink">{price}</span><span className="font-mono text-xs text-ink-48">PERPETUAL ONE-TIME PAYMENT</span></div><p className="text-xs leading-relaxed text-ink-48">{desc}</p><div className="space-y-2.5 border-t border-hairline pt-4">{(checks as string[]).map((chk) => <div key={chk} className="flex items-start gap-2.5 text-xs text-ink-80"><span className="shrink-0 font-bold text-emerald-600">✓</span><span>{chk}</span></div>)}</div></div>
+              <div className="space-y-4"><h4 className="font-display text-lg font-semibold text-ink">{plan}</h4><div className="flex items-baseline gap-1 rounded-[11px] border border-hairline bg-parchment p-4"><span className="font-display text-3xl font-extrabold text-ink">{price}</span><span className="font-mono text-xs text-ink-48">{String(plan).includes("Hub") ? "MONTHLY SUBSCRIPTION" : "ONE-TIME PURCHASE"}</span></div><p className="text-xs leading-relaxed text-ink-48">{desc}</p><div className="space-y-2.5 border-t border-hairline pt-4">{(checks as string[]).map((chk) => <div key={chk} className="flex items-start gap-2.5 text-xs text-ink-80"><span className="shrink-0 font-bold text-emerald-600">✓</span><span>{chk}</span></div>)}</div></div>
               <button onClick={onCartOpen} className="btn-pill w-full !text-xs">Initiate Secure Purchase</button>
             </div>
           ))}
