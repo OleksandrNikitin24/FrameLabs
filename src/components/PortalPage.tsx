@@ -11,9 +11,10 @@ interface PortalPageProps {
   onOpenFlowCut: () => void;
   onOpenContact: () => void;
   onOpenAccount: () => void;
+  onOpenPlans?: () => void;
 }
 
-export function PortalPage({ page, onNavigate, onOpenFlowCut, onOpenContact, onOpenAccount }: PortalPageProps) {
+export function PortalPage({ page, onNavigate, onOpenFlowCut, onOpenContact, onOpenAccount, onOpenPlans }: PortalPageProps) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
 
@@ -49,9 +50,10 @@ export function PortalPage({ page, onNavigate, onOpenFlowCut, onOpenContact, onO
         cart={cart}
         setCartOpen={setCartOpen}
         onOpenAccount={onOpenAccount}
+        onOpenPlans={onOpenPlans}
       />
       <main className="flex-1">
-        <ExtensionsShowcase onOpenFlowCut={onOpenFlowCut} onAddToCart={addToCart} />
+        <ExtensionsShowcase onOpenFlowCut={onOpenFlowCut} onAddToCart={addToCart} onOpenPlans={onOpenPlans} />
       </main>
       <PortalFooter onNavigate={onNavigate} onOpenFlowCut={onOpenFlowCut} onOpenContact={onOpenContact} />
 

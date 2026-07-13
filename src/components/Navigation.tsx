@@ -6,9 +6,10 @@ interface NavigationProps {
   onCartOpen: () => void;
   onOpenAccount: () => void;
   onOpenDocumentation: () => void;
+  onOpenPlans?: () => void;
 }
 
-export function Navigation({ onHome, onCartOpen, onOpenAccount, onOpenDocumentation }: NavigationProps) {
+export function Navigation({ onHome, onCartOpen, onOpenAccount, onOpenDocumentation, onOpenPlans }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const scrollToSection = (id: string) => {
@@ -65,6 +66,17 @@ export function Navigation({ onHome, onCartOpen, onOpenAccount, onOpenDocumentat
             >
               Documentation
             </button>
+            {onOpenPlans && (
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  onOpenPlans();
+                }}
+                className="cursor-pointer text-[12px] tracking-[-0.12px] text-white/80 transition hover:text-white"
+              >
+                Plans
+              </button>
+            )}
           </div>
 
           <div className="flex items-center gap-5">

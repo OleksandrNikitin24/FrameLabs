@@ -7,3 +7,7 @@ coverage/
 .env*
 !.env.example
 supabase/.temp/
+
+# graphify output
+graphify-out/
+**/graphify-out/

@@ -7,6 +7,7 @@ import { Pricing } from "./components/Pricing";
 import { PortalFooter } from "./components/PortalFooter";
 import { PortalPage } from "./components/PortalPage";
 import { FlowCutDocumentationPage } from "./components/FlowCutDocumentationPage";
+import { PlansPage } from "./components/PlansPage";
 import CartDrawer from "./portal/components/CartDrawer";
 import { AppTab } from "./portal/types";
 import { Sparkles, Tv, Box, Orbit, Compass } from "lucide-react";
@@ -98,6 +99,11 @@ export default function App() {
     window.scrollTo({ top: 0 });
   };
 
+  const handleOpenPlans = () => {
+    window.location.hash = "/plans";
+    window.scrollTo({ top: 0 });
+  };
+
   if (route === "#/login") {
     return (
       <Suspense fallback={<div className="min-h-screen bg-brand-bg" />}>
@@ -139,6 +145,18 @@ export default function App() {
     );
   }
 
+  if (route === "#/plans") {
+    return (
+      <PlansPage
+        onNavigate={handlePortalNavigation}
+        onOpenFlowCut={handleOpenFlowCut}
+        onOpenContact={handleContactClick}
+        onOpenAccount={handleOpenAccount}
+        onOpenDocumentation={handleOpenDocumentation}
+      />
+    );
+  }
+
   if (route !== "#/flowcut") {
     return (
       <PortalPage
@@ -147,6 +165,7 @@ export default function App() {
         onOpenFlowCut={handleOpenFlowCut}
         onOpenContact={handleContactClick}
         onOpenAccount={handleOpenAccount}
+        onOpenPlans={handleOpenPlans}
       />
     );
   }
@@ -159,6 +178,7 @@ export default function App() {
         onCartOpen={() => setFlowcutCartOpen(true)}
         onOpenAccount={handleOpenAccount}
         onOpenDocumentation={handleOpenDocumentation}
+        onOpenPlans={handleOpenPlans}
       />
 
       {/* 2. Hero Presentation Track */}

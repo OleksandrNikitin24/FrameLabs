@@ -15,6 +15,7 @@ import { Extension } from "../types";
 interface ExtensionsShowcaseProps {
   onOpenFlowCut: () => void;
   onAddToCart: (extension: Extension) => void;
+  onOpenPlans?: () => void;
 }
 
 const comingSoonExtensions = [
@@ -55,7 +56,7 @@ const licenseTiers = [
 
 type LicenseTierId = typeof licenseTiers[number]["id"];
 
-export default function ExtensionsShowcase({ onOpenFlowCut, onAddToCart }: ExtensionsShowcaseProps) {
+export default function ExtensionsShowcase({ onOpenFlowCut, onAddToCart, onOpenPlans }: ExtensionsShowcaseProps) {
   const flowCut = EXTENSIONS_DATA[0];
   const [selectedTierId, setSelectedTierId] = useState<LicenseTierId>("single");
   const [selectedProduct, setSelectedProduct] = useState<Extension | null>(null);
@@ -91,6 +92,12 @@ export default function ExtensionsShowcase({ onOpenFlowCut, onAddToCart }: Exten
           <p className="max-w-lg text-[19px] leading-[1.4] tracking-[-0.011em] text-ink-48">
             High-performance extensions designed to save you time, automate repetitive tasks, and keep your creative flow fast and uninterrupted.
           </p>
+          {onOpenPlans && (
+            <div className="flex flex-wrap gap-3 pt-1">
+              <button onClick={onOpenPlans} className="btn-pill">View Plans</button>
+              <button onClick={onOpenFlowCut} className="btn-pill-ghost">Explore FlowCut</button>
+            </div>
+          )}
           <div className="grid max-w-lg gap-5 pt-2 sm:grid-cols-3">
             {[
               { icon: Zap, title: "Built for Speed", copy: "Zero-latency native performance." },

@@ -7,6 +7,7 @@ interface HeaderProps {
   cart: CartItem[];
   setCartOpen: (open: boolean) => void;
   onOpenAccount: () => void;
+  onOpenPlans?: () => void;
 }
 
 export default function Header({
@@ -14,7 +15,8 @@ export default function Header({
   setActiveTab,
   cart,
   setCartOpen,
-  onOpenAccount
+  onOpenAccount,
+  onOpenPlans
 }: HeaderProps) {
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -75,6 +77,14 @@ export default function Header({
             >
               Extensions
             </button>
+            {onOpenPlans && (
+              <button
+                onClick={onOpenPlans}
+                className="text-[14px] tracking-[-0.224px] text-ink/70 transition hover:text-ink"
+              >
+                Plans
+              </button>
+            )}
           </nav>
         </div>
       </div>
