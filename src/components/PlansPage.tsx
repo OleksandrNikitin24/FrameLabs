@@ -1,14 +1,55 @@
 import { useState, type ReactNode } from "react";
 import {
-  Boxes,
   Check,
   Lock,
-  ScissorsLineDashed,
   Crosshair,
   Sparkles,
   ShoppingCart,
   User,
 } from "lucide-react";
+
+// Brand icons (vector recreations of the FrameLabs app icons)
+function HubIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 48 48" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect width="48" height="48" rx="11" fill="#0d0d0d" />
+      <g fill="none" stroke="#f4f1ea" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M11 18 V11 H18" />
+        <path d="M30 11 H37 V18" />
+        <path d="M11 30 V37 H18" />
+        <path d="M30 37 H37 V30" />
+      </g>
+      <rect x="20.5" y="16.5" width="3" height="15" rx="1" fill="#f4f1ea" />
+      <rect x="20.5" y="16.5" width="9.5" height="3" rx="1" fill="#f4f1ea" />
+      <rect x="20.5" y="22.7" width="7.5" height="3" rx="1" fill="#e8502a" />
+    </svg>
+  );
+}
+
+function FlowCutIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 48 48" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="fc-bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#14141f" />
+          <stop offset="1" stopColor="#09090f" />
+        </linearGradient>
+        <linearGradient id="fc-neon" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#39c6ff" />
+          <stop offset="1" stopColor="#c86bff" />
+        </linearGradient>
+      </defs>
+      <rect width="48" height="48" rx="11" fill="url(#fc-bg)" />
+      <rect x="0.7" y="0.7" width="46.6" height="46.6" rx="10.3" fill="none" stroke="url(#fc-neon)" strokeOpacity="0.55" strokeWidth="1.2" />
+      <circle cx="24" cy="21" r="8.4" fill="none" stroke="url(#fc-neon)" strokeWidth="2" />
+      <path d="M20 17.4 L24 21 L20 24.6 Z" fill="#7fd8ff" />
+      <path d="M24 17.4 L28 21 L24 24.6 Z" fill="#c9a3ff" />
+      <path d="M8 37 L11 33 L13 40 L15 34 L17 37" fill="none" stroke="#39c6ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M17 37 L31 37" stroke="#5a5a6e" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M31 37 L33 34 L35 40 L37 33 L40 37" fill="none" stroke="#c86bff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 import { AppTab } from "../portal/types";
 import { PortalFooter } from "./PortalFooter";
 
@@ -39,8 +80,7 @@ interface AppPlan {
   category: Category;
   tagline: string;
   price: number;
-  icon: ReactNode;
-  iconBg: string;
+  iconEl: ReactNode;
 }
 
 const APPS: AppPlan[] = [
@@ -50,8 +90,7 @@ const APPS: AppPlan[] = [
     category: "Timeline",
     tagline: "Automatically detect and cut dead air, so you can focus on the story. Built for Final Cut Pro.",
     price: 14.99,
-    icon: <ScissorsLineDashed className="h-6 w-6 text-white" />,
-    iconBg: "bg-action",
+    iconEl: <img src="/assets/flowcut-icon.png" alt="FlowCut" className="h-12 w-12 rounded-[11px]" />,
   },
   {
     id: "precision-tracker",
@@ -59,8 +98,11 @@ const APPS: AppPlan[] = [
     category: "Tracking",
     tagline: "Sub-pixel geometric solver with camera lens nodal-point matching for After Effects and DaVinci Resolve.",
     price: 89,
-    icon: <Crosshair className="h-6 w-6 text-white" />,
-    iconBg: "bg-[#1d1d1f]",
+    iconEl: (
+      <div className="flex h-12 w-12 items-center justify-center rounded-[11px] bg-[#1d1d1f]">
+        <Crosshair className="h-6 w-6 text-white" />
+      </div>
+    ),
   },
   {
     id: "chrono-glitch",
@@ -68,8 +110,11 @@ const APPS: AppPlan[] = [
     category: "VFX",
     tagline: "Ultra-precise analog tape-noise synthesizer and signal-decay simulator across every major NLE.",
     price: 49,
-    icon: <Sparkles className="h-6 w-6 text-white" />,
-    iconBg: "bg-[#6e6e73]",
+    iconEl: (
+      <div className="flex h-12 w-12 items-center justify-center rounded-[11px] bg-[#6e6e73]">
+        <Sparkles className="h-6 w-6 text-white" />
+      </div>
+    ),
   },
 ];
 
@@ -201,9 +246,7 @@ export function PlansPage({
               <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-12 lg:items-center">
                 <div className="lg:col-span-8">
                   <div className="mb-4 flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-[11px] bg-action">
-                      <Boxes className="h-6 w-6 text-white" />
-                    </div>
+                    <img src="/assets/framelabs-hub-icon.png" alt="The Frame Labs Hub Pro" className="h-12 w-12 rounded-[11px]" />
                     <span className="rounded-full bg-action/10 px-3 py-1 text-[12px] font-semibold text-action">
                       Save {Math.round(cfg.bundleSave * 100)}%
                     </span>
@@ -274,9 +317,7 @@ export function PlansPage({
                 const displayPrice = cfg.priceLabel(app.price);
                 return (
                   <article key={app.id} className="store-card flex flex-col p-6">
-                    <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-[11px] ${app.iconBg}`}>
-                      {app.icon}
-                    </div>
+                    <div className="mb-4">{app.iconEl}</div>
                     <h3 className="font-sans text-[19px] font-semibold tracking-[-0.374px] text-ink">{app.name}</h3>
                     <div className="mt-2 flex items-baseline gap-1.5">
                       <span className="font-sans text-[24px] font-semibold tracking-[-0.28px] text-ink">{displayPrice}</span>
