@@ -33,6 +33,7 @@ import {
   Wrench,
   X,
 } from "lucide-react";
+import { startFrameLabsHubDownload } from "../lib/downloads";
 import { AppTab } from "../portal/types";
 import CartDrawer from "../portal/components/CartDrawer";
 
@@ -674,6 +675,7 @@ function QuickstartFlow({ purchasedKey }: { purchasedKey: string }) {
   const [terminalCopied, setTerminalCopied] = useState(false);
 
   const handleDownload = () => {
+    startFrameLabsHubDownload();
     setIsDownloading(true);
     setDownloadProgress(0);
     setDownloadComplete(false);

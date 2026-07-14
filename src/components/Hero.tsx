@@ -1,5 +1,6 @@
 import { Download, PlayCircle } from "lucide-react";
 import { WaveformSimulator } from "./WaveformSimulator";
+import { startFrameLabsHubDownload } from "../lib/downloads";
 
 interface HeroProps {
   onLearnMoreClick: () => void;
@@ -29,10 +30,7 @@ export function Hero({ onLearnMoreClick }: HeroProps) {
       {/* CTAs */}
       <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
         <button
-          onClick={() => {
-            const el = document.getElementById("pricing-tier");
-            if (el) el.scrollIntoView({ behavior: "smooth" });
-          }}
+          onClick={startFrameLabsHubDownload}
           className="btn-pill w-full sm:w-auto"
         >
           <Download className="h-4 w-4" /> Download free trial
