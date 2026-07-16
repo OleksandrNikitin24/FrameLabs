@@ -3,6 +3,7 @@ import { Navigation } from "./components/Navigation";
 import { Hero } from "./components/Hero";
 import { FeatureCards } from "./components/FeatureCards";
 import { InteractiveShowcase } from "./components/InteractiveShowcase";
+import { FlowCutFeatures } from "./components/FlowCutFeatures";
 import { Pricing } from "./components/Pricing";
 import { PortalFooter } from "./components/PortalFooter";
 import { PortalPage } from "./components/PortalPage";
@@ -189,6 +190,9 @@ export default function App() {
 
       {/* 4. Large Interactive Showcase Columns */}
       <InteractiveShowcase />
+
+      {/* 4b. Core feature list */}
+      <FlowCutFeatures />
 
       {/* 5. Logo Wall / Proof Segment */}
       <section className="bg-parchment px-6 py-16 sm:px-8">
