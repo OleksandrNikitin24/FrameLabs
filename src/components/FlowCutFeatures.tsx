@@ -7,10 +7,9 @@ import {
   Video,
   SlidersHorizontal,
   ListChecks,
+  Lock,
   ShieldCheck,
-  Download,
 } from "lucide-react";
-import { startFrameLabsHubDownload } from "../lib/downloads";
 
 const FEATURES = [
   {
@@ -53,6 +52,11 @@ const FEATURES = [
     title: "Non-destructive by default",
     body: "Nothing is cut until you approve it. Preview every flagged silence, take, and filler, then remove, leave gaps, blade, or just tag — your original timeline stays intact.",
   },
+  {
+    icon: Lock,
+    title: "Private by design",
+    body: "The local workflow runs entirely on your Mac. Your media doesn't need to be uploaded to the cloud for silence removal, transcription, or review.",
+  },
 ];
 
 const TRUST = [
@@ -90,22 +94,6 @@ export function FlowCutFeatures() {
               </div>
             );
           })}
-
-          {/* Call-to-action card fills the grid */}
-          <div className="flex flex-col justify-between rounded-[18px] bg-action p-6 text-left text-white">
-            <div>
-              <h3 className="font-sans text-[21px] font-semibold tracking-[-0.374px]">Ready to try FlowCut?</h3>
-              <p className="mt-2 text-[15px] leading-[1.5] text-white/85">
-                Download the free trial, run it on a real Final Cut Pro project, and activate a license when you're ready.
-              </p>
-            </div>
-            <button
-              onClick={startFrameLabsHubDownload}
-              className="mt-6 inline-flex items-center justify-center gap-2 self-start rounded-full bg-white px-5 py-2.5 text-[15px] font-medium text-action transition active:scale-95"
-            >
-              <Download className="h-4 w-4" /> Download free trial
-            </button>
-          </div>
         </div>
 
         {/* Trust row */}
