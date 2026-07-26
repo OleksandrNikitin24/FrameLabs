@@ -122,6 +122,7 @@ export function AccountPage({
   const [productsBusy, setProductsBusy] = useState(false);
   const [productsLoading, setProductsLoading] = useState(false);
   const [deactivatingDeviceId, setDeactivatingDeviceId] = useState<string | null>(null);
+  const [generatedTrialKey, setGeneratedTrialKey] = useState("");
 
   const callFlowCutFunction = useCallback(async (path: string, body: Record<string, unknown> = {}) => {
     if (!supabase) throw new Error("Supabase is not configured.");
@@ -216,9 +217,13 @@ export function AccountPage({
     setProductsBusy(true);
     setProductsMessage("");
     setProductsMessageTone("info");
+    setGeneratedTrialKey("");
     try {
       const result = await callFlowCutFunction("/v1/licenses/start-trial");
       setProductsMessage(typeof result.message === "string" ? result.message : "Your FlowCut trial key was sent to your email.");
+      if (typeof result.licenseKey === "string") {
+        setGeneratedTrialKey(result.licenseKey);
+      }
       await loadProducts();
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Could not start the FlowCut trial.";
@@ -485,6 +490,7 @@ export function AccountPage({
               loading={productsLoading}
               message={productsMessage}
               messageTone={productsMessageTone}
+              generatedTrialKey={generatedTrialKey}
               onStartTrial={startFlowCutTrial}
               onDeactivateDevice={deactivateFlowCutDevice}
               onRefresh={loadProducts}
@@ -634,6 +640,7 @@ interface ProductsSectionProps {
   loading: boolean;
   message: string;
   messageTone: ProductsMessageTone;
+  generatedTrialKey: string;
   onStartTrial: () => void;
   onDeactivateDevice: (activationId: string) => void;
   onRefresh: () => void;
@@ -647,6 +654,7 @@ function ProductsSection({
   loading,
   message,
   messageTone,
+  generatedTrialKey,
   onStartTrial,
   onDeactivateDevice,
   onRefresh,
@@ -691,6 +699,25 @@ function ProductsSection({
         <p role="status" className={`rounded-md border p-4 text-sm ${messageClassName}`}>
           {message}
         </p>
+      )}
+
+      {generatedTrialKey && (
+        <div className="rounded-lg border border-brand-primary/50 bg-brand-primary/10 p-5">
+          <p className="text-xs font-semibold uppercase text-brand-text-muted">Your trial key</p>
+          <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <code className="min-w-0 flex-1 break-all rounded-md border border-brand-border-high bg-brand-bg px-4 py-3 font-mono text-sm font-bold text-white">
+              {generatedTrialKey}
+            </code>
+            <button
+              type="button"
+              onClick={() => void navigator.clipboard.writeText(generatedTrialKey)}
+              className="rounded-md bg-brand-primary px-4 py-3 text-sm font-bold text-white transition hover:bg-brand-purple-hover"
+            >
+              Copy key
+            </button>
+          </div>
+          <p className="mt-3 text-sm text-brand-text-muted">Copy this key now. For security, it will not be shown again after you leave this page.</p>
+        </div>
       )}
 
       <div className="rounded-lg border border-brand-border bg-brand-surface-card p-6">
