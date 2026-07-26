@@ -18,6 +18,7 @@ import { AppTab } from "../portal/types";
 import { PortalFooter } from "./PortalFooter";
 
 type AccountSection = "account" | "products" | "subscriptions" | "invoices";
+type ProductsMessageTone = "info" | "error";
 
 interface AccountPageProps {
   onNavigate: (page: AppTab) => void;
@@ -117,6 +118,7 @@ export function AccountPage({
   const [busy, setBusy] = useState(false);
   const [flowCutSummary, setFlowCutSummary] = useState<FlowCutAccountSummary | null>(null);
   const [productsMessage, setProductsMessage] = useState("");
+  const [productsMessageTone, setProductsMessageTone] = useState<ProductsMessageTone>("info");
   const [productsBusy, setProductsBusy] = useState(false);
   const [productsLoading, setProductsLoading] = useState(false);
   const [deactivatingDeviceId, setDeactivatingDeviceId] = useState<string | null>(null);
@@ -146,10 +148,12 @@ export function AccountPage({
     if (!supabase) return;
     setProductsLoading(true);
     setProductsMessage("");
+    setProductsMessageTone("info");
     try {
       const summary = await callFlowCutFunction("/v1/account/summary") as FlowCutAccountSummary;
       setFlowCutSummary(summary);
     } catch (error) {
+      setProductsMessageTone("error");
       setProductsMessage(error instanceof Error ? error.message : "Could not load FlowCut products.");
     } finally {
       setProductsLoading(false);
@@ -211,12 +215,21 @@ export function AccountPage({
   const startFlowCutTrial = async () => {
     setProductsBusy(true);
     setProductsMessage("");
+    setProductsMessageTone("info");
     try {
       const result = await callFlowCutFunction("/v1/licenses/start-trial");
       setProductsMessage(typeof result.message === "string" ? result.message : "Your FlowCut trial key was sent to your email.");
       await loadProducts();
     } catch (error) {
-      setProductsMessage(error instanceof Error ? error.message : "Could not start the FlowCut trial.");
+      const errorMessage = error instanceof Error ? error.message : "Could not start the FlowCut trial.";
+      if (/trial email|send.*email|email.*send/i.test(errorMessage)) {
+        await loadProducts();
+        setProductsMessageTone("info");
+        setProductsMessage("Your trial request was received, but the email could not be sent. Refresh this page to check your key, or contact support if it does not appear.");
+      } else {
+        setProductsMessageTone("error");
+        setProductsMessage(errorMessage);
+      }
     } finally {
       setProductsBusy(false);
     }
@@ -225,11 +238,13 @@ export function AccountPage({
   const deactivateFlowCutDevice = async (activationId: string) => {
     setDeactivatingDeviceId(activationId);
     setProductsMessage("");
+    setProductsMessageTone("info");
     try {
       await callFlowCutFunction("/v1/account/deactivate-device", { activationId });
       setProductsMessage("That Mac was deactivated. You can activate another Mac while the license is valid.");
       await loadProducts();
     } catch (error) {
+      setProductsMessageTone("error");
       setProductsMessage(error instanceof Error ? error.message : "Could not deactivate this Mac.");
     } finally {
       setDeactivatingDeviceId(null);
@@ -469,6 +484,7 @@ export function AccountPage({
               busy={productsBusy}
               loading={productsLoading}
               message={productsMessage}
+              messageTone={productsMessageTone}
               onStartTrial={startFlowCutTrial}
               onDeactivateDevice={deactivateFlowCutDevice}
               onRefresh={loadProducts}
@@ -617,6 +633,7 @@ interface ProductsSectionProps {
   busy: boolean;
   loading: boolean;
   message: string;
+  messageTone: ProductsMessageTone;
   onStartTrial: () => void;
   onDeactivateDevice: (activationId: string) => void;
   onRefresh: () => void;
@@ -629,6 +646,7 @@ function ProductsSection({
   busy,
   loading,
   message,
+  messageTone,
   onStartTrial,
   onDeactivateDevice,
   onRefresh,
@@ -647,6 +665,9 @@ function ProductsSection({
       : "No expiry";
   const activatedCount = devices.length;
   const activationLimit = license?.activation_limit ?? 2;
+  const messageClassName = messageTone === "error"
+    ? "border-red-500/40 bg-red-500/10 text-red-100"
+    : "border-brand-border-high bg-brand-primary/10 text-brand-text";
 
   return (
     <div className="space-y-6">
@@ -667,7 +688,7 @@ function ProductsSection({
       </div>
 
       {message && (
-        <p role="status" className="rounded-md border border-brand-border-high bg-brand-primary/10 p-4 text-sm text-brand-text">
+        <p role="status" className={`rounded-md border p-4 text-sm ${messageClassName}`}>
           {message}
         </p>
       )}
@@ -676,7 +697,11 @@ function ProductsSection({
         <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
           <div className="min-w-0">
             <div className="flex items-center gap-4">
-              <div className="grid h-13 w-13 place-items-center rounded-xl bg-brand-primary font-sora text-lg font-bold text-white">FCu</div>
+              <img
+                src="/assets/flowcut-icon.png"
+                alt="FlowCut logo"
+                className="h-13 w-13 shrink-0 rounded-xl object-cover"
+              />
               <div>
                 <h2 className="font-sora text-xl font-bold text-white">FlowCut</h2>
                 <p className="text-sm text-brand-text-muted">Silence and filler-word removal for Final Cut Pro.</p>
