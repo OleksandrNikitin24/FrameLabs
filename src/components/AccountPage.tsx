@@ -8,11 +8,12 @@ import {
   KeyRound,
   LogOut,
   Package,
+  RefreshCw,
   ShieldCheck,
   UserRound,
   Video,
 } from "lucide-react";
-import { supabase } from "../lib/supabase";
+import { supabase, supabaseUrl } from "../lib/supabase";
 import { AppTab } from "../portal/types";
 import { PortalFooter } from "./PortalFooter";
 
@@ -39,6 +40,30 @@ interface Enrollment {
   factorId: string;
   qrCode: string;
   secret: string;
+}
+
+interface FlowCutLicenseSummary {
+  id: string;
+  status: string;
+  expires_at: string | null;
+  activation_limit: number;
+  key_prefix: string | null;
+  source: string;
+}
+
+interface FlowCutDevice {
+  id: string;
+  machine_name: string | null;
+  app_version: string | null;
+  activated_at: string | null;
+  last_seen_at: string | null;
+}
+
+interface FlowCutAccountSummary {
+  email: string | null;
+  license: FlowCutLicenseSummary | null;
+  licenses?: FlowCutLicenseSummary[];
+  devices: FlowCutDevice[];
 }
 
 const emptyProfile: ProfileForm = {
@@ -74,7 +99,11 @@ export function AccountPage({
   onOpenContact,
   onRequireSignIn,
 }: AccountPageProps) {
-  const [section, setSection] = useState<AccountSection>("account");
+  const [section, setSection] = useState<AccountSection>(() =>
+    window.location.hash.includes("section=products") || window.location.hash.includes("product=flowcut")
+      ? "products"
+      : "account",
+  );
   const [user, setUser] = useState<User | null>(null);
   const [checkingSession, setCheckingSession] = useState(true);
   const [profile, setProfile] = useState<ProfileForm>(emptyProfile);
@@ -86,6 +115,46 @@ export function AccountPage({
   const [enrollment, setEnrollment] = useState<Enrollment | null>(null);
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
+  const [flowCutSummary, setFlowCutSummary] = useState<FlowCutAccountSummary | null>(null);
+  const [productsMessage, setProductsMessage] = useState("");
+  const [productsBusy, setProductsBusy] = useState(false);
+  const [productsLoading, setProductsLoading] = useState(false);
+  const [deactivatingDeviceId, setDeactivatingDeviceId] = useState<string | null>(null);
+
+  const callFlowCutFunction = useCallback(async (path: string, body: Record<string, unknown> = {}) => {
+    if (!supabase) throw new Error("Supabase is not configured.");
+    const { data } = await supabase.auth.getSession();
+    const token = data.session?.access_token;
+    if (!token) throw new Error("Please sign in again.");
+
+    const response = await fetch(`${supabaseUrl}/functions/v1/flowcut-license${path}`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(typeof payload.message === "string" ? payload.message : "FlowCut licensing request failed.");
+    }
+    return payload;
+  }, []);
+
+  const loadProducts = useCallback(async () => {
+    if (!supabase) return;
+    setProductsLoading(true);
+    setProductsMessage("");
+    try {
+      const summary = await callFlowCutFunction("/v1/account/summary") as FlowCutAccountSummary;
+      setFlowCutSummary(summary);
+    } catch (error) {
+      setProductsMessage(error instanceof Error ? error.message : "Could not load FlowCut products.");
+    } finally {
+      setProductsLoading(false);
+    }
+  }, [callFlowCutFunction]);
 
   const loadSecurity = useCallback(async () => {
     if (!supabase) return;
@@ -118,7 +187,7 @@ export function AccountPage({
       setUser(data.session.user);
       setProfile(profileFromUser(data.session.user));
       setEmail(data.session.user.email ?? "");
-      await loadSecurity();
+      await Promise.all([loadSecurity(), loadProducts()]);
       if (mounted) setCheckingSession(false);
     });
 
@@ -127,6 +196,9 @@ export function AccountPage({
         onRequireSignIn();
       } else {
         setUser(session.user);
+        setProfile(profileFromUser(session.user));
+        setEmail(session.user.email ?? "");
+        void loadProducts();
       }
     });
 
@@ -134,7 +206,35 @@ export function AccountPage({
       mounted = false;
       data.subscription.unsubscribe();
     };
-  }, [loadSecurity, onRequireSignIn]);
+  }, [loadProducts, loadSecurity, onRequireSignIn]);
+
+  const startFlowCutTrial = async () => {
+    setProductsBusy(true);
+    setProductsMessage("");
+    try {
+      const result = await callFlowCutFunction("/v1/licenses/start-trial");
+      setProductsMessage(typeof result.message === "string" ? result.message : "Your FlowCut trial key was sent to your email.");
+      await loadProducts();
+    } catch (error) {
+      setProductsMessage(error instanceof Error ? error.message : "Could not start the FlowCut trial.");
+    } finally {
+      setProductsBusy(false);
+    }
+  };
+
+  const deactivateFlowCutDevice = async (activationId: string) => {
+    setDeactivatingDeviceId(activationId);
+    setProductsMessage("");
+    try {
+      await callFlowCutFunction("/v1/account/deactivate-device", { activationId });
+      setProductsMessage("That Mac was deactivated. You can activate another Mac while the license is valid.");
+      await loadProducts();
+    } catch (error) {
+      setProductsMessage(error instanceof Error ? error.message : "Could not deactivate this Mac.");
+    } finally {
+      setDeactivatingDeviceId(null);
+    }
+  };
 
   const savePersonalData = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -363,7 +463,19 @@ export function AccountPage({
               onDisableMfa={disableMfa}
             />
           )}
-          {section === "products" && <EmptySection title="My products" text="Products you download or purchase will appear here." icon={Package} />}
+          {section === "products" && (
+            <ProductsSection
+              summary={flowCutSummary}
+              busy={productsBusy}
+              loading={productsLoading}
+              message={productsMessage}
+              onStartTrial={startFlowCutTrial}
+              onDeactivateDevice={deactivateFlowCutDevice}
+              onRefresh={loadProducts}
+              onOpenFlowCut={onOpenFlowCut}
+              deactivatingDeviceId={deactivatingDeviceId}
+            />
+          )}
           {section === "subscriptions" && <EmptySection title="My subscriptions" text="Active subscriptions will appear here." icon={Video} />}
           {section === "invoices" && <EmptySection title="Invoices" text="Invoices for completed purchases will appear here." icon={FileText} />}
         </section>
@@ -496,6 +608,154 @@ function AccountDetails(props: AccountDetailsProps) {
           </button>
         )}
       </div>
+    </div>
+  );
+}
+
+interface ProductsSectionProps {
+  summary: FlowCutAccountSummary | null;
+  busy: boolean;
+  loading: boolean;
+  message: string;
+  onStartTrial: () => void;
+  onDeactivateDevice: (activationId: string) => void;
+  onRefresh: () => void;
+  onOpenFlowCut: () => void;
+  deactivatingDeviceId: string | null;
+}
+
+function ProductsSection({
+  summary,
+  busy,
+  loading,
+  message,
+  onStartTrial,
+  onDeactivateDevice,
+  onRefresh,
+  onOpenFlowCut,
+  deactivatingDeviceId,
+}: ProductsSectionProps) {
+  const license = summary?.license ?? summary?.licenses?.[0] ?? null;
+  const devices = summary?.devices ?? [];
+  const hasTrial = summary?.licenses?.some((item) => item.source === "trial") || license?.source === "trial";
+  const hasActiveLicense = license?.status === "active";
+  const expiresAt = license?.expires_at ? new Date(license.expires_at) : null;
+  const expiresText = expiresAt
+    ? expiresAt.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })
+    : license?.source === "trial"
+      ? "Starts when activated"
+      : "No expiry";
+  const activatedCount = devices.length;
+  const activationLimit = license?.activation_limit ?? 2;
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="font-sora text-3xl font-bold text-white">My products</h1>
+          <p className="mt-2 text-sm text-brand-text-muted">Manage your FlowCut access and activated Macs.</p>
+        </div>
+        <button
+          type="button"
+          onClick={onRefresh}
+          disabled={loading}
+          className="inline-flex items-center gap-2 rounded-md border border-brand-border-high px-4 py-2.5 text-sm font-medium text-white transition hover:bg-white/5 disabled:opacity-50"
+        >
+          <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+          Refresh
+        </button>
+      </div>
+
+      {message && (
+        <p role="status" className="rounded-md border border-brand-border-high bg-brand-primary/10 p-4 text-sm text-brand-text">
+          {message}
+        </p>
+      )}
+
+      <div className="rounded-lg border border-brand-border bg-brand-surface-card p-6">
+        <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
+          <div className="min-w-0">
+            <div className="flex items-center gap-4">
+              <div className="grid h-13 w-13 place-items-center rounded-xl bg-brand-primary font-sora text-lg font-bold text-white">FCu</div>
+              <div>
+                <h2 className="font-sora text-xl font-bold text-white">FlowCut</h2>
+                <p className="text-sm text-brand-text-muted">Silence and filler-word removal for Final Cut Pro.</p>
+              </div>
+            </div>
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              <ProductMeta label="Status" value={hasActiveLicense ? license!.status : "Not activated"} />
+              <ProductMeta label="Key" value={license?.key_prefix ? `${license.key_prefix}-••••-••••-••••` : "No key yet"} />
+              <ProductMeta label={license?.source === "trial" ? "Trial" : "Access"} value={expiresText} />
+            </div>
+
+            <p className="mt-5 text-sm leading-relaxed text-brand-text-muted">
+              Trial keys are emailed to your account address. Paste the key in FlowCut or FrameLabs Hub to activate this Mac.
+              The 14-day timer starts on first activation.
+            </p>
+          </div>
+
+          <div className="flex w-full flex-col gap-3 xl:w-60">
+            <button
+              type="button"
+              onClick={onStartTrial}
+              disabled={busy || hasTrial}
+              className="inline-flex items-center justify-center rounded-md bg-brand-primary px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-purple-hover disabled:opacity-50"
+            >
+              {hasTrial ? "Trial key created" : busy ? "Sending key..." : "Start free trial"}
+            </button>
+            <button
+              type="button"
+              onClick={onOpenFlowCut}
+              className="inline-flex items-center justify-center rounded-md border border-brand-border-high px-5 py-3 text-sm font-medium text-white transition hover:bg-white/5"
+            >
+              Open FlowCut
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-7 rounded-md border border-brand-border-high bg-brand-bg/60 p-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h3 className="font-sora text-sm font-semibold text-white">Activated Macs</h3>
+              <p className="mt-1 text-xs text-brand-text-muted">{activatedCount} of {activationLimit} activations in use.</p>
+            </div>
+          </div>
+          {devices.length > 0 ? (
+            <div className="mt-4 divide-y divide-brand-border">
+              {devices.map((device) => (
+                <div key={device.id} className="flex flex-wrap items-center justify-between gap-3 py-3 text-sm">
+                  <div>
+                    <p className="font-medium text-white">{device.machine_name || "Unnamed Mac"}</p>
+                    <p className="mt-1 text-xs text-brand-text-muted">
+                      {device.last_seen_at ? `Last checked ${new Date(device.last_seen_at).toLocaleDateString()}` : "Not checked yet"}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => onDeactivateDevice(device.id)}
+                    disabled={deactivatingDeviceId === device.id}
+                    className="rounded-md border border-brand-border-high px-3 py-2 text-xs font-semibold text-brand-text-muted transition hover:bg-white/5 hover:text-white disabled:opacity-50"
+                  >
+                    {deactivatingDeviceId === device.id ? "Deactivating..." : "Deactivate"}
+                  </button>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-4 text-sm text-brand-text-muted">No Macs are activated yet.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProductMeta({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-md border border-brand-border-high bg-brand-bg/50 p-3">
+      <p className="text-xs font-semibold uppercase text-brand-text-muted">{label}</p>
+      <p className="mt-1 truncate text-sm font-semibold text-white">{value}</p>
     </div>
   );
 }
