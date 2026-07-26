@@ -1,5 +1,5 @@
 export const FRAMELABS_HUB_DOWNLOAD_URL =
-  "https://auth.theframelabs.com/storage/v1/object/sign/Downloads/hub/FrameLabsHub-1.1.dmg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hZmNhYzdhZS1kOGIzLTQ1NjgtOGJkZC1lMjRmMGZjYjRkYzYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJEb3dubG9hZHMvaHViL0ZyYW1lTGFic0h1Yi0xLjEuZG1nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4NTAxNzU2MSwiZXhwIjoxODE2NTUzNTYxfQ.oiLLOVdctce299rreuNrTe5iYxcJUy0htXUDjeHFpK4";
+  "https://auth.theframelabs.com/storage/v1/object/sign/Downloads/hub/FrameLabsHub-1.1.dmg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hZmNhYzdhZS1kOGIzLTQ1NjgtOGJkZC1lMjRmMGZjYjRkYzYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJEb3dubG9hZHMvaHViL0ZyYW1lTGFic0h1Yi0xLjEuZG1nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4NTEwODEwMSwiZXhwIjoxODE2NjQ0MTAxfQ.X-_0pLz8J1KswPbenRTeCAuxEShSWDFcsEbdzS3TdBQ";
 
 export function startFrameLabsHubDownload() {
   const link = document.createElement("a");
